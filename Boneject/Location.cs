@@ -2,7 +2,7 @@
 {
     public enum Location
     {
-        App,
-        MainMenu
+        App, // Late Init
+        MainMenu // MainMenu and also G11.4
     }
 }

@@ -2,11 +2,11 @@
 
 namespace Boneject.Installers
 {
-    public class AppInstaller : MonoInstaller
+    public class AppInstaller : Installer
     {
         public override void InstallBindings()
         {
-            base.InstallBindings();
+            
         }
     }
 }

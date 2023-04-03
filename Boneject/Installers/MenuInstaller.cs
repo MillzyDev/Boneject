@@ -2,11 +2,11 @@
 
 namespace Boneject.Installers
 {
-    public class MenuInstaller : MonoInstaller
+    public class MenuInstaller : Installer
     {
         public override void InstallBindings()
         {
-            base.InstallBindings();
+            // TODO
         }
     }
 }
