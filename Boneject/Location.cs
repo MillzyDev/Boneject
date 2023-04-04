@@ -3,9 +3,9 @@
 [Flags]
 public enum Location
 {
-    None = 0,
-    App = 1,
-    StartupMenu = 2,
-    VoidG114Menu = 4,
-    Menu = StartupMenu | VoidG114Menu
+    MenuStartup = 2,
+    
+    MenuVoidG114 = 4,
+    
+    Menu = MenuStartup | MenuVoidG114
 }
