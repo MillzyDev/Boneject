@@ -6,6 +6,5 @@ public class Mod : MelonMod
 {
     public override void OnInitializeMelon()
     {
-        
     }
 }
