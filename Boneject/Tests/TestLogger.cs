@@ -2,7 +2,7 @@
 
 namespace Boneject.Tests;
 
-public abstract class TestLogger
+public class TestLogger
 {
     public TestLogger(TestDependency dependency)
     {
