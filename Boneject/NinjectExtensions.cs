@@ -5,7 +5,8 @@ namespace Boneject;
 
 public static class NinjectExtensions
 {
-    public static IBindingWhenInNamedWithOrOnSyntax<T> AsComponentOnNewGameObject<T>(this IBindingToSyntax<T> self) where T : Component
+    public static IBindingWhenInNamedWithOrOnSyntax<T> AsComponentOnNewGameObject<T>(this IBindingToSyntax<T> self) 
+        where T : Component
     {
         var go = new GameObject(typeof(T).FullName);
         var instance = go.AddComponent<T>();
