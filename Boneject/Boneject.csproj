@@ -21,10 +21,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Ninject" Version="4.0.0-beta.1" />
-    </ItemGroup>
-
-    <ItemGroup>
       <Reference Include="0Harmony">
         <HintPath>$(BonelabDir)\MelonLoader\net6\0Harmony.dll</HintPath>
       </Reference>
@@ -309,6 +305,22 @@
       <ModFiles Include="$(OutputPath)\Boneject.dll;$(OutputPath)\Boneject.pdb" />
       <UserLibs Include="$(OutputPath)\Ninject.dll" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="HarmonyPatches" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Ninject" Version="4.0.0-beta.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ReferencePathWithRefAssemblies Update="$(NuGetPackageRoot)\ninject\4.0.0-beta.1\lib\net6.0\Ninject.dll"/>
+    </ItemGroup>
+
+    <PropertyGroup>
+      <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    </PropertyGroup>
   
     <Target Name="AfterBuild">
       <Message Text="Copying mod files...." Importance="high" />
