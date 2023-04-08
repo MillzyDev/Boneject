@@ -11,16 +11,12 @@ public class Mod : MelonMod
         var bonejector = Bonejector.Instance;
         bonejector.InstallModule<TestAppModule>(InstallLocation.App);
 
-        MelonEvents.OnApplicationStart.Subscribe(OnApplicationStart);
+        LoggerInstance.Msg("Finished Initialisation!");
     }
 
-    public override void OnDeinitializeMelon()
+    public override void OnLateInitializeMelon()
     {
-        MelonEvents.OnApplicationStart.Unsubscribe(OnApplicationStart);
-    }
-
-    private new static void OnApplicationStart()
-    {
+        LoggerInstance.Msg("Loading modules...");
         var moduleLoader = new AppModuleLoader();
         // Add stuff here if needed later
         moduleLoader.BeginLoad();
