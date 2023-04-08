@@ -1,7 +1,7 @@
 ﻿namespace Boneject;
 
 [Flags]
-public enum Location
+public enum InstallLocation
 {
     None = 0,
     

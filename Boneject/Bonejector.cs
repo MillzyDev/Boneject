@@ -15,7 +15,7 @@ public sealed class Bonejector
 
     public static Bonejector Instance => Lazy.Value;
 
-    public void InstallModule<T>(Location location) where T : INinjectModule
+    public void InstallModule<T>(InstallLocation location) where T : INinjectModule
     {
         var module = Activator.CreateInstance<T>();
         var loaderTypes = LoadersForLocation(location);
@@ -39,11 +39,11 @@ public sealed class Bonejector
         return _modules[loaderType];
     }
 
-    private IEnumerable<Type> LoadersForLocation(Location location)
+    private IEnumerable<Type> LoadersForLocation(InstallLocation location)
     {
         HashSet<Type> moduleLoaders = new();
 
-        if (location.HasFlag(Location.App))
+        if (location.HasFlag(InstallLocation.App))
             moduleLoaders.Add(typeof(AppModuleLoader));
 
         return moduleLoaders;
