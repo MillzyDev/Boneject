@@ -1,7 +1,5 @@
-﻿using Ninject.Modules;
+﻿namespace Boneject.ModuleLoaders;
 
-namespace Boneject.ModuleLoaders;
-
-public class AppModuleLoader : ModuleLoader
+public class AppModuleLoader : ModuleLoader<AppModuleLoader>
 {
 }
