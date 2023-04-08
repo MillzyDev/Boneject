@@ -5,7 +5,7 @@ namespace Boneject.ModuleLoaders;
 
 public class ModuleLoader
 {
-    private List<INinjectModule> _modules;
+    private readonly List<INinjectModule> _modules;
 
     protected ModuleLoader()
     {
