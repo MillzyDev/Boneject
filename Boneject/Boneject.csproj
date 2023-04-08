@@ -299,8 +299,6 @@
       </Reference>
     </ItemGroup>
 
-    <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
-
     <ItemGroup>
       <ModFiles Include="$(OutputPath)\Boneject.dll;$(OutputPath)\Boneject.pdb" />
       <UserLibs Include="$(OutputPath)\Ninject.dll" />
@@ -320,6 +318,10 @@
 
     <PropertyGroup>
       <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    </PropertyGroup>
+  
+    <PropertyGroup>
+      <DefineConstants Condition=" '$(Configuration)' == 'Debug' ">ENABLE_TESTS</DefineConstants>
     </PropertyGroup>
   
     <Target Name="AfterBuild">
