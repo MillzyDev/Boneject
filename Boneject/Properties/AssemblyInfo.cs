@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Drawing;
+using System.Reflection;
 using Boneject;
 using MelonLoader;
 using BuildInfo = Boneject.Properties.BuildInfo;
@@ -18,3 +19,6 @@ using BuildInfo = Boneject.Properties.BuildInfo;
 
 [assembly: MelonInfo(typeof(Mod), "Boneject", BuildInfo.Version, "Millzy")]
 [assembly: MelonGame("Stress Level Zero", "BONELAB")]
+
+[assembly: MelonColor(255, 50, 205, 50)]
+[assembly: MelonAuthorColor(255, 255, 20, 147)]
