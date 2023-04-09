@@ -1,5 +1,7 @@
-﻿using Ninject;
+﻿using MelonLoader;
+using Ninject;
 using Ninject.Modules;
+using System.Linq;
 
 namespace Boneject.ModuleLoaders;
 
@@ -29,17 +31,22 @@ public class ModuleLoader<T> where T : ModuleLoader<T>
     public void BeginLoad()
     {
         Kernel = new StandardKernel();
-
+        
+        MelonLogger.Msg("Loading global dependencies...");
         foreach (var dependency in GlobalDependencies.Get())
         {
+            MelonLogger.Msg($"Binding global dependency: {dependency.Key.FullName}");
             if (dependency.Value == null)
                 Kernel.Bind(dependency.Key).ToSelf().InSingletonScope();
             else
                 Kernel.Bind(dependency.Key).ToConstant(dependency.Value).InSingletonScope();
         }
         
+        MelonLogger.Msg("Registering modules...");
         RegisterInstalledModules();
         
+        MelonLogger.Msg("Loading modules...");
         Kernel.Load(_modules.ToArray());
+        MelonLogger.Msg("Done!");
     }
 }
