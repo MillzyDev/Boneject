@@ -20,7 +20,7 @@ public class Mod : MelonMod
 
     public override void OnLateInitializeMelon()
     {
-        LoggerInstance.Msg("Loading modules...");
+        LoggerInstance.Msg($"Loading modules for location: {InstallLocation.App}");
         var moduleLoader = new AppModuleLoader();
         // Add stuff here if needed later
         moduleLoader.BeginLoad();
