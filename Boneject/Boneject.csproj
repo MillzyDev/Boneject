@@ -305,15 +305,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="HarmonyPatches" />
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="Ninject" Version="4.0.0-beta.1" />
     </ItemGroup>
 
     <ItemGroup>
-      <ReferencePathWithRefAssemblies Update="$(NuGetPackageRoot)\ninject\4.0.0-beta.1\lib\net6.0\Ninject.dll"/>
+      <ReferencePathWithRefAssemblies Update="$(NuGetPackageRoot)\ninject\4.0.0-beta.1\lib\net6.0\Ninject.dll" />
     </ItemGroup>
 
     <PropertyGroup>
