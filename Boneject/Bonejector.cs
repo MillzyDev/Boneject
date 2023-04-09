@@ -38,6 +38,10 @@ public sealed class Bonejector
 
         if (location.HasFlag(InstallLocation.App))
             moduleLoaders.Add(typeof(AppModuleLoader));
+        if (location.HasFlag(InstallLocation.MenuStartup))
+            moduleLoaders.Add(typeof(MenuStartupModuleLoader));
+        if (location.HasFlag(InstallLocation.MenuVoidG114))
+            moduleLoaders.Add(typeof(MenuVoidG114ModuleLoader));
 
         return moduleLoaders;
     }
