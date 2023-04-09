@@ -1,7 +1,6 @@
 ﻿using MelonLoader;
 using Ninject;
 using Ninject.Modules;
-using System.Linq;
 
 namespace Boneject.ModuleLoaders;
 
