@@ -304,6 +304,17 @@
       <UserLibs Include="$(OutputPath)\Ninject.dll" />
     </ItemGroup>
 
+    <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
+    <Target Name="AfterBuild">
+      <Message Text="Copying mod files...." Importance="high" />
+      <Copy SourceFiles="@(ModFiles)" DestinationFolder="$(BonelabDir)\Mods\" Retries="10" RetryDelayMilliseconds="3000" />
+
+      <Message Text="Copying User Libraries..." Importance="high" />
+      <Copy SourceFiles="@(UserLibs)" DestinationFolder="$(BonelabDir)\UserLibs\" Retries="10" RetryDelayMilliseconds="3000" />
+
+      <Message Text="Done!" Importance="high" />
+    </Target>
+
     <ItemGroup>
       <PackageReference Include="Ninject" Version="4.0.0-beta.1" />
     </ItemGroup>
@@ -319,14 +330,4 @@
     <PropertyGroup>
       <DefineConstants Condition=" '$(Configuration)' == 'Debug' ">ENABLE_TESTS</DefineConstants>
     </PropertyGroup>
-  
-    <Target Name="AfterBuild">
-      <Message Text="Copying mod files...." Importance="high" />
-      <Copy SourceFiles="@(ModFiles)" DestinationFolder="$(BonelabDir)\Mods\" Retries="10" RetryDelayMilliseconds="3000" />
-      
-      <Message Text="Copying User Libraries..." Importance="high" />
-      <Copy SourceFiles="@(UserLibs)" DestinationFolder="$(BonelabDir)\UserLibs\" Retries="10" RetryDelayMilliseconds="3000" />
-      
-      <Message Text="Done!" Importance="high" />
-    </Target>
 </Project>
