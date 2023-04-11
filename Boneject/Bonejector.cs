@@ -30,7 +30,7 @@ public sealed class Bonejector
 
     public IEnumerable<INinjectModule> ModulesForLoader<T>() where T : ModuleLoader<T>
     {
-        return _modules[typeof(T)];
+        return _modules.ContainsKey(typeof(T)) ? _modules[typeof(T)] : new();
     }
 
     private static IEnumerable<Type> LoadersForLocation(InstallLocation location)
