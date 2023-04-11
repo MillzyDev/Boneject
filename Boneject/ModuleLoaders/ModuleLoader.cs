@@ -36,6 +36,8 @@ public class ModuleLoader<T> where T : ModuleLoader<T>
         foreach (var dependency in GlobalDependencies.Get())
         {
             MelonLogger.Msg($"Binding global dependency: {dependency.Key.FullName}");
+            if (Kernel.TryGet(dependency.Key) != null) continue;
+            
             if (dependency.Value == null)
                 Kernel.Bind(dependency.Key).ToSelf().InSingletonScope();
             else
