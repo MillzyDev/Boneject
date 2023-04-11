@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
+using Il2CppRootMotion.FinalIK;
 using MelonLoader;
 using Ninject;
+using Ninject.Infrastructure.Language;
 using Ninject.Modules;
 using Ninject.Planning.Bindings;
 using Ninject.Syntax;
@@ -25,11 +27,14 @@ public static class NinjectExtensions
         return self.ToConstant(instance);
     }
 
-    public static Dictionary<Type, object>? GetAll(this KernelBase self)
+    public static Dictionary<Type, object> GetAll(this KernelBase self)
     {
-        var bindingCacheFieldInfo = typeof(KernelBase).GetField("bindingCache", BindingFlags.NonPublic | BindingFlags.Instance);
-        var bindingCache = bindingCacheFieldInfo?.GetValue(self) as Dictionary<Type, IBinding[]>;
-        return bindingCache?.ToDictionary(binding => binding.Key, binding => self.Get(binding.Key));
+        var bindingCacheFieldInfo = typeof(KernelBase).GetField("bindings", BindingFlags.NonPublic | BindingFlags.Instance);
+        var bindings = bindingCacheFieldInfo?.GetValue(self) as Dictionary<Type, ICollection<IBinding>>;
+        
+        Dictionary<Type, object> resolved = new();
+        bindings!.Map(binding => resolved.Add(binding.Key, self.Get(binding.Key)));
+        return resolved;
     }
 
     public static void ResolveAll(this INinjectModule self)
