@@ -11,8 +11,9 @@ public class TestMenuDependency : IInitializable
     private readonly TestAppDependency _appDependency;
     
     [Inject]
-    private TestMenuDependency(GameControl_startup startup, TestAppDependency appDependency)
+    public TestMenuDependency(GameControl_startup startup, TestAppDependency appDependency)
     {
+        MelonLogger.Msg("Constructed menu dep");
         _startup = startup;
         _appDependency = appDependency;
     }
