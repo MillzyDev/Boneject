@@ -14,7 +14,6 @@ public sealed class Bonejector
     }
 
     public static Bonejector Instance => _lazy.Value;
-
     public void InstallModule<T>(InstallLocation location) where T : INinjectModule
     {
         var module = Activator.CreateInstance<T>();
