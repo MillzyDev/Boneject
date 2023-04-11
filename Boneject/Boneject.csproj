@@ -4,7 +4,7 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-      <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+        <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
         <IsPackable>false</IsPackable>
         <Title>Boneject</Title>
         <Authors>Millzy</Authors>
@@ -303,6 +303,11 @@
       <ModFiles Include="$(OutputPath)\Boneject.dll;$(OutputPath)\Boneject.pdb" />
       <UserLibs Include="$(OutputPath)\Ninject.dll" />
     </ItemGroup>
+    <ItemGroup>
+      <ManifestPath Include="$(OutDir)\manifest.json" />
+      <ReadmePath Include="$(OutDir)\README.md" />
+      <IconPath Include="$(OutDir)\icon.png" />
+    </ItemGroup>
 
     <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
     <Target Name="AfterBuild">
@@ -314,6 +319,28 @@
 
       <Message Text="Done!" Importance="high" />
     </Target>
+  
+    <Target Name="AfterBuild" Condition="'$(Configuration)' == 'Release'">
+      <Message Text="Copying Mod Files to ThunderstoreRelease Directory..." Importance="high" />
+      <Copy SourceFiles="@(ModFiles)" DestinationFolder="$(OutDir)\ThunderstoreRelease\Mods\" Retries="10" RetryDelayMilliseconds="3000" />
+      
+      <Message Text="Copying User Libraries to ThunderstoreRelease..." Importance="high" />
+      <Copy SourceFiles="@(UserLibs)" DestinationFolder="$(OutDir)\ThunderstoreRelease\UserLibs\" Retries="10" RetryDelayMilliseconds="3000" />
+
+      <Message Text="Copying Manifest to ThunderstoreRelease Directory..." Importance="high" />
+      <Copy SourceFiles="@(ManifestPath)" DestinationFolder="$(OutDir)\ThunderstoreRelease\" Retries="10" RetryDelayMilliseconds="3000" />
+
+      <Message Text="Copying README to ThunderstoreRelease Directory..." Importance="high" />
+      <Copy SourceFiles="@(ReadmePath)" DestinationFolder="$(OutDir)\ThunderstoreRelease\" Retries="10" RetryDelayMilliseconds="3000" />
+
+      <Message Text="Copying Icon to ThunderstoreRelease Directory..." Importance="high" />
+      <Copy SourceFiles="@(IconPath)" DestinationFolder="$(OutDir)\ThunderstoreRelease\" Retries="10" RetryDelayMilliseconds="3000" />
+
+      <Message Text="Zipping ThunderstoreRelease Directory..." Importance="high" />
+      <ZipDirectory DestinationFile="$(OutDir)\$(AssemblyName).zip" Overwrite="true" SourceDirectory="$(OutDir)\ThunderstoreRelease\" />
+      
+      <Message Text="Done!" Importance="high" />
+    </Target>
 
     <ItemGroup>
       <PackageReference Include="Ninject" Version="4.0.0-beta.1" />
@@ -321,6 +348,21 @@
 
     <ItemGroup>
       <ReferencePathWithRefAssemblies Update="$(NuGetPackageRoot)\ninject\4.0.0-beta.1\lib\net6.0\Ninject.dll" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\icon.png">
+        <Link>icon.png</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="..\manifest.json">
+        <Link>manifest.json</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="..\README.md">
+        <Link>README.md</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <PropertyGroup>
