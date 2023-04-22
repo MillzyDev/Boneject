@@ -4,6 +4,6 @@
     "website_url": "https://github.com/MillzyDev/Boneject",
     "description": "A basic Ninject implementation and wrapper for BONELAB. NOTE: This mod does not do anything on its own.",
     "dependencies": [
-        "LavaGang-MelonLoader-0.6.1"
+        "LavaGang-MelonLoader-0.5.7"
     ]
 }
