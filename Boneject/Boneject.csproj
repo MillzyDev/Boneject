@@ -6,7 +6,6 @@
   
     <PropertyGroup>
         <TargetFramework>net472</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <ImplicitUsings>disable</ImplicitUsings>
         <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
