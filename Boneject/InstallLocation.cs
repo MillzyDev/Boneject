@@ -1,4 +1,6 @@
-﻿namespace Boneject;
+﻿using System;
+
+namespace Boneject;
 
 [Flags]
 public enum InstallLocation

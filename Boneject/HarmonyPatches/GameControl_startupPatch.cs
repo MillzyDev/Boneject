@@ -1,6 +1,6 @@
 ﻿using Boneject.ModuleLoaders;
 using HarmonyLib;
-using Il2CppSLZ.Bonelab;
+using SLZ.Bonelab;
 using MelonLoader;
 
 namespace Boneject.HarmonyPatches;

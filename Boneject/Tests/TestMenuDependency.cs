@@ -1,5 +1,5 @@
 ﻿#if ENABLE_TESTS
-using Il2CppSLZ.Bonelab;
+using SLZ.Bonelab;
 using MelonLoader;
 using Ninject;
 

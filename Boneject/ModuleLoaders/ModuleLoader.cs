@@ -1,4 +1,6 @@
-﻿using MelonLoader;
+﻿using System.Collections.Generic;
+using System.Linq;
+using MelonLoader;
 using Ninject;
 using Ninject.Modules;
 
@@ -37,9 +39,15 @@ public class ModuleLoader<T> where T : ModuleLoader<T>
         {
             MelonLogger.Msg($"Binding global dependency: {dependency.Key.FullName}");
             if (dependency.Value == null)
+            {
                 Kernel.Bind(dependency.Key).ToSelf().InSingletonScope();
+                MelonLogger.Msg($"No instance of {dependency.Key.FullName} available. Ninject will instantiate.");
+                MelonLogger.Msg($"Value: {dependency.Value}");
+            }
             else
+            {
                 Kernel.Bind(dependency.Key).ToConstant(dependency.Value).InSingletonScope();
+            }
         }
 
         MelonLogger.Msg("Registering modules...");

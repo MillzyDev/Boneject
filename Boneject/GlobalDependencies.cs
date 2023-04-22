@@ -1,4 +1,8 @@
-﻿namespace Boneject;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Boneject;
 
 public static class GlobalDependencies
 {

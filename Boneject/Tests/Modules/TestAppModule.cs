@@ -10,8 +10,8 @@ public class TestAppModule : NinjectModule
     public override void Load()
     {
         MelonLogger.Msg("Loaded module!");
-        Bind<TestAppDependency>().ToSelf().InSingletonScope();
-        Bind<TestAppLogger>().ToSelf().InSingletonScope();
+        Bind<TestAppDependency>().ToSelf().InTransientScope();
+        Bind<TestAppLogger>().ToSelf().InTransientScope();
     }
 }
 #endif

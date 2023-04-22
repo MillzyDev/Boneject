@@ -1,6 +1,6 @@
-﻿using System.Reflection;
-using Il2CppRootMotion.FinalIK;
-using MelonLoader;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using Ninject;
 using Ninject.Infrastructure.Language;
 using Ninject.Modules;
