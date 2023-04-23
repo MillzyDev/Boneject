@@ -14,27 +14,36 @@ namespace Boneject;
 public static class NinjectExtensions
 {
     // ReSharper disable once UnusedMember.Global
-    public static IBindingWhenInNamedWithOrOnSyntax<T> AsComponentOnExistingGameObject<T>(
-        this IBindingToSyntax<T> self, GameObject gameObject) where T : Component
-    {
-        var instance = gameObject.AddComponent<T>();
-        return self.ToConstant(instance);
-    }
-
-    // ReSharper disable once UnusedMember.Global
     public static IBindingWhenInNamedWithOrOnSyntax<T> BindComponentOnNewGameObject<T>(this KernelBase self) 
         where T : Component
     {
         var bindingSyntax = BindComponentOnNewGameObject<T>(self, out _);
         return bindingSyntax;
     }
-    
+
+    // ReSharper disable once UnusedMember.Global
+    public static IBindingWhenInNamedWithOrOnSyntax<T> BindComponentOnNewGameObject<T>(this NinjectModule self)
+        where T : Component
+    {
+        var bindingSyntax = BindComponentOnNewGameObject<T>((self.Kernel as KernelBase)!, out _);
+        return bindingSyntax;
+    }
+
     // ReSharper disable once MemberCanBePrivate.Global
     public static IBindingWhenInNamedWithOrOnSyntax<T> BindComponentOnNewGameObject<T>(this KernelBase self, 
         out GameObject gameObject) where T : Component
     {
         gameObject = new GameObject(typeof(T).FullName);
         var bindingSyntax = BindComponentOnExistingGameObject<T>(self, gameObject);
+        return bindingSyntax;
+    }
+    
+    // ReSharper disable once UnusedMember.Global
+    public static IBindingWhenInNamedWithOrOnSyntax<T> BindComponentOnNewGameObject<T>(this NinjectModule self, 
+        out GameObject gameObject) where T : Component
+    {
+        gameObject = new GameObject(typeof(T).FullName);
+        var bindingSyntax = BindComponentOnExistingGameObject<T>((self.Kernel as KernelBase)!, gameObject);
         return bindingSyntax;
     }
 
@@ -52,6 +61,14 @@ public static class NinjectExtensions
         gameObject.SetActive(true);
         
         return bindingSyntax;
+    }
+    
+    // ReSharper disable once MemberCanBePrivate.Global
+    // ReSharper disable once UnusedMember.Global
+    public static IBindingWhenInNamedWithOrOnSyntax<T> BindComponentOnExistingGameObject<T>(this NinjectModule self,
+        GameObject gameObject) where T : Component
+    {
+        return BindComponentOnExistingGameObject<T>((self.Kernel as KernelBase)!, gameObject);
     }
 
     // ReSharper disable once MemberCanBePrivate.Global
