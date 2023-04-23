@@ -19,12 +19,6 @@ public class ModuleLoader<T> where T : ModuleLoader<T>
     // ReSharper disable once MemberCanBePrivate.Global
     public StandardKernel? Kernel { get; private set; }
 
-    internal void EndKernel()
-    {
-        Kernel = null;
-        Bonejector.Instance.CurrentKernel = null;
-    }
-
     public void RegisterModule(INinjectModule module)
     {
         _modules.Add(module);
