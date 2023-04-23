@@ -12,6 +12,7 @@ internal static class GameControl_MenuVoidG114Patch
 {
     [HarmonyPostfix]
     // ReSharper disable once InconsistentNaming
+    // ReSharper disable once UnusedMember.Local
     private static void Postfix(GameControl_MenuVoidG114 __instance)
     {
         MelonLogger.Msg($"Loading modules for location: {InstallLocation.MenuVoidG114}");

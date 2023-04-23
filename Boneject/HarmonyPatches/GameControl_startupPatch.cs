@@ -12,6 +12,7 @@ internal static class GameControl_startupPatch
 {
     [HarmonyPostfix]
     // ReSharper disable once InconsistentNaming
+    // ReSharper disable once UnusedMember.Local
     private static void Postfix(GameControl_startup __instance)
     {
         MelonLogger.Msg($"Loading modules for location: {InstallLocation.MenuStartup}");
