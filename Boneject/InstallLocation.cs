@@ -7,11 +7,13 @@ public enum InstallLocation
 {
     None = 0,
     
-    App = 1,
+    LoadingScreen = 1,
     
-    MenuStartup = 2,
+    GameControl = 2,
+
+    MenuStartup = 4,
     
-    MenuVoidG114 = 4,
+    MenuVoidG114 = 8,
     
     Menu = MenuStartup | MenuVoidG114
 }

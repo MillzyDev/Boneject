@@ -37,9 +37,7 @@ public sealed class Bonejector
     private static IEnumerable<Type> LoadersForLocation(InstallLocation location)
     {
         HashSet<Type> moduleLoaders = new();
-
-        if (location.HasFlag(InstallLocation.App))
-            moduleLoaders.Add(typeof(AppModuleLoader));
+        
         if (location.HasFlag(InstallLocation.MenuStartup))
             moduleLoaders.Add(typeof(MenuStartupModuleLoader));
         if (location.HasFlag(InstallLocation.MenuVoidG114))
