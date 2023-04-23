@@ -140,10 +140,11 @@ For more information on InstallLocations and where they install to, please read 
 And that's it! This was a very simple example, but the uses are relatively vast. If you have any question/concerns contact `Millzy#8418` on Discord.
 
 ## Changelog
-### 0.1.0
-* Initial Release.
+### v0.3.0
+* Removed `AsComponentOnNewGameObject<T>` and `AsComponentOnExistingGameObject<T>` extension methods due to Ninject not injecting into constant bindings and not being able to access the Kernel to fix it.
+* Added `BindComponentOnNewGameObject<T>` and `BindComponentOnExistingGameObject<T>` extension methods to replace the aforementioned.
 
-### 0.2.0
+### v0.2.0
 * Removed `App` location and its associated ModuleLoader and HarmonyPatch. This is due to the behaviour being different than desired. GlobalDependencies must now be added manually using the `GlobalDependencies` static class. Ninject can still handle their creation however.
 * Added a `Game` location, that should load in every level, except the two main menu levels. An instance of `BonelabGameControl` is automatically loaded into the Ninject Kernel before the modules are loaded.
 * Added a `Loading` location, its the loading screen basically. An instance of `LoadingScene` is automatically loaded into the Ninject Kernel before modules are loaded.
@@ -151,3 +152,6 @@ And that's it! This was a very simple example, but the uses are relatively vast.
 * Made it so that instances of the Ninject Kernel are limited to one per scene (in theory). Should help with compatibility with some future things.
 * Fixed a bug (logic error) where the Ninject Kernel would only be initialized when modules are loaded, preventing "automatically bound dependencies" from actually being bound to the Ninject Kernel.
 * Fixed a bug (another logic error) where global dependencies that are created by Ninject would not be updated in the global dependency dictionary. This may have been the problem causing the first issue, I can add the App location back if requested.
+
+### v0.1.0
+* Initial Release.

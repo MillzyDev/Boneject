@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using System.Reflection;
+﻿using System.Reflection;
 using Boneject;
 using MelonLoader;
 using BuildInfo = Boneject.Properties.BuildInfo;
