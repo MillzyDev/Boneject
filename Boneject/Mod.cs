@@ -12,4 +12,7 @@ public class Mod : MelonMod
     {
         LoggerInstance.Msg("Finished Initialisation!");
     }
+
+    public override void OnSceneWasUnloaded(int buildIndex, string sceneName)
+        => Bonejector.Instance.CurrentKernel = null;
 }
