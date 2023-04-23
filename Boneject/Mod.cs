@@ -9,9 +9,9 @@ public class Mod : MelonMod
         LoggerInstance.Msg("Finished Initialisation!");
     }
 
-    public override void OnSceneWasUnloaded(int buildIndex, string sceneName)
+    public override void OnSceneWasLoaded(int buildIndex, string sceneName)
     {
-        MelonLogger.Msg($"Scene unloaded. Setting CurrentKernel to null.");
+        MelonLogger.Msg($"{sceneName} was loaded. Setting CurrentKernel to null.");
         Bonejector.Instance.CurrentKernel = null;
     }
 }
