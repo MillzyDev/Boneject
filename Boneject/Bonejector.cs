@@ -12,19 +12,19 @@ public sealed class Bonejector
 
     private readonly Dictionary<Type, HashSet<INinjectModule>> _modules = new();
 
-    private StandardKernel? currentKernel;
+    private StandardKernel? _currentKernel;
 
     private Bonejector()
     {
-        currentKernel = null;
+        _currentKernel = null;
     }
 
     public static Bonejector Instance => _lazy.Value;
 
     internal StandardKernel? CurrentKernel
     {
-        get => currentKernel ??= new StandardKernel();
-        set => currentKernel = value;
+        get => _currentKernel ??= new StandardKernel();
+        set => _currentKernel = value;
     }
 
     public void InstallModule<T>(InstallLocation location) where T : INinjectModule
