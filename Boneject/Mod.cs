@@ -1,8 +1,4 @@
-﻿using Boneject.ModuleLoaders;
-#if ENABLE_TESTS
-using Boneject.Tests.Modules;
-#endif
-using MelonLoader;
+﻿using MelonLoader;
 
 namespace Boneject;
 
@@ -14,5 +10,8 @@ public class Mod : MelonMod
     }
 
     public override void OnSceneWasUnloaded(int buildIndex, string sceneName)
-        => Bonejector.Instance.CurrentKernel = null;
+    {
+        MelonLogger.Msg($"Scene unloaded. Setting CurrentKernel to null.");
+        Bonejector.Instance.CurrentKernel = null;
+    }
 }
