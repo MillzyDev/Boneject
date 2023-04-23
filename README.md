@@ -1,7 +1,7 @@
 # Boneject
-A BONELAB mod that provides a basic Ninject implementation and wrapper for use in the game.
+A BONELAB mod that provides a basic Ninject implementation and wrapper for use in the game. This can be useful for mods that do a lot of things with a lot of concrete dependencies; Ninject can manage those for you.
 
-This project is still in active development, as such the only available module install locations are App, MenuStartup and MenuVoidG114. More will be added in time, I would just rather iron out bugs before expanding it.
+This project is still in active development, there are not as many locations as there could be. More will be added in time or as I need them. If you'd like to use Boneject in a location that it currently does not support, please DM me on Discord (`Millzy#8418`) and I can add it for you. Or if you prefer, open a PR to add it in on the GitHub repository.
 
 ### This is installed, do I need it?
 Probably! For the mods that do implement this, it will most likely be essential.
@@ -141,4 +141,13 @@ And that's it! This was a very simple example, but the uses are relatively vast.
 
 ## Changelog
 ### 0.1.0
-Initial Release.
+* Initial Release.
+
+### 0.2.0
+* Removed `App` location and its associated ModuleLoader and HarmonyPatch. This is due to the behaviour being different than desired. GlobalDependencies must now be added manually using the `GlobalDependencies` static class. Ninject can still handle their creation however.
+* Added a `Game` location, that should load in every level, except the two main menu levels. An instance of `BonelabGameControl` is automatically loaded into the Ninject Kernel before the modules are loaded.
+* Added a `Loading` location, its the loading screen basically. An instance of `LoadingScene` is automatically loaded into the Ninject Kernel before modules are loaded.
+* Added more logging messages.
+* Made it so that instances of the Ninject Kernel are limited to one per scene (in theory). Should help with compatibility with some future things.
+* Fixed a bug (logic error) where the Ninject Kernel would only be initialized when modules are loaded, preventing "automatically bound dependencies" from actually being bound to the Ninject Kernel.
+* Fixed a bug (another logic error) where global dependencies that are created by Ninject would not be updated in the global dependency dictionary. This may have been the problem causing the first issue, I can add the App location back if requested.
