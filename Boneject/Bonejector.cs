@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Boneject.ModuleLoaders;
+using MelonLoader;
 using Ninject.Modules;
 
 namespace Boneject;
@@ -37,7 +38,11 @@ public sealed class Bonejector
     private static IEnumerable<Type> LoadersForLocation(InstallLocation location)
     {
         HashSet<Type> moduleLoaders = new();
-        
+
+        if (location.HasFlag(InstallLocation.Loading))
+            moduleLoaders.Add(typeof(LoadingModuleLoader));
+        if (location.HasFlag(InstallLocation.Game))
+            moduleLoaders.Add(typeof(GameModuleLoader));
         if (location.HasFlag(InstallLocation.MenuStartup))
             moduleLoaders.Add(typeof(MenuStartupModuleLoader));
         if (location.HasFlag(InstallLocation.MenuVoidG114))
