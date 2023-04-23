@@ -12,11 +12,18 @@ public class ModuleLoader<T> where T : ModuleLoader<T>
 
     protected ModuleLoader()
     {
+        Kernel = Bonejector.Instance.CurrentKernel;
         _modules = new List<INinjectModule>();
     }
 
     // ReSharper disable once MemberCanBePrivate.Global
     public StandardKernel? Kernel { get; private set; }
+
+    internal void EndKernel()
+    {
+        Kernel = null;
+        Bonejector.Instance.CurrentKernel = null;
+    }
 
     public void RegisterModule(INinjectModule module)
     {
@@ -31,22 +38,19 @@ public class ModuleLoader<T> where T : ModuleLoader<T>
 
     internal void BeginLoad()
     {
-        Kernel = new StandardKernel();
-
-
         MelonLogger.Msg("Loading global dependencies...");
         foreach (var dependency in GlobalDependencies.Get().Where(dependency => Kernel.TryGet(dependency.Key) == null))
         {
             MelonLogger.Msg($"Binding global dependency: {dependency.Key.FullName}");
             if (dependency.Value == null)
             {
-                Kernel.Bind(dependency.Key).ToSelf().InSingletonScope();
+                Kernel?.Bind(dependency.Key).ToSelf().InSingletonScope();
                 MelonLogger.Msg($"No instance of {dependency.Key.FullName} available. Ninject will instantiate.");
                 MelonLogger.Msg($"Value: {dependency.Value}");
             }
             else
             {
-                Kernel.Bind(dependency.Key).ToConstant(dependency.Value).InSingletonScope();
+                Kernel?.Bind(dependency.Key).ToConstant(dependency.Value).InSingletonScope();
             }
         }
 
@@ -54,7 +58,7 @@ public class ModuleLoader<T> where T : ModuleLoader<T>
         RegisterInstalledModules();
 
         MelonLogger.Msg("Loading modules...");
-        Kernel.Load(_modules.ToArray());
+        Kernel?.Load(_modules.ToArray());
         MelonLogger.Msg("Done!");
     }
 }
