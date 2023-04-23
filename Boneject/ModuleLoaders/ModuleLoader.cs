@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MelonLoader;
 using Ninject;
@@ -33,12 +34,16 @@ public class ModuleLoader<T> where T : ModuleLoader<T>
     internal void BeginLoad()
     {
         MelonLogger.Msg("Loading global dependencies...");
-        foreach (var dependency in GlobalDependencies.Get().Where(dependency => Kernel.TryGet(dependency.Key) == null))
+
+        var globalDependencies = GlobalDependencies.Get();
+        foreach (var dependency in globalDependencies.Where(dependency => Kernel.TryGet(dependency.Key) == null))
         {
             MelonLogger.Msg($"Binding global dependency: {dependency.Key.FullName}");
             if (dependency.Value == null)
             {
                 Kernel?.Bind(dependency.Key).ToSelf().InSingletonScope();
+                globalDependencies[dependency.Key] = Kernel?.Get(dependency.Key);
+                
                 MelonLogger.Msg($"No instance of {dependency.Key.FullName} available. Ninject will instantiate.");
                 MelonLogger.Msg($"Value: {dependency.Value}");
             }
