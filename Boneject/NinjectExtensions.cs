@@ -10,16 +10,10 @@ using UnityEngine;
 
 namespace Boneject;
 
+// ReSharper disable once UnusedType.Global
 public static class NinjectExtensions
 {
-    public static IBindingWhenInNamedWithOrOnSyntax<T> AsComponentOnNewGameObject<T>(this IBindingToSyntax<T> self) 
-        where T : Component
-    {
-        var go = new GameObject(typeof(T).FullName);
-        var instance = go.AddComponent<T>();
-        return self.ToConstant(instance);
-    }
-
+    // ReSharper disable once UnusedMember.Global
     public static IBindingWhenInNamedWithOrOnSyntax<T> AsComponentOnExistingGameObject<T>(
         this IBindingToSyntax<T> self, GameObject gameObject) where T : Component
     {
@@ -27,6 +21,41 @@ public static class NinjectExtensions
         return self.ToConstant(instance);
     }
 
+    // ReSharper disable once UnusedMember.Global
+    public static IBindingWhenInNamedWithOrOnSyntax<T> BindComponentOnNewGameObject<T>(this KernelBase self) 
+        where T : Component
+    {
+        var bindingSyntax = BindComponentOnNewGameObject<T>(self, out _);
+        return bindingSyntax;
+    }
+    
+    // ReSharper disable once MemberCanBePrivate.Global
+    public static IBindingWhenInNamedWithOrOnSyntax<T> BindComponentOnNewGameObject<T>(this KernelBase self, 
+        out GameObject gameObject) where T : Component
+    {
+        gameObject = new GameObject(typeof(T).FullName);
+        var bindingSyntax = BindComponentOnExistingGameObject<T>(self, gameObject);
+        return bindingSyntax;
+    }
+
+    // ReSharper disable once MemberCanBePrivate.Global
+    public static IBindingWhenInNamedWithOrOnSyntax<T> BindComponentOnExistingGameObject<T>(this KernelBase self,
+        GameObject gameObject) where T : Component
+    {
+        gameObject.SetActive(false);
+        
+        var instance = gameObject.AddComponent<T>();
+        self.Inject(instance);
+        
+        var bindingSyntax = self.Bind<T>().ToConstant(instance);
+        
+        gameObject.SetActive(true);
+        
+        return bindingSyntax;
+    }
+
+    // ReSharper disable once MemberCanBePrivate.Global
+    // ReSharper disable once UnusedMethodReturnValue.Global
     public static Dictionary<Type, object> GetAll(this KernelBase self)
     {
         var bindingCacheFieldInfo = typeof(KernelBase).GetField("bindings", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -37,6 +66,7 @@ public static class NinjectExtensions
         return resolved;
     }
 
+    // ReSharper disable once UnusedMember.Global
     public static void ResolveAll(this INinjectModule self)
     {
         var kernel = self.Kernel as KernelBase;
