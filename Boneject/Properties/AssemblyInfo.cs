@@ -18,3 +18,4 @@ using BuildInfo = Boneject.Properties.BuildInfo;
 
 [assembly: MelonInfo(typeof(Mod), "Boneject", BuildInfo.Version, "Millzy")]
 [assembly: MelonGame("Stress Level Zero", "BONELAB")]
+[assembly: MelonPriority(-1000000)] // -1,000,000
