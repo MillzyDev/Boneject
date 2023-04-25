@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using MelonLoader.Assertions;
 using Ninject.Modules;
 
 namespace Boneject.Filters;
