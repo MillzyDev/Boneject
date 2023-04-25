@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Boneject.ModuleLoaders;
-using Ninject;
 using Ninject.Modules;
 
 namespace Boneject;
@@ -12,7 +11,8 @@ public sealed class Bonejector
 
     private readonly Dictionary<Type, HashSet<INinjectModule>> _modules = new();
 
-    private StandardKernel? _currentKernel;
+    private BonejectKernel? _baseKernel;
+    private BonejectKernel? _currentKernel;
 
     private Bonejector()
     {
@@ -21,17 +21,23 @@ public sealed class Bonejector
 
     public static Bonejector Instance => _lazy.Value;
 
-    internal StandardKernel? CurrentKernel
+    internal BonejectKernel? BaseKernel
     {
-        get => _currentKernel ??= new StandardKernel();
+        get => _baseKernel ??= new BonejectKernel();
+        set => _baseKernel = value;
+    }
+    
+    internal BonejectKernel? CurrentKernel
+    {
+        get => _currentKernel ??= BaseKernel.DeepClone();
         set => _currentKernel = value;
     }
 
-    public void InstallModule<T>(InstallLocation location) where T : INinjectModule
+    public void InstallModule<T>(Context context) where T : INinjectModule
     {
         var module = Activator.CreateInstance<T>();
 
-        var loaderTypes = LoadersForLocation(location);
+        var loaderTypes = LoadersForContext(context);
         foreach (var type in loaderTypes)
         {
             if (!_modules.ContainsKey(type))
@@ -45,17 +51,21 @@ public sealed class Bonejector
         return _modules.ContainsKey(typeof(T)) ? _modules[typeof(T)] : new();
     }
 
-    private static IEnumerable<Type> LoadersForLocation(InstallLocation location)
+    private static IEnumerable<Type> LoadersForContext(Context context)
     {
         HashSet<Type> moduleLoaders = new();
 
-        if (location.HasFlag(InstallLocation.Loading))
+        if (context.HasFlag(Context.App))
+            moduleLoaders.Add(typeof(AppModuleLoader));
+        if (context.HasFlag(Context.Loading))
             moduleLoaders.Add(typeof(LoadingModuleLoader));
-        if (location.HasFlag(InstallLocation.Game))
+        if (context.HasFlag(Context.Hub))
+            moduleLoaders.Add(typeof(HubModuleLoader));
+        if (context.HasFlag(Context.Game))
             moduleLoaders.Add(typeof(GameModuleLoader));
-        if (location.HasFlag(InstallLocation.MenuStartup))
+        if (context.HasFlag(Context.MenuStartup))
             moduleLoaders.Add(typeof(MenuStartupModuleLoader));
-        if (location.HasFlag(InstallLocation.MenuVoidG114))
+        if (context.HasFlag(Context.MenuVoidG114))
             moduleLoaders.Add(typeof(MenuVoidG114ModuleLoader));
 
         return moduleLoaders;
