@@ -48,7 +48,7 @@ public sealed class Bonejector
 
     public void InstallModule<T>(Context context, params object[] args) where T : INinjectModule
     {
-        var module = Activator.CreateInstance(typeof(T), args);
+        var module = (T)Activator.CreateInstance(typeof(T), args);
         
         var loaderTypes = LoadersForContext(context);
         foreach (var type in loaderTypes)
