@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using Ninject;
 using Ninject.Activation;
-using Ninject.Infrastructure;
 using Ninject.Modules;
 using Ninject.Syntax;
 using UnityEngine;
@@ -74,6 +72,7 @@ public static class BindingExtensions
      * ZENJECT PORTS
      */
 
+    // ReSharper disable once UnusedMember.Global
     public static IBindingWhenInNamedWithOrOnSyntax<T> BindInterfacesAndSelfTo<T>(this IBindingRoot self)
     {
         var interfaces = typeof(T).GetInterfaces();
@@ -83,12 +82,15 @@ public static class BindingExtensions
         return self.Bind(types).To<T>();
     }
 
+    // ReSharper disable once UnusedMember.Global
     public static IBindingWhenInNamedWithOrOnSyntax<T> BindInterfacesTo<T>(this IBindingRoot self) =>
         self.Bind(typeof(T).GetInterfaces()).To<T>();
 
+    // ReSharper disable once UnusedMember.Global
     public static IBindingWhenInNamedWithOrOnSyntax<T> BindConstant<T>(this IBindingRoot self, T instance) =>
         self.Bind<T>().ToConstant(instance);
 
+    // ReSharper disable once UnusedMember.Global
     public static void BindConstants(this IBindingRoot self, params object[] instances)
     {
         foreach (var instance in instances)
@@ -101,6 +103,7 @@ public static class BindingExtensions
      * BACK TO OUR OWN THINGS
      */
     
+    // ReSharper disable once UnusedMember.Global
     public static void BindConstantsInScope(this IBindingRoot self, Func<IContext, object> scopeCallback, params object[] instances)
     {
         foreach (var instance in instances)
@@ -109,6 +112,7 @@ public static class BindingExtensions
         }
     }
     
+    // ReSharper disable once UnusedMember.Global
     public static void BindConstantsInSingletonScope(this IBindingRoot self, params object[] instances)
     {
         foreach (var instance in instances)
@@ -117,6 +121,7 @@ public static class BindingExtensions
         }
     }
     
+    // ReSharper disable once UnusedMember.Global
     public static void BindConstantsInTransientScope(this IBindingRoot self, params object[] instances)
     {
         foreach (var instance in instances)
@@ -125,6 +130,7 @@ public static class BindingExtensions
         }
     }
     
+    // ReSharper disable once UnusedMember.Global
     public static void BindConstantsInThreadScope(this IBindingRoot self, params object[] instances)
     {
         foreach (var instance in instances)
