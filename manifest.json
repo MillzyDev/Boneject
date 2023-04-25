@@ -1,6 +1,6 @@
 {
     "name": "Boneject",
-    "version_number": "0.3.0",
+    "version_number": "0.4.0",
     "website_url": "https://github.com/MillzyDev/Boneject",
     "description": "A basic Ninject implementation and wrapper for BONELAB.",
     "dependencies": [
