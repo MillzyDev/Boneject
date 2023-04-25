@@ -8,7 +8,6 @@ namespace Boneject.ModuleLoaders;
 public class ModuleLoader<T> where T : ModuleLoader<T>
 {
     private List<INinjectModule> _modules;
-    private BonejectKernel? _kernel;
 
     protected ModuleLoader()
     {
