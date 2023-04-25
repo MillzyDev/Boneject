@@ -1,387 +1,79 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+    
     <PropertyGroup>
-        <LangVersion>10.0</LangVersion>
-    </PropertyGroup>
-  
-    <PropertyGroup>
-        <TargetFramework>net472</TargetFramework>
-        <Nullable>enable</Nullable>
-        <ImplicitUsings>disable</ImplicitUsings>
-        <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-        <IsPackable>false</IsPackable>
-        <Title>Boneject</Title>
-        <Authors>Millzy</Authors>
-        <Description>A basic Ninject implementation and wrapper for BONELAB.</Description>
-        <Copyright>Copyright © Millzy 2023</Copyright>
-        <AssemblyName>Boneject</AssemblyName>
-        <RootNamespace>Boneject</RootNamespace>
-        <Version>0.3.0</Version>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{A3865B95-FA75-4185-8C79-5C006216ABC3}</ProjectGuid>
         <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <RootNamespace>Boneject</RootNamespace>
+        <AssemblyName>Boneject</AssemblyName>
+        <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+        <FileAlignment>512</FileAlignment>
+        <LangVersion>11</LangVersion>
+        <Nullable>enable</Nullable>
+        <AssemblyOriginatorKeyFile>Boneject.snk</AssemblyOriginatorKeyFile>
+    </PropertyGroup>
+    
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
     </PropertyGroup>
 
     <ItemGroup>
-      <None Include="Boneject.csproj.user" />
+        <None Include="Boneject.csproj.user" />
     </ItemGroup>
-
+    
     <ItemGroup>
-      <ModFiles Include="$(OutputPath)\Boneject.dll;$(OutputPath)\Boneject.pdb" />
-      <UserLibs Include="$(OutputPath)\Ninject.dll" />
+        <Reference Include="0Harmony">
+          <HintPath>$(BonelabDir)\MelonLoader\0Harmony.dll</HintPath>
+        </Reference>
+        <Reference Include="MelonLoader">
+          <HintPath>$(BonelabDir)\MelonLoader\MelonLoader.dll</HintPath>
+        </Reference>
+        
+        <Reference Include="Ninject, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+          <HintPath>..\packages\Ninject.4.0.0-beta.1\lib\net46\Ninject.dll</HintPath>
+        </Reference>
+        
+        <Reference Include="System" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.Data" />
+        <Reference Include="System.Xml" />
     </ItemGroup>
+    
     <ItemGroup>
-      <ManifestPath Include="$(OutDir)\manifest.json" />
-      <ReadmePath Include="$(OutDir)\README.md" />
-      <IconPath Include="$(OutDir)\icon.png" />
+        <Compile Include="MelonLoader\Attributes\OnInitializeAttribute.cs" />
+        <Compile Include="MelonLoader\InjectableMelonMod.cs" />
+        <Compile Include="MelonLoader\ModInitInjector.cs" />
+        <Compile Include="Mod.cs" />
+        <Compile Include="Ninject\BonejectKernel.cs" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
-
+    
     <ItemGroup>
-      <Content Include="..\icon.png">
-        <Link>icon.png</Link>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Include="..\manifest.json">
-        <Link>manifest.json</Link>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Include="..\README.md">
-        <Link>README.md</Link>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
+      <None Include="packages.config" />
     </ItemGroup>
+    
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 
-    <ItemGroup>
-      <Reference Include="0Harmony">
-        <HintPath>$(BonelabDir)\MelonLoader\0Harmony.dll</HintPath>
-      </Reference>
-      <Reference Include="Assembly-CSharp">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\Assembly-CSharp.dll</HintPath>
-      </Reference>
-      <Reference Include="Assembly-CSharp-firstpass">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\Assembly-CSharp-firstpass.dll</HintPath>
-      </Reference>
-      <Reference Include="Il2CppMicrosoft.MixedReality.OpenXR">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\Il2CppMicrosoft.MixedReality.OpenXR.dll</HintPath>
-      </Reference>
-      <Reference Include="Il2CppMono.Security">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\Il2CppMono.Security.dll</HintPath>
-      </Reference>
-      <Reference Include="Il2Cppmscorlib">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
-      </Reference>
-      <Reference Include="Il2CppNewtonsoft.Json">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\Il2CppNewtonsoft.Json.dll</HintPath>
-      </Reference>
-      <Reference Include="Il2CppSystem">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\Il2CppSystem.dll</HintPath>
-      </Reference>
-      <Reference Include="Il2CppSystem.Configuration">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\Il2CppSystem.Configuration.dll</HintPath>
-      </Reference>
-      <Reference Include="Il2CppSystem.Core">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\Il2CppSystem.Core.dll</HintPath>
-      </Reference>
-      <Reference Include="Il2CppSystem.Data">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\Il2CppSystem.Data.dll</HintPath>
-      </Reference>
-      <Reference Include="Il2CppSystem.IO.Compression">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\Il2CppSystem.IO.Compression.dll</HintPath>
-      </Reference>
-      <Reference Include="Il2CppSystem.IO.Compression.FileSystem">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\Il2CppSystem.IO.Compression.FileSystem.dll</HintPath>
-      </Reference>
-      <Reference Include="Il2CppSystem.Numerics">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\Il2CppSystem.Numerics.dll</HintPath>
-      </Reference>
-      <Reference Include="Il2CppSystem.Runtime.Serialization">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\Il2CppSystem.Runtime.Serialization.dll</HintPath>
-      </Reference>
-      <Reference Include="Il2CppSystem.ServiceModel.Internals">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\Il2CppSystem.ServiceModel.Internals.dll</HintPath>
-      </Reference>
-      <Reference Include="Il2CppSystem.Xml">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\Il2CppSystem.Xml.dll</HintPath>
-      </Reference>
-      <Reference Include="Il2CppSystem.Xml.Linq">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\Il2CppSystem.Xml.Linq.dll</HintPath>
-      </Reference>
-      <Reference Include="MelonLoader">
-        <HintPath>$(BonelabDir)\MelonLoader\MelonLoader.dll</HintPath>
-      </Reference>
-      <Reference Include="SLZ.Algorithms">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\SLZ.Algorithms.dll</HintPath>
-      </Reference>
-      <Reference Include="SLZ.Marrow">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\SLZ.Marrow.dll</HintPath>
-      </Reference>
-      <Reference Include="SLZ.Marrow.SDK">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\SLZ.Marrow.SDK.dll</HintPath>
-      </Reference>
-      <Reference Include="SLZ.Serialize">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\SLZ.Serialize.dll</HintPath>
-      </Reference>
-      <Reference Include="UnhollowerBaseLib">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnhollowerBaseLib.dll</HintPath>
-      </Reference>
-      <Reference Include="UnhollowerRuntimeLib">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnhollowerRuntimeLib.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.AccessibilityModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.AccessibilityModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.AIModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.AIModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.AndroidJNIModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.AndroidJNIModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.AnimationModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.AnimationModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.ARModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.ARModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.AssetBundleModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.AudioModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.AudioModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.ClothModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.ClothModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.ClusterInputModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.ClusterInputModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.ClusterRendererModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.ClusterRendererModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.CoreModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.CrashReportingModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.CrashReportingModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.DirectorModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.DirectorModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.DSPGraphModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.DSPGraphModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.GameCenterModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.GameCenterModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.GIModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.GIModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.GridModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.GridModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.HotReloadModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.HotReloadModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.Il2CppAssetBundleManager">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.Il2CppAssetBundleManager.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.Il2CppImageConversionManager">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.Il2CppImageConversionManager.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.ImageConversionModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.IMGUIModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.IMGUIModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.InputLegacyModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.InputModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.InputModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.JSONSerializeModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.JSONSerializeModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.LocalizationModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.LocalizationModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.NVIDIAModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.NVIDIAModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.ParticleSystemModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.PerformanceReportingModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.PerformanceReportingModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.Physics2DModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.Physics2DModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.PhysicsModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.PhysicsModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.ProfilerModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.ProfilerModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.ScreenCaptureModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.ScreenCaptureModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.SharedInternalsModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.SharedInternalsModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.SpatialTracking">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.SpatialTracking.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.SpriteMaskModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.SpriteMaskModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.SpriteShapeModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.SpriteShapeModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.StreamingModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.StreamingModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.SubstanceModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.SubstanceModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.SubsystemsModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.SubsystemsModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.TerrainModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.TerrainModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.TerrainPhysicsModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.TerrainPhysicsModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.TextCoreFontEngineModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.TextCoreFontEngineModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.TextCoreTextEngineModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.TextCoreTextEngineModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.TextRenderingModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.TilemapModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.TilemapModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.TLSModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.TLSModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.UI">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.UI.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.UIElementsModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.UIElementsModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.UIElementsNativeModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.UIElementsNativeModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.UIModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.UIModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.UmbraModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.UmbraModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.UNETModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.UNETModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.UnityAnalyticsModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.UnityAnalyticsModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.UnityConnectModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.UnityConnectModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.UnityCurlModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.UnityCurlModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.UnityTestProtocolModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.UnityTestProtocolModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.UnityWebRequestAudioModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.UnityWebRequestModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.UnityWebRequestModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.UnityWebRequestTextureModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.UnityWebRequestWWWModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.VehiclesModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.VehiclesModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.VFXModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.VFXModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.VideoModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.VideoModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.VirtualTexturingModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.VirtualTexturingModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.VRModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.VRModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.WindModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.WindModule.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.XRModule">
-        <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.XRModule.dll</HintPath>
-      </Reference>
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="Ninject" Version="4.0.0-beta.1" />
-    </ItemGroup>
-
-    <PropertyGroup>
-      <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    </PropertyGroup>
-  
-    <PropertyGroup>
-      <DefineConstants Condition=" '$(Configuration)' == 'Debug' ">ENABLE_TESTS</DefineConstants>
-    </PropertyGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Message Text="Copying mod files...." Importance="high" />
-    <Copy SourceFiles="@(ModFiles)" DestinationFolder="$(BonelabDir)\Mods\" Retries="10" RetryDelayMilliseconds="3000" />
-
-    <Message Text="Copying User Libraries..." Importance="high" />
-    <Copy SourceFiles="@(UserLibs)" DestinationFolder="$(BonelabDir)\UserLibs\" Retries="10" RetryDelayMilliseconds="3000" />
-
-    <Message Text="Done!" Importance="high" />
-  </Target>
-
-
-  <Target Name="PostBuildRelease" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Release'">
-    <Message Text="Copying Mod Files to ThunderstoreRelease Directory..." Importance="high" />
-    <Copy SourceFiles="@(ModFiles)" DestinationFolder="$(OutDir)\ThunderstoreRelease\Mods\" Retries="10" RetryDelayMilliseconds="3000" />
-
-    <Message Text="Copying User Libraries to ThunderstoreRelease..." Importance="high" />
-    <Copy SourceFiles="@(UserLibs)" DestinationFolder="$(OutDir)\ThunderstoreRelease\UserLibs\" Retries="10" RetryDelayMilliseconds="3000" />
-
-    <Message Text="Copying Manifest to ThunderstoreRelease Directory..." Importance="high" />
-    <Copy SourceFiles="@(ManifestPath)" DestinationFolder="$(OutDir)\ThunderstoreRelease\" Retries="10" RetryDelayMilliseconds="3000" />
-
-    <Message Text="Copying README to ThunderstoreRelease Directory..." Importance="high" />
-    <Copy SourceFiles="@(ReadmePath)" DestinationFolder="$(OutDir)\ThunderstoreRelease\" Retries="10" RetryDelayMilliseconds="3000" />
-
-    <Message Text="Copying Icon to ThunderstoreRelease Directory..." Importance="high" />
-    <Copy SourceFiles="@(IconPath)" DestinationFolder="$(OutDir)\ThunderstoreRelease\" Retries="10" RetryDelayMilliseconds="3000" />
-
-    <Message Text="Zipping ThunderstoreRelease Directory..." Importance="high" />
-    <ZipDirectory DestinationFile="$(OutDir)\$(AssemblyName).zip" Overwrite="true" SourceDirectory="$(OutDir)\ThunderstoreRelease\" />
-
-    <Message Text="Done!" Importance="high" />
-  </Target>
 </Project>
