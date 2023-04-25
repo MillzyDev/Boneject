@@ -1,6 +1,5 @@
 ﻿using Boneject.MelonLoader;
 using Boneject.MelonLoader.Attributes;
-using MelonLoader;
 
 namespace Boneject;
 
@@ -16,7 +15,8 @@ public static class BuildInfo
 public class Mod : InjectableMelonMod
 {
     [OnInitialize]
-    void OnInitializeMod()
+    // ReSharper disable once UnusedMember.Global
+    public void OnInitializeMod()
     {
         
     }
