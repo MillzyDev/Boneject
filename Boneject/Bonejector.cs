@@ -29,7 +29,7 @@ public sealed class Bonejector
     
     internal BonejectKernel? CurrentKernel
     {
-        get => _currentKernel ??= BaseKernel.DeepClone();
+        get => _currentKernel ??= BaseKernel!.DeepClone();
         set => _currentKernel = value;
     }
 
