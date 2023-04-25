@@ -1,4 +1,5 @@
-﻿using MelonLoader;
+﻿using Boneject.ModuleLoaders;
+using MelonLoader;
 
 namespace Boneject;
 
@@ -7,6 +8,15 @@ public class Mod : MelonMod
     public override void OnInitializeMelon()
     {
         LoggerInstance.Msg("Finished Initialisation!");
+    }
+
+    public override void OnLateInitializeMelon()
+    {
+        MelonLogger.Msg($"Loading modules for context: {Context.App}");
+        Bonejector.Instance.CurrentKernel = null;
+        Bonejector.Instance.BaseKernel = null;
+        var moduleLoader = new AppModuleLoader();
+        moduleLoader.BeginLoad();
     }
 
     public override void OnSceneWasLoaded(int buildIndex, string sceneName)
