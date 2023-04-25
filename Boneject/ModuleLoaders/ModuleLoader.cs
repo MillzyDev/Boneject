@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using MelonLoader;
-using Ninject;
 using Ninject.Modules;
 
 namespace Boneject.ModuleLoaders;
@@ -10,6 +8,7 @@ namespace Boneject.ModuleLoaders;
 public class ModuleLoader<T> where T : ModuleLoader<T>
 {
     private List<INinjectModule> _modules;
+    private BonejectKernel? _kernel;
 
     protected ModuleLoader()
     {
@@ -18,43 +17,13 @@ public class ModuleLoader<T> where T : ModuleLoader<T>
     }
 
     // ReSharper disable once MemberCanBePrivate.Global
-    public StandardKernel? Kernel { get; private set; }
-
-    public void RegisterModule(INinjectModule module)
-    {
-        _modules.Add(module);
-    }
-
-    private void RegisterInstalledModules()
-    {
-        var modules = Bonejector.Instance.ModulesForLoader<T>();
-        _modules = _modules.Concat(modules).ToList();
-    }
+    public BonejectKernel? Kernel { get; }
 
     internal void BeginLoad()
     {
-        MelonLogger.Msg("Loading global dependencies...");
-
-        var globalDependencies = GlobalDependencies.Get();
-        foreach (var dependency in globalDependencies.Where(dependency => Kernel.TryGet(dependency.Key) == null))
-        {
-            MelonLogger.Msg($"Binding global dependency: {dependency.Key.FullName}");
-            if (dependency.Value == null)
-            {
-                Kernel?.Bind(dependency.Key).ToSelf().InSingletonScope();
-                globalDependencies[dependency.Key] = Kernel?.Get(dependency.Key);
-                
-                MelonLogger.Msg($"No instance of {dependency.Key.FullName} available. Ninject will instantiate.");
-                MelonLogger.Msg($"Value: {dependency.Value}");
-            }
-            else
-            {
-                Kernel?.Bind(dependency.Key).ToConstant(dependency.Value).InSingletonScope();
-            }
-        }
-
         MelonLogger.Msg("Registering modules...");
-        RegisterInstalledModules();
+        var modules = Bonejector.Instance.ModulesForLoader<T>();
+        _modules = _modules.Concat(modules).ToList();
 
         MelonLogger.Msg("Loading modules...");
         Kernel?.Load(_modules.ToArray());
