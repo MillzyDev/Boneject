@@ -3,10 +3,10 @@
 namespace Boneject;
 
 [Flags]
-public enum InstallLocation
+public enum Context
 {
     /// <summary>
-    /// Indicates no location.
+    /// Indicates no context.
     /// </summary>
     None = 0,
     
