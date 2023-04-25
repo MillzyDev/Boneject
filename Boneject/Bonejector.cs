@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Boneject.Filters;
 using Boneject.ModuleLoaders;
 using Ninject.Modules;
 
@@ -14,12 +15,16 @@ public sealed class Bonejector
     private BonejectKernel? _baseKernel;
     private BonejectKernel? _currentKernel;
 
+    private readonly HashSet<InstallSet> _installSets = new();
+
     private Bonejector()
     {
         _currentKernel = null;
     }
 
     public static Bonejector Instance => _lazy.Value;
+
+    internal IEnumerable<InstallSet> InstallSets => _installSets;
 
     internal BonejectKernel? BaseKernel
     {
@@ -33,30 +38,11 @@ public sealed class Bonejector
         set => _currentKernel = value;
     }
 
-    public void InstallModule<T>(Context context) where T : INinjectModule
+    public void Install<T>(Context context, params object[] parameters) where T : INinjectModule
     {
-        var module = Activator.CreateInstance<T>();
-
         var loaderTypes = LoadersForContext(context);
-        foreach (var type in loaderTypes)
-        {
-            if (!_modules.ContainsKey(type))
-                _modules.Add(type, new HashSet<INinjectModule>());
-            _modules[type].Add(module);
-        }
-    }
-
-    public void InstallModule<T>(Context context, params object[] args) where T : INinjectModule
-    {
-        var module = (T)Activator.CreateInstance(typeof(T), args);
-        
-        var loaderTypes = LoadersForContext(context);
-        foreach (var type in loaderTypes)
-        {
-            if (!_modules.ContainsKey(type))
-                _modules.Add(type, new HashSet<INinjectModule>());
-            _modules[type].Add(module);
-        }
+        IInstallFilter filter = new MultiTypedInstallFilter(loaderTypes);
+        _installSets.Add(new InstallSet(typeof(T), filter, parameters.Length != 0 ? parameters : null));
     }
 
     public IEnumerable<INinjectModule> ModulesForLoader<T>() where T : ModuleLoader<T>
