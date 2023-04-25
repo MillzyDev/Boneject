@@ -14,7 +14,7 @@ public class Mod : MelonMod
     {
         MelonLogger.Msg($"Loading modules for context: {Context.App}");
         Bonejector.Instance.CurrentKernel = null;
-        Bonejector.Instance.BaseKernel = null;
+        Bonejector.Instance.BaseKernel = null; // Only happens once, ensures that our bindings stay global.
         var moduleLoader = new AppModuleLoader();
         moduleLoader.BeginLoad();
     }
