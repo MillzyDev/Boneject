@@ -139,6 +139,9 @@ For more information on InstallLocations and where they install to, please read 
 
 And that's it! This was a very simple example, but the uses are relatively vast. If you have any question/concerns contact `Millzy#8418` on Discord.
 
+## Credits
+* [Auros](https://github.com/Auros) for creating [SiraUtil](https://github.com/Auros/SiraUtil), the inspiration for this project.
+
 ## Changelog
 ### v0.3.0
 * Removed `AsComponentOnNewGameObject<T>` and `AsComponentOnExistingGameObject<T>` extension methods due to Ninject not injecting into constant bindings and not being able to access the Kernel to fix it.
