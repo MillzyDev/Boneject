@@ -15,7 +15,7 @@ internal static class GameControl_MenuVoidG114Patch
     // ReSharper disable once UnusedMember.Local
     private static void Postfix(GameControl_MenuVoidG114 __instance)
     {
-        MelonLogger.Msg($"Loading modules for location: {InstallLocation.MenuVoidG114}");
+        MelonLogger.Msg($"Loading modules for location: {Context.MenuVoidG114}");
         var moduleLoader = new MenuVoidG114ModuleLoader();
         moduleLoader.Kernel?.Bind<GameControl_MenuVoidG114>().ToConstant(__instance).InSingletonScope();
         moduleLoader.BeginLoad();

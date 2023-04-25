@@ -14,7 +14,7 @@ internal static class LoadingScenePatch
     // ReSharper disable once UnusedMember.Local
     private static void Postfix(LoadingScene __instance)
     {
-        MelonLogger.Msg($"Loading modules for location: {InstallLocation.Loading}");
+        MelonLogger.Msg($"Loading modules for location: {Context.Loading}");
         var moduleLoader = new LoadingModuleLoader();
         moduleLoader.Kernel?.Bind<LoadingScene>().ToConstant(__instance).InSingletonScope();
         moduleLoader.BeginLoad();

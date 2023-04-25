@@ -14,7 +14,7 @@ internal static class GameControlPatch
     // ReSharper disable once UnusedMember.Local
     private static void Postfix(BonelabGameControl __instance)
     {
-        MelonLogger.Msg($"Loading modules for location: {InstallLocation.Game}");
+        MelonLogger.Msg($"Loading modules for context: {Context.Game}");
         var moduleLoader = new GameModuleLoader();
         moduleLoader.Kernel?.Bind<BonelabGameControl>().ToConstant(__instance).InSingletonScope();
         moduleLoader.BeginLoad();
