@@ -46,6 +46,19 @@ public sealed class Bonejector
         }
     }
 
+    public void InstallModule<T>(Context context, params object[] args) where T : INinjectModule
+    {
+        var module = Activator.CreateInstance(typeof(T), args);
+        
+        var loaderTypes = LoadersForContext(context);
+        foreach (var type in loaderTypes)
+        {
+            if (!_modules.ContainsKey(type))
+                _modules.Add(type, new HashSet<INinjectModule>());
+            _modules[type].Add(module);
+        }
+    }
+
     public IEnumerable<INinjectModule> ModulesForLoader<T>() where T : ModuleLoader<T>
     {
         return _modules.ContainsKey(typeof(T)) ? _modules[typeof(T)] : new();
