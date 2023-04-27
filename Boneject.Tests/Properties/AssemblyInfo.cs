@@ -1,35 +1,29 @@
 ﻿using System.Reflection;
+using System.Resources;
 using System.Runtime.InteropServices;
+using Boneject.Tests;
+using MelonLoader;
+using BuildInfo = Boneject.Tests.BuildInfo;
 
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-[assembly: AssemblyTitle("Boneject.Tests")]
+[assembly: AssemblyTitle(BuildInfo.name)]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Boneject.Tests")]
-[assembly: AssemblyCopyright("Copyright ©  2023")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany(BuildInfo.company)]
+[assembly: AssemblyProduct(BuildInfo.name)]
+[assembly: AssemblyCopyright("""Copyright (c) 2023 Frederick ("Millzy") Mills""")]
+[assembly: AssemblyTrademark(null)]
 [assembly: AssemblyCulture("")]
-
-// Setting ComVisible to false makes the types in this assembly not visible 
-// to COM components.  If you need to access a type in this assembly from 
-// COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
+[assembly: AssemblyVersion(BuildInfo.version)]
+[assembly: AssemblyFileVersion(BuildInfo.version)]
+[assembly: NeutralResourcesLanguage("en")]
 
-// The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("E642FC5B-BB6C-458E-9751-4E7697EC7C70")]
+// ReSharper disable once RedundantArgumentDefaultValue
+[assembly: MelonInfo(typeof(Mod), BuildInfo.name, BuildInfo.version, BuildInfo.author, BuildInfo.downloadLink)]
 
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Build and Revision Numbers 
-// by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: MelonGame("Stress Level Zero", "BONELAB")]
+[assembly: MelonID(BuildInfo.id)]
+
+[assembly: VerifyLoaderVersion("0.5.7")]
+
+[assembly: HarmonyDontPatchAll]
