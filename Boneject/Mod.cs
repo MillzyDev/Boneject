@@ -27,7 +27,7 @@ public class Mod : MelonMod
         if (previous is not null)
             return previous;
 
-        // TODO: Register bonejector
+        // TODO: manage bonejector
         Bonejector bonejector = new(info);
         return bonejector;
     }
