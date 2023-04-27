@@ -71,8 +71,10 @@
         <Compile Include="Ninject\Context.cs" />
         <Compile Include="Ninject\Filters\ILoadFilter.cs" />
         <Compile Include="Ninject\Filters\MultiTypedLoadFilter.cs" />
+        <Compile Include="Ninject\Infrastructure\Ensure.cs" />
         <Compile Include="Ninject\LoadSet.cs" />
         <Compile Include="Ninject\Bonejector.cs" />
+        <Compile Include="Ninject\ModuleLoadExtensions.cs" />
         <Compile Include="Ninject\Modules\AppModule.cs" />
         <Compile Include="Ninject\Modules\BonelabModule.cs" />
         <Compile Include="Ninject\Modules\CampaignModule.cs" />
@@ -93,17 +95,11 @@
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-        <Message Text="===== BONEJECT POST BUILD =====" Importance="high"/>
-        <Message Text="Copying files to BONELAB installation..." Importance="high"/>
-        <Copy 
-                SourceFiles="$(OutputPath)\Boneject.dll;$(OutputPath)\Boneject.pdb" 
-                DestinationFolder="$(BonelabDir)\Mods\"
-        />
-        <Copy
-                SourceFiles="$(OutputPath)\Ninject.dll"
-                DestinationFolder="$(BonelabDir)\UserLibs\"
-        />
-        <Message Text="Finished copying files." Importance="high"/>
+        <Message Text="===== BONEJECT POST BUILD =====" Importance="high" />
+        <Message Text="Copying files to BONELAB installation..." Importance="high" />
+        <Copy SourceFiles="$(OutputPath)\Boneject.dll;$(OutputPath)\Boneject.pdb" DestinationFolder="$(BonelabDir)\Mods\" />
+        <Copy SourceFiles="$(OutputPath)\Ninject.dll" DestinationFolder="$(BonelabDir)\UserLibs\" />
+        <Message Text="Finished copying files." Importance="high" />
     </Target>
     
 </Project>
