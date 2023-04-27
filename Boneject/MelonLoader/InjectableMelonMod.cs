@@ -4,5 +4,5 @@ namespace Boneject.MelonLoader;
 
 public abstract class InjectableMelonMod : MelonMod
 {
-    public new void OnInitializeMelon() => ModInitInjector.Inject(this);
+    public override void OnInitializeMelon() => ModInitInjector.Inject(this);
 }
