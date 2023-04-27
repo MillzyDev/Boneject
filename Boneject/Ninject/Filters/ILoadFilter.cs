@@ -2,7 +2,7 @@
 
 namespace Boneject.Ninject.Filters;
 
-public interface ILoadFilter
+internal interface ILoadFilter
 {
-    public bool ShouldLoad(NinjectModule module);
+    public bool ShouldLoad(INinjectModule baseModule);
 }
