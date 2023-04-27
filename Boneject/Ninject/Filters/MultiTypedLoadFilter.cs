@@ -21,7 +21,7 @@ internal class MultiTypedLoadFilter : ILoadFilter
         _moduleTypes = enumerable.ToArray();
     }
     
-    public bool ShouldLoad(NinjectModule module)
+    public bool ShouldLoad(INinjectModule module)
     {
         return _moduleTypes.Any(type => type == module.GetType());
     }
