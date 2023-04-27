@@ -117,7 +117,7 @@ public static class ModInitInjector
         }
     }
     
-    private struct TypedInjector : IEquatable<TypedInjector>
+    private readonly struct TypedInjector : IEquatable<TypedInjector>
     {
         public readonly Type Type;
         private readonly InjectParameter _injector;
