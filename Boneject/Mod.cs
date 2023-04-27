@@ -17,18 +17,40 @@ public static class BuildInfo
 
 public class Mod : MelonMod
 {
+    private HarmonyLib.Harmony _harmony = null!;
+    private BonejectManager _bonejectManager = null!;
+    
+    // ReSharper disable once UnusedMember.Global
+    // ReSharper disable once ConvertToAutoPropertyWithPrivateSetter
+    public new HarmonyLib.Harmony HarmonyInstance => _harmony; // Hide default harmony field.
+
     public override void OnInitializeMelon()
     {
+        _harmony = new HarmonyLib.Harmony(BuildInfo.id);
+        _bonejectManager = new BonejectManager();
+
         ModInitInjector.AddInjector(typeof(Bonejector), ConstructBonejector);
     }
 
-    private static object ConstructBonejector(object? previous, ParameterInfo _, MelonInfoAttribute info)
+    public override void OnLateInitializeMelon()
+    {
+        _harmony.PatchAll();
+        _bonejectManager.Enable();
+    }
+
+    public override void OnDeinitializeMelon()
+    {
+        _bonejectManager.Disable();
+        _harmony.UnpatchSelf();
+    }
+
+    private object ConstructBonejector(object? previous, ParameterInfo _, MelonInfoAttribute info)
     {
         if (previous is not null)
             return previous;
-
-        // TODO: manage bonejector
+        
         Bonejector bonejector = new(info);
+        _bonejectManager.Add(bonejector);
         return bonejector;
     }
 }
