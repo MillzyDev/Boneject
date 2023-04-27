@@ -57,7 +57,7 @@ public static class ModInitInjector
         kernel.Inject(mod);
     }
 
-    internal static IEnumerable<object> ResolveParameters(IEnumerable<ParameterInfo> parameters, MelonInfoAttribute info)
+    private static IEnumerable<object> ResolveParameters(IEnumerable<ParameterInfo> parameters, MelonInfoAttribute info)
     {
         var resolvedValues = new HashSet<object>();
         foreach (var parameter in parameters)
@@ -69,7 +69,7 @@ public static class ModInitInjector
         return resolvedValues;
     }
 
-    public static object? ResolveForParameter(ParameterInfo parameter, MelonInfoAttribute info)
+    private static object? ResolveForParameter(ParameterInfo parameter, MelonInfoAttribute info)
     {
         var parameterType = parameter.ParameterType;
         var value = parameterType.IsValueType ? Activator.CreateInstance(parameterType) : null;
@@ -119,26 +119,26 @@ public static class ModInitInjector
     
     private struct TypedInjector : IEquatable<TypedInjector>
     {
-        public Type Type;
-        public InjectParameter Injector;
+        public readonly Type Type;
+        private readonly InjectParameter _injector;
 
         public TypedInjector(Type type, InjectParameter injector)
         {
             Type = type;
-            Injector = injector;
+            _injector = injector;
         }
 
         public object? Inject(object? previous, ParameterInfo parameter, MelonInfoAttribute info)
-             => Injector(previous, parameter, info);
+             => _injector(previous, parameter, info);
 
         public bool Equals(TypedInjector other)
-            => Type == other.Type && Injector == other.Injector;
+            => Type == other.Type && _injector == other._injector;
 
         public override bool Equals(object obj)
             => obj is TypedInjector other && Equals(other);
 
         public override int GetHashCode()
-            => Type.GetHashCode() ^ Injector.GetHashCode();
+            => Type.GetHashCode() ^ _injector.GetHashCode();
 
         public static bool operator ==(TypedInjector left, TypedInjector right) => left.Equals(right);
         public static bool operator !=(TypedInjector left, TypedInjector right) => !left.Equals(right);
