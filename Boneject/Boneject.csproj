@@ -15,7 +15,6 @@
         <FileAlignment>512</FileAlignment>
         <LangVersion>11</LangVersion>
         <Nullable>enable</Nullable>
-        <AssemblyOriginatorKeyFile>Boneject.snk</AssemblyOriginatorKeyFile>
     </PropertyGroup>
     
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -93,4 +92,18 @@
     
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+        <Message Text="===== BONEJECT POST BUILD =====" Importance="high"/>
+        <Message Text="Copying files to BONELAB installation..." Importance="high"/>
+        <Copy 
+                SourceFiles="$(OutputPath)\Boneject.dll;$(OutputPath)\Boneject.pdb" 
+                DestinationFolder="$(BonelabDir)\Mods\"
+        />
+        <Copy
+                SourceFiles="$(OutputPath)\Ninject.dll"
+                DestinationFolder="$(BonelabDir)\UserLibs\"
+        />
+        <Message Text="Finished copying filed." Importance="high"/>
+    </Target>
+    
 </Project>
