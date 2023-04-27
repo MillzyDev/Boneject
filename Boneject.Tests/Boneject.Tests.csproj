@@ -61,6 +61,7 @@
     
     <ItemGroup>
         <Compile Include="Mod.cs" />
+        <Compile Include="NullString.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     
@@ -74,13 +75,10 @@
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-        <Message Text="===== BONEJECT TESTS POST BUILD =====" Importance="high"/>
-        <Message Text="Copying files to BONELAB installation..." Importance="high"/>
-        <Copy
-                SourceFiles="$(OutputPath)\Boneject.Tests.dll;$(OutputPath)\Boneject.Tests.pdb"
-                DestinationFolder="$(BonelabDir)\Mods\"
-        />
-        <Message Text="Finished copying filed." Importance="high"/>
+        <Message Text="===== BONEJECT TESTS POST BUILD =====" Importance="high" />
+        <Message Text="Copying files to BONELAB installation..." Importance="high" />
+        <Copy SourceFiles="$(OutputPath)\Boneject.Tests.dll;$(OutputPath)\Boneject.Tests.pdb" DestinationFolder="$(BonelabDir)\Mods\" />
+        <Message Text="Finished copying files." Importance="high" />
     </Target>
     
 </Project>

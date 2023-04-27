@@ -103,7 +103,7 @@
                 SourceFiles="$(OutputPath)\Ninject.dll"
                 DestinationFolder="$(BonelabDir)\UserLibs\"
         />
-        <Message Text="Finished copying filed." Importance="high"/>
+        <Message Text="Finished copying files." Importance="high"/>
     </Target>
     
 </Project>
