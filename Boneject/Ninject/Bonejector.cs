@@ -9,16 +9,16 @@ namespace Boneject.Ninject;
 
 public class Bonejector
 {
-    internal MelonMod Mod => _mod;
+    internal MelonInfoAttribute ModInfo => _modInfo;
     internal IEnumerable<LoadSet> LoadSets => _loadSets;
 
-    private MelonMod _mod;
+    private readonly MelonInfoAttribute _modInfo;
     private readonly HashSet<LoadSet> _loadSets = new(); 
 
 
-    internal Bonejector(MelonMod mod)
+    internal Bonejector(MelonInfoAttribute info)
     {
-        _mod = mod;
+        _modInfo = info;
     }
 
     public void Load<T>(Context context, params object[] parameters) where T : INinjectModule
