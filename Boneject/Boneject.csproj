@@ -62,11 +62,28 @@
     </ItemGroup>
     
     <ItemGroup>
+        <Compile Include="BonejectException.cs" />
         <Compile Include="MelonLoader\Attributes\OnInitializeAttribute.cs" />
         <Compile Include="MelonLoader\InjectableMelonMod.cs" />
         <Compile Include="MelonLoader\ModInitInjector.cs" />
         <Compile Include="Mod.cs" />
         <Compile Include="Ninject\BonejectKernel.cs" />
+        <Compile Include="Ninject\BonejectManager.cs" />
+        <Compile Include="Ninject\Context.cs" />
+        <Compile Include="Ninject\Filters\ILoadFilter.cs" />
+        <Compile Include="Ninject\Filters\MultiTypedLoadFilter.cs" />
+        <Compile Include="Ninject\LoadSet.cs" />
+        <Compile Include="Ninject\Bonejector.cs" />
+        <Compile Include="Ninject\Modules\AppModule.cs" />
+        <Compile Include="Ninject\Modules\BonelabModule.cs" />
+        <Compile Include="Ninject\Modules\CampaignModule.cs" />
+        <Compile Include="Ninject\Modules\EmptyGroundModule.cs" />
+        <Compile Include="Ninject\Modules\HubModule.cs" />
+        <Compile Include="Ninject\Modules\IntroModule.cs" />
+        <Compile Include="Ninject\Modules\LoadingModule.cs" />
+        <Compile Include="Ninject\Modules\PlayerModule.cs" />
+        <Compile Include="Ninject\Modules\StartupModule.cs" />
+        <Compile Include="Ninject\Modules\VoidG114Module.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     
