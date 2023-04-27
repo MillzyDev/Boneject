@@ -19,7 +19,12 @@ public class Mod : MelonMod
 {
     private HarmonyLib.Harmony _harmony = null!;
     private BonejectManager _bonejectManager = null!;
-    
+
+    public Mod() => Instance = this;
+
+    public static Mod Instance { get; private set; } = null!;
+    public static BonejectManager BonejectManager => Instance._bonejectManager;
+
     // ReSharper disable once UnusedMember.Global
     // ReSharper disable once ConvertToAutoPropertyWithPrivateSetter
     public new HarmonyLib.Harmony HarmonyInstance => _harmony; // Hide default harmony field.
@@ -42,6 +47,11 @@ public class Mod : MelonMod
     {
         _bonejectManager.Disable();
         _harmony.UnpatchSelf();
+    }
+
+    public override void OnSceneWasLoaded(int _, string __)
+    {
+        _bonejectManager.ContextChanged();
     }
 
     private object ConstructBonejector(object? previous, ParameterInfo _, MelonInfoAttribute info)
