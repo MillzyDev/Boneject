@@ -46,22 +46,21 @@
         <Reference Include="0Harmony">
           <HintPath>$(BonelabDir)\MelonLoader\0Harmony.dll</HintPath>
         </Reference>
+        <Reference Include="Assembly-CSharp">
+          <HintPath>$(BonelabDir)\MelonLoader\Managed\Assembly-CSharp.dll</HintPath>
+        </Reference>
+        <Reference Include="Assembly-CSharp-firstpass">
+          <HintPath>$(BonelabDir)\MelonLoader\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+        </Reference>
         <Reference Include="Il2Cppmscorlib">
           <HintPath>$(BonelabDir)\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
         </Reference>
         <Reference Include="MelonLoader">
           <HintPath>$(BonelabDir)\MelonLoader\MelonLoader.dll</HintPath>
         </Reference>
-        
         <Reference Include="Ninject, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
           <HintPath>..\packages\Ninject.4.0.0-beta.1\lib\net46\Ninject.dll</HintPath>
         </Reference>
-        
-        <Reference Include="System" />
-        <Reference Include="System.Core" />
-        <Reference Include="System.Data" />
-        <Reference Include="System.Xml" />
-        
         <Reference Include="UnhollowerBaseLib">
           <HintPath>$(BonelabDir)\MelonLoader\Managed\UnhollowerBaseLib.dll</HintPath>
         </Reference>
@@ -74,10 +73,17 @@
         <Reference Include="UnityEngine.CoreModule">
           <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
+
+        <Reference Include="System" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.Data" />
+        <Reference Include="System.Xml" />
     </ItemGroup>
     
     <ItemGroup>
         <Compile Include="BonejectException.cs" />
+        <Compile Include="HarmonyPatches\BonelabGameControlPatch.cs" />
+        <Compile Include="HarmonyPatches\RigManagerPatch.cs" />
         <Compile Include="MelonLoader\Attributes\OnInitializeAttribute.cs" />
         <Compile Include="MelonLoader\InjectableMelonMod.cs" />
         <Compile Include="MelonLoader\ModInitInjector.cs" />
