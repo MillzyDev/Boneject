@@ -2,6 +2,7 @@
 using Boneject.MelonLoader;
 using Boneject.Ninject;
 using MelonLoader;
+using UnityEngine;
 
 namespace Boneject;
 
@@ -41,17 +42,18 @@ public class Mod : MelonMod
     {
         _harmony.PatchAll();
         _bonejectManager.Enable();
+
+        GameObject gameObject = new("Boneject Context Handler");
+        gameObject.SetActive(false);
+        var contextHandler = gameObject.AddComponent<BonejectContextHandler>();
+        contextHandler.BonejectManager = _bonejectManager;
+        gameObject.SetActive(true);
     }
 
     public override void OnDeinitializeMelon()
     {
         _bonejectManager.Disable();
         _harmony.UnpatchSelf();
-    }
-
-    public override void OnSceneWasLoaded(int _, string __)
-    {
-        _bonejectManager.ContextChanged();
     }
 
     private object ConstructBonejector(object? previous, ParameterInfo _, MelonInfoAttribute info)
