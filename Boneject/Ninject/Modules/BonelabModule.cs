@@ -1,7 +1,5 @@
 ﻿using Ninject.Modules;
 using SLZ.Bonelab;
-using SLZ.Interaction;
-using SLZ.Rig;
 using SLZ.SaveData;
 
 namespace Boneject.Ninject.Modules;

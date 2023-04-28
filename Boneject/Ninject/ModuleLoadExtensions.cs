@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Linq;
-using System.Reflection;
 using Boneject.Ninject.Infrastructure;
-using MelonLoader;
 using Ninject;
 using Ninject.Modules;
 

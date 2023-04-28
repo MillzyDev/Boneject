@@ -1,5 +1,4 @@
 ﻿using Ninject.Modules;
-using UnhollowerBaseLib.Attributes;
 
 namespace Boneject.Ninject.Modules;
 
