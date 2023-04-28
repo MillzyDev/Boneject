@@ -17,6 +17,7 @@ public static class BuildInfo
 public class Mod : InjectableMelonMod
 {
     [OnInitialize]
+    // ReSharper disable once UnusedMember.Global
     public void OnInitializeMod(Bonejector bonejector)
     {
         LoggerInstance.Msg("Starting Boneject tests.");
