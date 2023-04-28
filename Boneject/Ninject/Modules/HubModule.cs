@@ -1,6 +1,11 @@
-﻿namespace Boneject.Ninject.Modules;
+﻿using Ninject.Modules;
 
-public class HubModule
+namespace Boneject.Ninject.Modules;
+
+public class HubModule : NinjectModule
 {
-    
+    public override void Load()
+    {
+        throw new System.NotImplementedException();
+    }
 }
