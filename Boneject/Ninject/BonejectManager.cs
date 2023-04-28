@@ -45,7 +45,7 @@ public class BonejectManager
             if (_kernel is not null) return _kernel;
             
             _kernel = new BonejectKernel(_ninjectSettings);
-            _kernel.Load<AppModule>();
+            _kernel.Load(new AppModule(this));
 
             _preservedModules = _kernel.GetModules().ToArray();
             
@@ -72,8 +72,10 @@ public class BonejectManager
 
     public void LoadForContext(INinjectModule baseModule)
     {
-        foreach (var set in from bonejector in _bonejectors from set in bonejector.LoadSets where 
-                     set.LoadFilter.ShouldLoad(baseModule) select set)
+        foreach (var set in _bonejectors
+                     .SelectMany(bonejector => bonejector.LoadSets, (bonejector, set) => new { bonejector, set })
+                     .Where(t => t.set.LoadFilter.ShouldLoad(baseModule))
+                     .Select(t => t.set))
         {
             MelonLogger.Msg($"Loading: {set.ModuleType.FullName} into {baseModule.GetType().Name}...");
             Kernel.Load(set.ModuleType, set.InitialParameters);
