@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using Boneject.Ninject.Modules;
 using MelonLoader;
 using Ninject;
 using Ninject.Infrastructure;
 using Ninject.Modules;
+using Ninject.Planning.Bindings;
 
 namespace Boneject.Ninject;
 
@@ -29,54 +32,57 @@ public class BonejectManager
         ThrowOnGetServiceNotFound = false
     };
 
-    private BonejectKernel? _originalKernel;
-    private BonejectKernel? _currentKernel;
+    private BonejectKernel? _kernel;
+    private Dictionary<Type, IBinding[]>? _bindingCache;
+    private IBinding[]? _preservedBindings;
+    private INinjectModule[]? _preservedModules;
     private readonly HashSet<Bonejector> _bonejectors = new();
 
-    internal BonejectKernel Kernel => _currentKernel ??= _originalKernel!.Clone();
+    internal BonejectKernel Kernel
+    {
+        get
+        {
+            if (_kernel is not null) return _kernel;
+            
+            _kernel = new BonejectKernel(_ninjectSettings);
+            _kernel.Load<AppModule>();
+
+            _preservedModules = _kernel.GetModules().ToArray();
+            
+            _bindingCache = typeof(BonejectKernel)
+                .GetField("bindingCache", BindingFlags.Instance | BindingFlags.NonPublic)
+                ?.GetValue(_kernel) as Dictionary<Type, IBinding[]>;
+
+            _preservedBindings = _bindingCache?.SelectMany(cache => cache.Value).ToArray();
+            
+            return _kernel;
+        }
+    }
+
+    internal Dictionary<Type, IBinding[]> BindingCache => _bindingCache ?? new Dictionary<Type, IBinding[]>();
+    internal IEnumerable<INinjectModule> PreservedModules => _preservedModules ?? Array.Empty<INinjectModule>();
+    internal IEnumerable<IBinding> PreservedBindings => _preservedBindings ?? Array.Empty<IBinding>();
 
     public void Add(Bonejector bonejector) => _bonejectors.Add(bonejector);
 
     public void Enable()
     {
-        _originalKernel = new BonejectKernel(_ninjectSettings);
-        _originalKernel.Load<AppModule>();
+        
     }
 
     public void LoadForContext(INinjectModule baseModule)
     {
-        foreach (var bonejector in _bonejectors)
+        foreach (var set in from bonejector in _bonejectors from set in bonejector.LoadSets where 
+                     set.LoadFilter.ShouldLoad(baseModule) select set)
         {
-            // TODO: Exposing... somehow... probably just gonna do a Resources.GetObjectsOfTypeAll as much as I hate it.
-            
-            // Load Modules
-            foreach (var set in bonejector.LoadSets)
-            {
-                if (!set.LoadFilter.ShouldLoad(baseModule)) continue;
-                
-                MelonLogger.Msg($"Loading: {set.ModuleType.FullName} into {baseModule.GetType().Name}...");
-                Kernel.Load(set.ModuleType, set.InitialParameters);
-            }
-            
-            // TODO: Instruction loading
+            MelonLogger.Msg($"Loading: {set.ModuleType.FullName} into {baseModule.GetType().Name}...");
+            Kernel.Load(set.ModuleType, set.InitialParameters);
         }
     }
 
     public void Disable()
     {
-        DisposeCurrentKernel();
-        _originalKernel?.Dispose(true);
-        _originalKernel = null;
-    }
-
-    public void DisposeCurrentKernel()
-    {
-        _currentKernel?.Dispose(true);
-        _currentKernel = null;
-    }
-
-    internal void ContextChanged()
-    {
-        DisposeCurrentKernel();
+        _kernel?.Dispose(true);
+        _kernel = null;
     }
 }
