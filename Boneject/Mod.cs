@@ -24,7 +24,7 @@ public class Mod : MelonMod
     public Mod() => Instance = this;
 
     public static Mod Instance { get; private set; } = null!;
-    public static BonejectManager BonejectManager => Instance._bonejectManager;
+    internal static BonejectManager BonejectManager => Instance._bonejectManager;
 
     // ReSharper disable once UnusedMember.Global
     // ReSharper disable once ConvertToAutoPropertyWithPrivateSetter
@@ -48,6 +48,8 @@ public class Mod : MelonMod
         var contextHandler = gameObject.AddComponent<BonejectContextHandler>();
         contextHandler.BonejectManager = _bonejectManager;
         gameObject.SetActive(true);
+
+        _ = BonejectManager.Kernel; // Force the kernel to init.
     }
 
     public override void OnDeinitializeMelon()
