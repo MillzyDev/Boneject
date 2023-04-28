@@ -11,7 +11,7 @@ public static class ModuleLoadExtensions
     public static void Load(this IKernel kernel, Type moduleType, params object?[]? args)
     {
         Ensure.ArgumentNotNull(kernel, nameof(kernel));
-        if (!moduleType.IsSubclassOf(typeof(INinjectModule)))
+        if (!typeof(INinjectModule).IsAssignableFrom(moduleType))
             throw new BonejectException("Cannot load type that does not inherit INinjectModule");
         
         var module = (INinjectModule)Activator.CreateInstance(moduleType, BindingFlags.Public | BindingFlags.NonPublic, args);

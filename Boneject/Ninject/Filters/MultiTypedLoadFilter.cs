@@ -14,8 +14,8 @@ internal class MultiTypedLoadFilter : ILoadFilter
         var enumerable = moduleTypes as Type[] ?? moduleTypes.ToArray();
         foreach (var type in enumerable)
         {
-            if (!type.IsSubclassOf(typeof(INinjectModule)))
-                throw new BonejectException($"Expected {type.Name} to be a subclass of INinjectModule");
+            if (!typeof(INinjectModule).IsAssignableFrom(type))
+                throw new BonejectException($"Expected {type.Name} to derive of INinjectModule");
         }
 
         _moduleTypes = enumerable.ToArray();
