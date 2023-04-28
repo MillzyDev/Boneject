@@ -4,10 +4,6 @@ namespace Boneject;
 
 public class BonejectException : Exception
 {
-    public BonejectException() : base()
-    {
-    }
-
     public BonejectException(string message) : base(message)
     {
     }
