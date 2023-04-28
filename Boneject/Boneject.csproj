@@ -46,6 +46,9 @@
         <Reference Include="0Harmony">
           <HintPath>$(BonelabDir)\MelonLoader\0Harmony.dll</HintPath>
         </Reference>
+        <Reference Include="Il2Cppmscorlib">
+          <HintPath>$(BonelabDir)\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
+        </Reference>
         <Reference Include="MelonLoader">
           <HintPath>$(BonelabDir)\MelonLoader\MelonLoader.dll</HintPath>
         </Reference>
@@ -58,6 +61,19 @@
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
         <Reference Include="System.Xml" />
+        
+        <Reference Include="UnhollowerBaseLib">
+          <HintPath>$(BonelabDir)\MelonLoader\Managed\UnhollowerBaseLib.dll</HintPath>
+        </Reference>
+        <Reference Include="UnhollowerRuntimeLib">
+          <HintPath>$(BonelabDir)\MelonLoader\Managed\UnhollowerRuntimeLib.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine">
+          <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+          <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
     </ItemGroup>
     
     <ItemGroup>
@@ -66,6 +82,7 @@
         <Compile Include="MelonLoader\InjectableMelonMod.cs" />
         <Compile Include="MelonLoader\ModInitInjector.cs" />
         <Compile Include="Mod.cs" />
+        <Compile Include="Ninject\BonejectContextHandler.cs" />
         <Compile Include="Ninject\BonejectKernel.cs" />
         <Compile Include="Ninject\BonejectManager.cs" />
         <Compile Include="Ninject\Context.cs" />
