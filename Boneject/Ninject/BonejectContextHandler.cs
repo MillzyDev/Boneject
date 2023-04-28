@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using MelonLoader;
 using Ninject.Modules;
+using UnhollowerBaseLib.Attributes;
 using UnhollowerRuntimeLib;
 using UnityEngine;
 using UnityEngine.Events;
@@ -19,6 +20,7 @@ internal class BonejectContextHandler : MonoBehaviour
     {
     }
 
+    [HideFromIl2Cpp]
     internal BonejectManager BonejectManager
     {
         get => _bonejectManager!;
@@ -37,6 +39,7 @@ internal class BonejectContextHandler : MonoBehaviour
 
     private void OnSceneLoaded(Scene _, LoadSceneMode __) => UnloadNonAppBindings();
 
+    [HideFromIl2Cpp]
     private void UnloadNonAppBindings()
     {
         var kernel = BonejectManager.Kernel;
