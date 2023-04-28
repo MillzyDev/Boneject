@@ -1,6 +1,7 @@
 ﻿using Boneject.MelonLoader;
 using Boneject.MelonLoader.Attributes;
 using Boneject.Ninject;
+using Boneject.Tests.Modules;
 
 namespace Boneject.Tests;
 
@@ -22,5 +23,7 @@ public class Mod : InjectableMelonMod
     {
         LoggerInstance.Msg("Starting Boneject tests.");
         LoggerInstance.Msg($"Injected Bonejector instance is {NullString.Create(bonejector)}");
+        
+        bonejector.Load<AppModule>(Context.App);
     }
 }
