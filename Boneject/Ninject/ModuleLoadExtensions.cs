@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using Boneject.Ninject.Infrastructure;
+using MelonLoader;
 using Ninject;
 using Ninject.Modules;
 
@@ -13,8 +15,13 @@ public static class ModuleLoadExtensions
         Ensure.ArgumentNotNull(kernel, nameof(kernel));
         if (!typeof(INinjectModule).IsAssignableFrom(moduleType))
             throw new BonejectException("Cannot load type that does not inherit INinjectModule");
+
+        INinjectModule module;
+        if (args != null && moduleType.GetConstructors().Any(ctor => ctor.GetParameters().Length > 0))
+            module = (INinjectModule)Activator.CreateInstance(moduleType, args);
+        else
+            module = (INinjectModule)Activator.CreateInstance(moduleType);
         
-        var module = (INinjectModule)Activator.CreateInstance(moduleType, BindingFlags.Public | BindingFlags.NonPublic, args);
         kernel.Load(module);
     }
 }
