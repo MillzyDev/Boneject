@@ -20,8 +20,6 @@ public class PlayerModule : NinjectModule
     
     public override void Load()
     {
-        MelonLogger.Msg("Player Module");
-        
         // This is loaded later than BonelabGameControl. We want RigManager to still be bound in those contexts without
         // conflicting, so we check if a binding for it already exists.
         if (Kernel!.GetBindings(typeof(RigManager)).Any())
