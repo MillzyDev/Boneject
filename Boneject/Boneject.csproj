@@ -111,7 +111,6 @@
         <Compile Include="Ninject\Bonejector.cs" />
         <Compile Include="Ninject\ModuleLoadExtensions.cs" />
         <Compile Include="Ninject\Modules\AppModule.cs" />
-        <Compile Include="Ninject\Modules\BonelabModule.cs" />
         <Compile Include="Ninject\Modules\CampaignModule.cs" />
         <Compile Include="Ninject\Modules\EmptyGroundModule.cs" />
         <Compile Include="Ninject\Modules\HubModule.cs" />
