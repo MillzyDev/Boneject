@@ -3,6 +3,7 @@ using HarmonyLib;
 using MelonLoader;
 using Ninject;
 using SLZ.Bonelab;
+using SLZ.SaveData;
 
 namespace Boneject.HarmonyPatches;
 
@@ -15,21 +16,16 @@ public static class BonelabGameControlPatch
     // ReSharper disable once UnusedMember.Local
     private static void Postfix(BonelabGameControl __instance)
     {
+        if (__instance is not BonelabInternalGameControl bonelabInternalGameControl) return;
+
         var bonejectManager = Mod.BonejectManager;
         var kernel = bonejectManager.Kernel;
 
-        var rigManager = __instance.PlayerRigManager;
-        var saveFeatures = __instance.SaveFeatures;
-        var inventorySaveFilter = __instance.InventorySaveFilter;
+        var rigManager = bonelabInternalGameControl.PlayerRigManager;
+        var saveFeatures = bonelabInternalGameControl.SaveFeatures;
+        var inventorySaveFilter = bonelabInternalGameControl.InventorySaveFilter;
 
-        var baseModule = new BonelabModule(bonejectManager, __instance, rigManager, saveFeatures, inventorySaveFilter);
-        kernel.Load(baseModule);
-        
-        MelonLogger.Msg("Bonelab context loaded.");
-
-        if (__instance is not BonelabInternalGameControl) return; // just in case
-        
-        var campaignModule = new CampaignModule(bonejectManager);
+        var campaignModule = new CampaignModule(bonejectManager, bonelabInternalGameControl, rigManager, saveFeatures, inventorySaveFilter);
         kernel.Load(campaignModule);
         
         MelonLogger.Msg("Campaign context loaded.");
