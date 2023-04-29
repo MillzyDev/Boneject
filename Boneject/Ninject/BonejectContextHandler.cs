@@ -34,10 +34,10 @@ internal class BonejectContextHandler : MonoBehaviour
 
     private void Start() // Ensure _bonejectManager has a value;
     {
-        SceneManager.sceneLoaded += DelegateSupport.ConvertDelegate<UnityAction<Scene, LoadSceneMode>>(OnSceneLoaded);
+        SceneManager.sceneUnloaded += DelegateSupport.ConvertDelegate<UnityAction<Scene>>(OnSceneUnloaded);
     }
 
-    private void OnSceneLoaded(Scene _, LoadSceneMode __) => UnloadNonAppBindings();
+    private void OnSceneUnloaded(Scene _) => UnloadNonAppBindings();
 
     [HideFromIl2Cpp]
     private void UnloadNonAppBindings()
