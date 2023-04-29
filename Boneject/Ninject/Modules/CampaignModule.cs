@@ -9,20 +9,15 @@ public class CampaignModule : NinjectModule
 {
     private readonly BonejectManager _bonejectManager;
 
-    private readonly BonelabInternalGameControl? _bonelabInternalGameControl;
-    private readonly RigManager? _rigManager;
+    private readonly BonelabInternalGameControl _bonelabInternalGameControl;
+    private readonly RigManager _rigManager;
     private readonly SaveFeatures _saveFeatures;
-    private readonly InventorySaveFilter? _inventorySaveFilter;
-
-    public CampaignModule(BonejectManager bonejectManager)
-    {
-        _bonejectManager = bonejectManager;
-    }
+    private readonly InventorySaveFilter _inventorySaveFilter;
 
     public CampaignModule(BonejectManager bonejectManager, BonelabInternalGameControl bonelabInternalGameControl, 
-        RigManager rigManager, SaveFeatures saveFeatures, InventorySaveFilter inventorySaveFilter) : 
-        this(bonejectManager)
+        RigManager rigManager, SaveFeatures saveFeatures, InventorySaveFilter inventorySaveFilter)
     {
+        _bonejectManager = bonejectManager;
         _bonelabInternalGameControl = bonelabInternalGameControl;
         _rigManager = rigManager;
         _saveFeatures = saveFeatures;
@@ -32,14 +27,10 @@ public class CampaignModule : NinjectModule
     
     public override void Load()
     {
-        if (_bonelabInternalGameControl is not null)
-            Bind<BonelabInternalGameControl>().ToConstant(_bonelabInternalGameControl!).InSingletonScope();
-        if (_rigManager is not null)
-            Bind<RigManager>().ToConstant(_rigManager!).InSingletonScope();
-        if (_saveFeatures == 0)
-            Bind<SaveFeatures>().ToConstant(_saveFeatures).InSingletonScope();
-        if (_inventorySaveFilter is not null)
-            Bind<InventorySaveFilter>().ToConstant(_inventorySaveFilter!).InSingletonScope();
+        Bind<BonelabInternalGameControl>().ToConstant(_bonelabInternalGameControl!).InSingletonScope();
+        Bind<RigManager>().ToConstant(_rigManager!).InSingletonScope();
+        Bind<SaveFeatures>().ToConstant(_saveFeatures).InSingletonScope();
+        Bind<InventorySaveFilter>().ToConstant(_inventorySaveFilter!).InSingletonScope();
         
         _bonejectManager.LoadForContext(this);
     }
