@@ -3,7 +3,6 @@ using HarmonyLib;
 using MelonLoader;
 using Ninject;
 using SLZ.Bonelab;
-using SLZ.SaveData;
 
 namespace Boneject.HarmonyPatches;
 
@@ -20,7 +19,7 @@ public static class BonelabGameControlPatch
 
         var bonejectManager = Mod.BonejectManager;
         var kernel = bonejectManager.Kernel;
-
+        
         var rigManager = bonelabInternalGameControl.PlayerRigManager;
         var saveFeatures = bonelabInternalGameControl.SaveFeatures;
         var inventorySaveFilter = bonelabInternalGameControl.InventorySaveFilter;
