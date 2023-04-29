@@ -33,6 +33,5 @@ public static class BonelabGameControlPatch
         kernel.Load(campaignModule);
         
         MelonLogger.Msg("Campaign context loaded.");
-
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Boneject.Ninject.Modules;
+using MelonLoader;
 using Ninject;
 using SLZ.Bonelab;
 
@@ -18,5 +19,7 @@ internal static class CampaignContextLoader
         var baseModule = new CampaignModule(bonejectManager, bonelabInternalGameControl, rigManager, saveFeatures, 
             inventorySaveFilter);
         kernel.Load(baseModule);
+        
+        MelonLogger.Msg("Campaign context loaded.");
     }
 }
