@@ -10,20 +10,18 @@ public enum Context
     App = 1,
 
     Loading = 2,
-    
-    Bonelab = 4,
 
-    Campaign = 8,
+    Campaign = 4,
     
-    EmptyGround = 16,
+    EmptyGround = 8,
     
-    Hub = 32,
+    Hub = 16,
     
-    Intro = 64,
+    Intro = 32,
     
-    Startup = 128,
+    Startup = 64,
     
-    VoidG114 = 256,
+    VoidG114 = 128,
     
-    Player = 512
+    Player = 256
 }

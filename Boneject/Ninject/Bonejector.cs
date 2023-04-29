@@ -36,8 +36,6 @@ public class Bonejector
             moduleTypes.Add(typeof(AppModule));
         if (context.HasFlag(Context.Loading))
             moduleTypes.Add(typeof(LoadingModule));
-        if (context.HasFlag(Context.Bonelab))
-            moduleTypes.Add(typeof(BonelabModule));
         if (context.HasFlag(Context.Campaign))
             moduleTypes.Add(typeof(CampaignModule));
         if (context.HasFlag(Context.EmptyGround))
