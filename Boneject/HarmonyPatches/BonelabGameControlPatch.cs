@@ -16,12 +16,12 @@ public static class BonelabGameControlPatch
     {
         var bonejectManager = Mod.BonejectManager;
         var kernel = bonejectManager.Kernel;
-        
-        var rigManager = __instance
+
+        var rigManager = __instance.PlayerRigManager;
         var saveFeatures = __instance.SaveFeatures;
         var inventorySaveFilter = __instance.InventorySaveFilter;
 
-        var baseModule = new BonelabModule(bonejectManager, __instance, rigManager,saveFeatures, inventorySaveFilter);
+        var baseModule = new BonelabModule(bonejectManager, __instance, rigManager, saveFeatures, inventorySaveFilter);
         kernel.Load(baseModule);
     }
 }
