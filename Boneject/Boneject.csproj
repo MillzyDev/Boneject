@@ -83,6 +83,17 @@
     <ItemGroup>
         <Compile Include="BonejectException.cs" />
         <Compile Include="HarmonyPatches\BonelabGameControlPatch.cs" />
+        <Compile Include="HarmonyPatches\CampaignPatches\GameControl_AscentPatch.cs" />
+        <Compile Include="HarmonyPatches\CampaignPatches\GameControl_DescentPatch.cs" />
+        <Compile Include="HarmonyPatches\CampaignPatches\GameControl_KartRacePatch.cs" />
+        <Compile Include="HarmonyPatches\CampaignPatches\GameControl_LongRunPatch.cs" />
+        <Compile Include="HarmonyPatches\CampaignPatches\GameControl_MagmaGatePatch.cs" />
+        <Compile Include="HarmonyPatches\CampaignPatches\GameControl_MenuVoidG114Patch.cs" />
+        <Compile Include="HarmonyPatches\CampaignPatches\GameControl_MoonBasePatch.cs" />
+        <Compile Include="HarmonyPatches\CampaignPatches\GameControl_OutroPatch.cs" />
+        <Compile Include="HarmonyPatches\CampaignPatches\GameControl_PillarPatch.cs" />
+        <Compile Include="HarmonyPatches\CampaignPatches\GameControl_SprintBridge04Patch.cs" />
+        <Compile Include="HarmonyPatches\CampaignPatches\GameControl_StreetPuncherPatch.cs" />
         <Compile Include="HarmonyPatches\RigManagerPatch.cs" />
         <Compile Include="MelonLoader\Attributes\OnInitializeAttribute.cs" />
         <Compile Include="MelonLoader\InjectableMelonMod.cs" />
@@ -92,6 +103,7 @@
         <Compile Include="Ninject\BonejectKernel.cs" />
         <Compile Include="Ninject\BonejectManager.cs" />
         <Compile Include="Ninject\Context.cs" />
+        <Compile Include="Ninject\ContextLoaders\CampaignContextLoader.cs" />
         <Compile Include="Ninject\Filters\ILoadFilter.cs" />
         <Compile Include="Ninject\Filters\MultiTypedLoadFilter.cs" />
         <Compile Include="Ninject\Infrastructure\Ensure.cs" />
