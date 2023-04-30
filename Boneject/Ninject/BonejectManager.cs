@@ -86,11 +86,11 @@ public class BonejectManager
             foreach (var instruction in bonejector.LoadInstructions)
             {
                 if (instruction.baseModule == baseModule.GetType())
+                {
                     instruction.onLoad(Kernel);
+                }
             }
         }
-        
-        
     }
 
     public void Disable()
