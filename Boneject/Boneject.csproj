@@ -169,7 +169,7 @@
         <Message Text="Finished copying files." Importance="high" />
 
         <Message Text="Creating ZIP Archive..." Importance="high" />
-        <ZipDirectory SourceDirectory="$(OutputPath)\StagingArea\" DestinationFile="$(OutputPath)\$(AssemblyName).zip" />
+        <ZipDirectory SourceDirectory="$(OutputPath)\StagingArea\" DestinationFile="$(OutputPath)\$(AssemblyName).zip" Overwrite="true" />
         <Message Text="Finished creating ZIP Archive." Importance="high" />
 
         <Message Text="Done!" Importance="high" />
