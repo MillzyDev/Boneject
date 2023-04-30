@@ -4,12 +4,12 @@ namespace Boneject.Ninject;
 
 internal struct LoadInstruction
 {
-    public readonly Type baseModule;
-    public readonly Action<BonejectKernel> onLoad;
+    public readonly Type BaseModule;
+    public readonly Action<BonejectKernel> OnLoad;
 
     public LoadInstruction(Type baseModule, Action<BonejectKernel> onLoad)
     {
-        this.baseModule = baseModule;
-        this.onLoad = onLoad;
+        BaseModule = baseModule;
+        OnLoad = onLoad;
     }
 }

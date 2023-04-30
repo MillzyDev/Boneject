@@ -68,7 +68,7 @@ public class BonejectManager
     // ReSharper disable once MemberCanBeMadeStatic.Global
     public void Enable()
     {
-        
+        // TODO: May add some stuff here later if ML ever supports enabling and disabling mods.
     }
 
     public void LoadForContext(INinjectModule baseModule)
@@ -85,9 +85,9 @@ public class BonejectManager
 
             foreach (var instruction in bonejector.LoadInstructions)
             {
-                if (instruction.baseModule == baseModule.GetType())
+                if (instruction.BaseModule == baseModule.GetType())
                 {
-                    instruction.onLoad(Kernel);
+                    instruction.OnLoad(Kernel);
                 }
             }
         }
