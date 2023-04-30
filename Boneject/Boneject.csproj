@@ -111,6 +111,7 @@
         <Compile Include="Ninject\Filters\ILoadFilter.cs" />
         <Compile Include="Ninject\Filters\MultiTypedLoadFilter.cs" />
         <Compile Include="Ninject\Infrastructure\Ensure.cs" />
+        <Compile Include="Ninject\LoadInstruction.cs" />
         <Compile Include="Ninject\LoadSet.cs" />
         <Compile Include="Ninject\Bonejector.cs" />
         <Compile Include="Ninject\ModuleLoadExtensions.cs" />
