@@ -40,8 +40,6 @@ public class Bonejector
             moduleTypes.Add(typeof(CampaignModule));
         if (context.HasFlag(Context.Hub))
             moduleTypes.Add(typeof(HubModule));
-        if (context.HasFlag(Context.Intro))
-            moduleTypes.Add(typeof(IntroModule));
         if (context.HasFlag(Context.Startup))
             moduleTypes.Add(typeof(StartupModule));
         if (context.HasFlag(Context.VoidG114))
