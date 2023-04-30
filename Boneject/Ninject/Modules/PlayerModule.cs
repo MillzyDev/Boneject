@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using MelonLoader;
 using Ninject.Modules;
 using SLZ.Rig;
 
