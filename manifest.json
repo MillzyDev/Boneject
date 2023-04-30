@@ -2,7 +2,7 @@
     "name": "Boneject",
     "version_number": "1.0.0-rc.1",
     "website_url": "https://github.com/MillzyDev/Boneject",
-    "description": "A basic Ninject implementation and wrapper for BONELAB.",
+    "description": "A basic Ninject implementation and wrapper for BONELAB. RC STAGE: All features are subject to breaking changes. Posted for open-testing purposes.",
     "dependencies": [
         "LavaGang-MelonLoader-0.5.7"
     ]
