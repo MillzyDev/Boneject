@@ -9,17 +9,19 @@ namespace Boneject.Ninject;
 
 public class Bonejector
 {
-    internal MelonInfoAttribute ModInfo => _modInfo;
-    internal IEnumerable<LoadSet> LoadSets => _loadSets;
-
     private readonly MelonInfoAttribute _modInfo;
-    private readonly HashSet<LoadSet> _loadSets = new(); 
+    private readonly HashSet<LoadSet> _loadSets = new();
+    private readonly HashSet<LoadInstruction> _loadInstructions = new();
 
 
     internal Bonejector(MelonInfoAttribute info)
     {
         _modInfo = info;
     }
+    
+    internal MelonInfoAttribute ModInfo => _modInfo;
+    internal IEnumerable<LoadSet> LoadSets => _loadSets;
+    internal IEnumerable<LoadInstruction> LoadInstructions => _loadInstructions;
 
     public void Load<T>(Context context, params object[] parameters) where T : INinjectModule
     {
@@ -28,7 +30,13 @@ public class Bonejector
         _loadSets.Add(new LoadSet(typeof(T), filter, parameters.Length != 0 ? parameters : null));
     }
 
-    private IEnumerable<Type> ModuleForContext(Context context)
+    public void Load(Context context, Action<BonejectKernel> loadCallback)
+    {
+        foreach (var module in ModuleForContext(context))
+            _loadInstructions.Add(new LoadInstruction(module, loadCallback));
+    }
+
+    private static IEnumerable<Type> ModuleForContext(Context context)
     {
         HashSet<Type> moduleTypes = new();
         
