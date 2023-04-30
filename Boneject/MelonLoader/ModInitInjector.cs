@@ -33,10 +33,15 @@ public static class ModInitInjector
     private static readonly HashSet<TypedInjector> _injectors = new();
     private static readonly Dictionary<TypedInjector, object?> _previousValues = new();
 
+    /// <summary>
+    /// Registers a callback that is used to construct a dependency for each mod init.
+    /// </summary>
+    /// <param name="type">The type of the dependency you are constructing.</param>
+    /// <param name="injector">The callback to construct the dependency.</param>
     public static void AddInjector(Type type, InjectParameter injector)
         => _injectors.Add(new TypedInjector(type, injector));
 
-    public static void Inject(InjectableMelonMod mod)
+    internal static void Inject(InjectableMelonMod mod)
     {
         var initMethods = mod.GetType().GetMethods()
             .Where(method => method.GetCustomAttributes(typeof(OnInitializeAttribute)).Any());
