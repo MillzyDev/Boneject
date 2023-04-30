@@ -12,16 +12,12 @@ public enum Context
     Loading = 2,
 
     Campaign = 4,
+
+    Hub = 8,
+
+    Startup = 16,
     
-    EmptyGround = 8,
+    VoidG114 = 32,
     
-    Hub = 16,
-    
-    Intro = 32,
-    
-    Startup = 64,
-    
-    VoidG114 = 128,
-    
-    Player = 256
+    Player = 64
 }
