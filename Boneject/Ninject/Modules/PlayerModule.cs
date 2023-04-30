@@ -4,7 +4,7 @@ using SLZ.Rig;
 
 namespace Boneject.Ninject.Modules;
 
-public class PlayerModule : NinjectModule
+internal class PlayerModule : NinjectModule
 {
     private readonly BonejectManager _bonejectManager;
     

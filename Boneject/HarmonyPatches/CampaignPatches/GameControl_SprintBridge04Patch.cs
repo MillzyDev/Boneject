@@ -6,7 +6,7 @@ namespace Boneject.HarmonyPatches.CampaignPatches;
 
 [HarmonyPatch(typeof(GameControl_SprintBridge04))]
 [HarmonyPatch(nameof(GameControl_SprintBridge04.Start))]
-public class GameControl_SprintBridge04Patch
+internal class GameControl_SprintBridge04Patch
 {
     [HarmonyPostfix]
     // ReSharper disable once InconsistentNaming

@@ -6,7 +6,7 @@ namespace Boneject.HarmonyPatches.CampaignPatches;
 
 [HarmonyPatch(typeof(GameControl_LongRun))]
 [HarmonyPatch(nameof(GameControl_LongRun.Start))]
-public class GameControl_LongRunPatch
+internal class GameControl_LongRunPatch
 {
     [HarmonyPostfix]
     // ReSharper disable once InconsistentNaming

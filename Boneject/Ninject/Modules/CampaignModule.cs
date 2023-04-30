@@ -5,7 +5,7 @@ using SLZ.SaveData;
 
 namespace Boneject.Ninject.Modules;
 
-public class CampaignModule : NinjectModule
+internal class CampaignModule : NinjectModule
 {
     private readonly BonejectManager _bonejectManager;
 

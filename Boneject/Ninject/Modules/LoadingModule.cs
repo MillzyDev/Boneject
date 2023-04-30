@@ -3,7 +3,7 @@ using SLZ.UI;
 
 namespace Boneject.Ninject.Modules;
 
-public class LoadingModule : NinjectModule
+internal class LoadingModule : NinjectModule
 {
     private readonly BonejectManager _bonejectManager;
     private readonly LoadingScene _loadingScene;

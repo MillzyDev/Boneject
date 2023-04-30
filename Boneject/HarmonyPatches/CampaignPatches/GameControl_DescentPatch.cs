@@ -6,7 +6,7 @@ namespace Boneject.HarmonyPatches.CampaignPatches;
 
 [HarmonyPatch(typeof(GameControl_Descent))]
 [HarmonyPatch(nameof(GameControl_Descent.Start))]
-public static class GameControl_DescentPatch
+internal static class GameControl_DescentPatch
 {
     [HarmonyPostfix]
     // ReSharper disable once InconsistentNaming

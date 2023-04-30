@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Boneject;
 
-public static class BuildInfo
+internal static class BuildInfo
 {
     public const string id = "dev.millzy.Boneject";
     public const string name = "Boneject";
@@ -17,14 +17,14 @@ public static class BuildInfo
     public const string downloadLink = "https://github.com/MillzyDev/Boneject/releases/latest/download/Boneject.zip";
 }
 
-public class Mod : MelonMod
+internal class Mod : MelonMod
 {
     private HarmonyLib.Harmony _harmony = null!;
     private BonejectManager _bonejectManager = null!;
 
     public Mod() => Instance = this;
 
-    public static Mod Instance { get; private set; } = null!;
+    private static Mod Instance { get; set; } = null!;
     internal static BonejectManager BonejectManager => Instance._bonejectManager;
 
     // ReSharper disable once UnusedMember.Global

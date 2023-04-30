@@ -5,7 +5,7 @@ using SLZ.SaveData;
 
 namespace Boneject.Ninject.Modules;
 
-public class HubModule : NinjectModule
+internal class HubModule : NinjectModule
 {
     private readonly BonejectManager _bonejectManager;
     private readonly GameControl_Hub _gameControlHub;

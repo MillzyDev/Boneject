@@ -6,7 +6,7 @@ namespace Boneject.HarmonyPatches.CampaignPatches;
 
 [HarmonyPatch(typeof(GameControl_MenuVoidG114))]
 [HarmonyPatch(nameof(GameControl_MenuVoidG114.Start))]
-public class GameControl_MenuVoidG114Patch
+internal class GameControl_MenuVoidG114Patch
 {
     [HarmonyPostfix]
     // ReSharper disable once InconsistentNaming

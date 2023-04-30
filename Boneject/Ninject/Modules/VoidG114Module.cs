@@ -5,7 +5,7 @@ using SLZ.VRMK;
 
 namespace Boneject.Ninject.Modules;
 
-public class VoidG114Module : NinjectModule
+internal class VoidG114Module : NinjectModule
 {
     private readonly BonejectManager _bonejectManager;
     private readonly GameControl_VoidG114 _gameControlVoidG114;

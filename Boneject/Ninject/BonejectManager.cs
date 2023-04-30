@@ -11,7 +11,7 @@ using Ninject.Planning.Bindings;
 
 namespace Boneject.Ninject;
 
-public class BonejectManager
+internal class BonejectManager
 {
     private readonly NinjectSettings _ninjectSettings = new()
     {

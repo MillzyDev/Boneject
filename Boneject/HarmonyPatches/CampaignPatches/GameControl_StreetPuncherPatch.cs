@@ -6,7 +6,7 @@ namespace Boneject.HarmonyPatches.CampaignPatches;
 
 [HarmonyPatch(typeof(GameControl_StreetPuncher))]
 [HarmonyPatch(nameof(GameControl_StreetPuncher.Start))]
-public class GameControl_StreetPuncherPatch
+internal class GameControl_StreetPuncherPatch
 {
     [HarmonyPostfix]
     // ReSharper disable once InconsistentNaming

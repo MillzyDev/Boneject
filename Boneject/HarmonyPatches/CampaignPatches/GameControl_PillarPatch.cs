@@ -6,7 +6,7 @@ namespace Boneject.HarmonyPatches.CampaignPatches;
 
 [HarmonyPatch(typeof(GameControl_Pillar))]
 [HarmonyPatch(nameof(GameControl_Pillar.Start))]
-public class GameControl_PillarPatch
+internal class GameControl_PillarPatch
 {
     [HarmonyPostfix]
     // ReSharper disable once InconsistentNaming

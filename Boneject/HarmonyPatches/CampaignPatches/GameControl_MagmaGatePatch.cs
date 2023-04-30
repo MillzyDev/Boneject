@@ -6,7 +6,7 @@ namespace Boneject.HarmonyPatches.CampaignPatches;
 
 [HarmonyPatch(typeof(GameControl_MagmaGate))]
 [HarmonyPatch(nameof(GameControl_MagmaGate.Start))]
-public class GameControl_MagmaGatePatch
+internal class GameControl_MagmaGatePatch
 {
     [HarmonyPostfix]
     // ReSharper disable once InconsistentNaming

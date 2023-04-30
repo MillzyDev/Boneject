@@ -5,7 +5,7 @@ using SLZ.VRMK;
 
 namespace Boneject.Ninject.Modules;
 
-public class StartupModule : NinjectModule
+internal class StartupModule : NinjectModule
 {
     private readonly BonejectManager _bonejectManager;
     private readonly GameControl_startup _gameControlStartup;

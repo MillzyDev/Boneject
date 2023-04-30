@@ -6,7 +6,7 @@ namespace Boneject.HarmonyPatches.CampaignPatches;
 
 [HarmonyPatch(typeof(GameControl_MoonBase))]
 [HarmonyPatch(nameof(GameControl_MoonBase.Start))]
-public class GameControl_MoonBasePatch
+internal class GameControl_MoonBasePatch
 {
     [HarmonyPostfix]
     // ReSharper disable once InconsistentNaming
