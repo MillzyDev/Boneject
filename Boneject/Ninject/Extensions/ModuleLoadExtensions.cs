@@ -4,7 +4,7 @@ using Boneject.Ninject.Infrastructure;
 using Ninject;
 using Ninject.Modules;
 
-namespace Boneject.Ninject;
+namespace Boneject.Ninject.Extensions;
 
 public static class ModuleLoadExtensions
 {
