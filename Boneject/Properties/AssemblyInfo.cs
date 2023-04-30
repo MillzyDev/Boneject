@@ -19,7 +19,7 @@ using BuildInfo = Boneject.BuildInfo;
 [assembly: NeutralResourcesLanguage("en")]
 
 // ReSharper disable once RedundantArgumentDefaultValue
-[assembly: MelonInfo(typeof(Mod), BuildInfo.name, BuildInfo.version, BuildInfo.author, BuildInfo.downloadLink)]
+[assembly: MelonInfo(typeof(Mod), BuildInfo.name, BuildInfo.semanticVersion, BuildInfo.author, BuildInfo.downloadLink)]
 
 [assembly: MelonPriority(-1000000)] // -1,000,000
 [assembly: MelonGame("Stress Level Zero", "BONELAB")]
