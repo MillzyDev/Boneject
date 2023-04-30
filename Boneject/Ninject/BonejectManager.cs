@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Boneject.Ninject.Extensions;
 using Boneject.Ninject.Modules;
 using MelonLoader;
 using Ninject;
