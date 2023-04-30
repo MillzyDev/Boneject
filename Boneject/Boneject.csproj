@@ -108,13 +108,15 @@
         <Compile Include="Ninject\BonejectManager.cs" />
         <Compile Include="Ninject\Context.cs" />
         <Compile Include="Ninject\ContextLoaders\CampaignContextLoader.cs" />
+        <Compile Include="Ninject\Extensions\BindingExtensions.cs" />
+        <Compile Include="Ninject\Extensions\ModuleLoadExtensions.cs" />
+        <Compile Include="Ninject\Extensions\UnityBindingExtensions.cs" />
         <Compile Include="Ninject\Filters\ILoadFilter.cs" />
         <Compile Include="Ninject\Filters\MultiTypedLoadFilter.cs" />
         <Compile Include="Ninject\Infrastructure\Ensure.cs" />
         <Compile Include="Ninject\LoadInstruction.cs" />
         <Compile Include="Ninject\LoadSet.cs" />
         <Compile Include="Ninject\Bonejector.cs" />
-        <Compile Include="Ninject\ModuleLoadExtensions.cs" />
         <Compile Include="Ninject\Modules\AppModule.cs" />
         <Compile Include="Ninject\Modules\CampaignModule.cs" />
         <Compile Include="Ninject\Modules\HubModule.cs" />
