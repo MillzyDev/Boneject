@@ -1,5 +1,6 @@
 ﻿using Boneject.Ninject.Modules;
 using HarmonyLib;
+using MelonLoader;
 using Ninject;
 using SLZ.Bonelab;
 
@@ -25,5 +26,7 @@ public static class GameControl_HubPatch
         var baseModule = new HubModule(bonejectManager, __instance, rigManager, controlPlayer, gauntletElevator,
             inventorySaveFilter);
         kernel.Load(baseModule);
+        
+        MelonLogger.Msg("Hub context loaded.");
     }
 }
