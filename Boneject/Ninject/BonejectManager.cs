@@ -65,6 +65,7 @@ public class BonejectManager
 
     public void Add(Bonejector bonejector) => _bonejectors.Add(bonejector);
 
+    // ReSharper disable once MemberCanBeMadeStatic.Global
     public void Enable()
     {
         
@@ -72,14 +73,24 @@ public class BonejectManager
 
     public void LoadForContext(INinjectModule baseModule)
     {
-        foreach (var set in _bonejectors
-                     .SelectMany(bonejector => bonejector.LoadSets, (bonejector, set) => new { bonejector, set })
-                     .Where(t => t.set.LoadFilter.ShouldLoad(baseModule))
-                     .Select(t => t.set))
+        foreach (var bonejector in _bonejectors)
         {
-            MelonLogger.Msg($"Loading: {set.ModuleType.FullName} into {baseModule.GetType().Name}...");
-            Kernel.Load(set.ModuleType, set.InitialParameters);
+            foreach (var set in bonejector.LoadSets)
+            {
+                if (!set.LoadFilter.ShouldLoad(baseModule)) continue;
+                
+                MelonLogger.Msg($"Loading {set.ModuleType.FullName} into {baseModule.GetType().FullName}");
+                Kernel.Load(set.ModuleType, set.InitialParameters);
+            }
+
+            foreach (var instruction in bonejector.LoadInstructions)
+            {
+                if (instruction.baseModule == baseModule.GetType())
+                    instruction.onLoad(Kernel);
+            }
         }
+        
+        
     }
 
     public void Disable()
