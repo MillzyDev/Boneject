@@ -27,10 +27,10 @@ internal class CampaignModule : NinjectModule
     
     public override void Load()
     {
-        Bind<BonelabInternalGameControl>().ToConstant(_bonelabInternalGameControl!).InSingletonScope();
-        Bind<RigManager>().ToConstant(_rigManager!).InSingletonScope();
+        Bind<BonelabInternalGameControl>().ToConstant(_bonelabInternalGameControl).InSingletonScope();
+        Bind<RigManager>().ToConstant(_rigManager).InSingletonScope();
         Bind<SaveFeatures>().ToConstant(_saveFeatures).InSingletonScope();
-        Bind<InventorySaveFilter>().ToConstant(_inventorySaveFilter!).InSingletonScope();
+        Bind<InventorySaveFilter>().ToConstant(_inventorySaveFilter).InSingletonScope();
         
         _bonejectManager.LoadForContext(this);
     }
