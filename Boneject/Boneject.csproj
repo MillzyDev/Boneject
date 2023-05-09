@@ -81,6 +81,7 @@
     </ItemGroup>
     
     <ItemGroup>
+        <Compile Include="AccessUtils.cs" />
         <Compile Include="BonejectException.cs" />
         <Compile Include="HarmonyPatches\BonelabGameControlPatch.cs" />
         <Compile Include="HarmonyPatches\CampaignPatches\GameControl_AscentPatch.cs" />
@@ -159,7 +160,7 @@
         <Message Text="Done!" Importance="high" />
     </Target>
 
-    <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Release'">
+    <Target Name="PostBuild Thunderstore" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Release'">
         <Message Text="===== BONEJECT THUNDERSTORE ARCHIVE =====" Importance="high" />
         
         <Message Text="Copying files to StagingArea..." Importance="high" />
