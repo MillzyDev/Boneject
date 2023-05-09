@@ -13,7 +13,7 @@ internal class AppModule : NinjectModule
     
     public override void Load()
     {
-        _bonejectManager.LoadForContext(this);
+        _bonejectManager.LoadForContext(this, "__APP_CONTEXT_PRESERVE__");
     }
 
 }
