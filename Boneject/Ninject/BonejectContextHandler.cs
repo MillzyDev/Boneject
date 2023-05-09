@@ -23,7 +23,9 @@ internal class BonejectContextHandler : MonoBehaviour
     [HideFromIl2Cpp]
     internal BonejectManager BonejectManager
     {
+        [HideFromIl2Cpp]
         get => _bonejectManager!;
+        [HideFromIl2Cpp]
         set => _bonejectManager ??= value;
     }
 
@@ -37,23 +39,25 @@ internal class BonejectContextHandler : MonoBehaviour
         SceneManager.sceneUnloaded += DelegateSupport.ConvertDelegate<UnityAction<Scene>>(OnSceneUnloaded);
     }
 
-    private void OnSceneUnloaded(Scene _) => UnloadNonAppBindings();
+    private void OnSceneUnloaded(Scene scene) => UnloadNonAppBindings(scene.name);
 
     [HideFromIl2Cpp]
-    private void UnloadNonAppBindings()
+    private void UnloadNonAppBindings(string sceneName)
     {
         var kernel = BonejectManager.Kernel;
         
         // Unregister modules
-        IEnumerable<INinjectModule> modules =
-            kernel.GetModules().Where(module => !BonejectManager.PreservedModules.Contains(module));
+        var modules = BonejectManager.SceneModules[sceneName];
         foreach (var module in modules)
+        {
             kernel.Unload(module.Name);
+        }
 
         // Remove bindings
-        var bindings = BonejectManager.BindingCache.Values.SelectMany(value => value)
-            .Where(binding => !BonejectManager.PreservedBindings.Contains(binding));
+        var bindings = BonejectManager.SceneBindings[sceneName];
         foreach (var binding in bindings)
+        {
             kernel.RemoveBinding(binding);
+        }
     }
 }

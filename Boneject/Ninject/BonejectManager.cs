@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Boneject.Ninject.Extensions;
 using Boneject.Ninject.Modules;
 using MelonLoader;
@@ -9,6 +8,7 @@ using Ninject;
 using Ninject.Infrastructure;
 using Ninject.Modules;
 using Ninject.Planning.Bindings;
+using UnityEngine.SceneManagement;
 
 namespace Boneject.Ninject;
 
@@ -34,9 +34,6 @@ internal class BonejectManager
     };
 
     private BonejectKernel? _kernel;
-    private Dictionary<Type, IBinding[]>? _bindingCache;
-    private IBinding[]? _preservedBindings;
-    private INinjectModule[]? _preservedModules;
     private readonly HashSet<Bonejector> _bonejectors = new();
 
     internal BonejectKernel Kernel
@@ -48,21 +45,13 @@ internal class BonejectManager
             _kernel = new BonejectKernel(_ninjectSettings);
             _kernel.Load(new AppModule(this));
 
-            _preservedModules = _kernel.GetModules().ToArray();
-            
-            _bindingCache = typeof(BonejectKernel)
-                .GetField("bindingCache", BindingFlags.Instance | BindingFlags.NonPublic)
-                ?.GetValue(_kernel) as Dictionary<Type, IBinding[]>;
-
-            _preservedBindings = _bindingCache?.SelectMany(cache => cache.Value).ToArray();
-            
             return _kernel;
         }
     }
 
-    internal Dictionary<Type, IBinding[]> BindingCache => _bindingCache ?? new Dictionary<Type, IBinding[]>();
-    internal IEnumerable<INinjectModule> PreservedModules => _preservedModules ?? Array.Empty<INinjectModule>();
-    internal IEnumerable<IBinding> PreservedBindings => _preservedBindings ?? Array.Empty<IBinding>();
+    internal Dictionary<string, HashSet<IBinding>> SceneBindings { get; } = new();
+
+    internal Dictionary<string, HashSet<INinjectModule>> SceneModules { get; } = new();
 
     public void Add(Bonejector bonejector) => _bonejectors.Add(bonejector);
 
@@ -72,7 +61,7 @@ internal class BonejectManager
         // TODO: May add some stuff here later if ML ever supports enabling and disabling mods.
     }
 
-    public void LoadForContext(INinjectModule baseModule)
+    public void LoadForContext(INinjectModule baseModule, string? overrideSceneName = null)
     {
         foreach (var bonejector in _bonejectors)
         {
@@ -91,6 +80,27 @@ internal class BonejectManager
                     instruction.OnLoad(Kernel);
                 }
             }
+        }
+        
+        var sceneName = overrideSceneName ?? SceneManager.GetActiveScene().name;
+        
+        if (!SceneBindings.Keys.Contains(sceneName))
+            SceneBindings.Add(sceneName, new());
+        if (!SceneModules.Keys.Contains(sceneName))
+            SceneModules.Add(sceneName, new());
+        
+        var bindingsAccessor =
+                    AccessUtils.GetFieldAccessor<KernelBase, Dictionary<Type, ICollection<IBinding>>>("bindings");
+        var bindings = bindingsAccessor(Kernel);
+        foreach (var binding in bindings.SelectMany(bindingCollection => bindingCollection.Value))
+        {
+            SceneBindings[sceneName].Add(binding);
+        }
+
+        var modules = Kernel.GetModules();
+        foreach (var module in modules)
+        {
+            SceneModules[sceneName].Add(module);
         }
     }
 
