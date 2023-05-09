@@ -12,8 +12,8 @@ internal static class BuildInfo
     public const string name = "Boneject";
     public const string author = "Millzy";
     public const string company = null!;
-    public const string version = "1.0.0.0";
-    public const string semanticVersion = "1.0.0";
+    public const string version = "1.0.1.0";
+    public const string semanticVersion = "1.0.1";
     public const string downloadLink = "https://github.com/MillzyDev/Boneject/releases/latest/download/Boneject.zip";
 }
 
@@ -59,7 +59,7 @@ internal class Mod : MelonMod
         _harmony.UnpatchSelf();
     }
 
-    private object ConstructBonejector(object? previous, ParameterInfo _, MelonInfoAttribute info)
+    private object ConstructBonejector(object? previous, ParameterInfo? _, MelonInfoAttribute info)
     {
         if (previous is not null)
             return previous;
