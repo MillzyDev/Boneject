@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using Boneject.MelonLoader.Attributes;
+using Boneject.Ninject;
 using MelonLoader;
 using Ninject;
+using Ninject.Activation;
+using Ninject.Parameters;
 
 namespace Boneject.MelonLoader;
 
 public static class ModInitInjector
 {
-    public delegate object? InjectParameter(object? previous, ParameterInfo parameter, MelonInfoAttribute info);
+    public delegate object? InjectParameter(object? previous, ParameterInfo? parameter, MelonInfoAttribute info);
 
     private static readonly INinjectSettings _ninjectSettings = new NinjectSettings
     {
@@ -29,9 +33,9 @@ public static class ModInitInjector
         UseReflectionBasedInjection = false,
         ActivationCacheDisabled = false
     };
-
-    private static readonly HashSet<TypedInjector> _injectors = new();
+    
     private static readonly Dictionary<TypedInjector, object?> _previousValues = new();
+    private static readonly StandardKernel _kernel = new(_ninjectSettings);
 
     /// <summary>
     /// Registers a callback that is used to construct a dependency for each mod init.
@@ -39,89 +43,38 @@ public static class ModInitInjector
     /// <param name="type">The type of the dependency you are constructing.</param>
     /// <param name="injector">The callback to construct the dependency.</param>
     public static void AddInjector(Type type, InjectParameter injector)
-        => _injectors.Add(new TypedInjector(type, injector));
+    {
+        var typedInjector = new TypedInjector(type, injector);
+        
+        _kernel.Bind(typedInjector.Type)
+            .ToMethod(ctx =>
+            {
+                var infoParam = ctx.Parameters.First(parameter => parameter.Name == "info");
+                var info = infoParam.GetValue(ctx, ctx.Request.Target) as MelonInfoAttribute;
+                
+                var member = ctx.Request.Target?.Member;
+                if (member is not MethodInfo method) return null;
+                    
+                var previous = _previousValues.ContainsKey(typedInjector) ? _previousValues[typedInjector] : null;
+
+                var serviceType = ctx.Request.Service;
+
+                var parameter = method.GetParameters()
+                    .FirstOrDefault(parameter => parameter.ParameterType == serviceType);
+                if (parameter == null) return null;
+
+                var value = typedInjector.Inject(previous, parameter, info!);
+                _previousValues.Add(typedInjector, value);
+                return value;
+            })
+            .InTransientScope();
+    }
 
     internal static void Inject(InjectableMelonMod mod)
     {
-        var initMethods = mod.GetType().GetMethods()
-            .Where(method => method.GetCustomAttributes(typeof(OnInitializeAttribute)).Any());
-        var methodInfos = initMethods as MethodInfo[] ?? initMethods.ToArray();
-        if (methodInfos.Length > 1)
-            throw new BonejectException("Marking multiple methods with OnInitializeAttribute is not allowed.");
-        var initMethod = methodInfos.First();
-
-        var parameters = initMethod.GetParameters();
-        var resolvedParameters = ResolveParameters(parameters, mod.Info);
-
-        StandardKernel kernel = new(_ninjectSettings);
-        foreach (var resolvedParameter in resolvedParameters)
-        {
-            kernel.Bind(resolvedParameter.GetType()).ToConstant(resolvedParameter).InSingletonScope();
-        }
-        
-        kernel.Inject(mod);
+        _kernel.Inject(mod, new Parameter("info", mod.Info, true));
     }
 
-    private static IEnumerable<object> ResolveParameters(IEnumerable<ParameterInfo> parameters, MelonInfoAttribute info)
-    {
-        var resolvedValues = new HashSet<object>();
-        foreach (var parameter in parameters)
-        {
-            var resolved = ResolveForParameter(parameter, info);
-            if (resolved != null)
-                resolvedValues.Add(resolved);
-        }
-        return resolvedValues;
-    }
-
-    private static object? ResolveForParameter(ParameterInfo parameter, MelonInfoAttribute info)
-    {
-        var parameterType = parameter.ParameterType;
-        var value = parameterType.IsValueType ? Activator.CreateInstance(parameterType) : null;
-
-        var toUse = _injectors
-            .Select(injector => (inject: injector, priority: MatchPriority(parameterType, injector.Type)))
-            .Where(tuple => tuple.priority != null)
-            .Select(tuple => (tuple.inject, priority: tuple.priority!.Value))
-            .OrderByDescending(tuple => tuple.priority)
-            .Select(t => t.inject);
-
-        foreach (var pair in toUse)
-        {
-            object? previous = null;
-            if (_previousValues.ContainsKey(pair))
-                previous = _previousValues[pair];
-
-            var resolved = pair.Inject(previous, parameter, info);
-            _previousValues[pair] = resolved;
-
-            if (resolved == null) continue;
-            value = resolved;
-            break;
-        }
-
-        return value;
-    }
-
-    private static int? MatchPriority(Type target, Type source)
-    {
-        if (target == source) return int.MaxValue;
-        if (!target.IsAssignableFrom(source)) return null;
-        if (!target.IsInterface && !source.IsSubclassOf(target)) return int.MinValue;
-
-        var value = int.MaxValue - 1;
-        while (true)
-        {
-            // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
-            if (source is null) return value;
-            if (source.IsInterface && !source.GetInterfaces().Contains(target)) return value;
-            if (target == source) return value;
-            
-            value--;
-            source = source.BaseType!;
-        }
-    }
-    
     private readonly struct TypedInjector : IEquatable<TypedInjector>
     {
         public readonly Type Type;
