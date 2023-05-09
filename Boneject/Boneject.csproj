@@ -145,6 +145,10 @@
         <Link>README.md</Link>
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
+      <None Include="..\CHANGELOG.md">
+          <Link>CHANGELOG.md</Link>
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>  
     </ItemGroup>
     
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -166,7 +170,7 @@
         <Message Text="Copying files to StagingArea..." Importance="high" />
         <Copy SourceFiles="$(OutputPath)\Boneject.dll;$(OutputPath)\Boneject.pdb" DestinationFolder="$(OutputPath)\StagingArea\Mods\" />
         <Copy SourceFiles="$(OutputPath)\Ninject.dll" DestinationFolder="$(OutputPath)\StagingArea\UserLibs\" />
-        <Copy SourceFiles="$(OutputPath)\icon.png;$(OutputPath)\manifest.json;$(OutputPath)\README.md" DestinationFolder="$(OutputPath)\StagingArea\" />
+        <Copy SourceFiles="$(OutputPath)\icon.png;$(OutputPath)\manifest.json;$(OutputPath)\README.md;$(OutputPath)\CHANGELOG.md" DestinationFolder="$(OutputPath)\StagingArea\" />
         <Message Text="Finished copying files." Importance="high" />
 
         <Message Text="Creating ZIP Archive..." Importance="high" />
