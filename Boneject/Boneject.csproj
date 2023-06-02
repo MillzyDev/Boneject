@@ -202,11 +202,6 @@
     <ItemGroup>
         <ProjectReference Include="..\Boneject.CodeGen\Boneject.CodeGen.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     </ItemGroup>
-
-    <PropertyGroup>
-        <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
-        <CompilerGeneratedOutputFilesPath>$(OutputPath)/generated/</CompilerGeneratedOutputFilesPath>
-    </PropertyGroup>
     
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 
