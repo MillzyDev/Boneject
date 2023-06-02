@@ -3,28 +3,27 @@ using System.Resources;
 using System.Runtime.InteropServices;
 using Boneject;
 using MelonLoader;
-using BuildInfo = Boneject.BuildInfo;
 
-[assembly: AssemblyTitle(BuildInfo.name)]
+[assembly: AssemblyTitle(Boneject.BuildInfo.name)]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany(BuildInfo.company)]
-[assembly: AssemblyProduct(BuildInfo.name)]
-[assembly: AssemblyCopyright("""Copyright (c) 2023 Frederick ("Millzy") Mills""")]
+[assembly: AssemblyCompany(null!)]
+[assembly: AssemblyProduct(Boneject.BuildInfo.name)]
+[assembly: AssemblyCopyright("Copyright (c) 2023 Frederick (Millzy) Mills")]
 [assembly: AssemblyTrademark(null)]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
-[assembly: AssemblyVersion(BuildInfo.version)]
-[assembly: AssemblyFileVersion(BuildInfo.version)]
+[assembly: AssemblyVersion(Boneject.BuildInfo.version)]
+[assembly: AssemblyFileVersion(Boneject.BuildInfo.semVersion)]
 [assembly: NeutralResourcesLanguage("en")]
 
-// ReSharper disable once RedundantArgumentDefaultValue
-[assembly: MelonInfo(typeof(Mod), BuildInfo.name, BuildInfo.semanticVersion, BuildInfo.author, BuildInfo.downloadLink)]
+[assembly: MelonInfo(typeof(Mod), Boneject.BuildInfo.name, Boneject.BuildInfo.semVersion, Boneject.BuildInfo.author, 
+    Boneject.BuildInfo.downloadLink)]
 
-[assembly: MelonPriority(-1000000)] // -1,000,000
+[assembly: MelonPriority(-1000000)]
 [assembly: MelonGame("Stress Level Zero", "BONELAB")]
-[assembly: MelonID(BuildInfo.id)]
+[assembly: MelonID("{5}")]
 
-[assembly: VerifyLoaderVersion("0.5.7")]
+[assembly: VerifyLoaderVersion("{6}")]
 
 [assembly: HarmonyDontPatchAll]
