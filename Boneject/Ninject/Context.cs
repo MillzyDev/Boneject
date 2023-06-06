@@ -59,5 +59,7 @@ public enum Context
     /// Loaded in the last main menu, after you finish the game.
     /// Exposed types: uhhhhhhhh
     /// </summary>
-    VoidG114Menu = 128
+    VoidG114Menu = 128,
+    
+    Menu = Startup | VoidG114Menu 
 }
