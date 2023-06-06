@@ -42,15 +42,22 @@ public enum Context
     Startup = 16,
     
     /// <summary>
-    /// Loaded in the VoidG114 level.
+    /// Probably loaded sometime in the Home level. Keeping this here bc I dont wanna increment the major number.
     /// Exposed types: <see cref="SLZ.Bonelab.GameControl_VoidG114"/>, <see cref="SLZ.Rig.RigManager"/>.
     /// <see cref="SLZ.VRMK.BodyVitals"/>.
     /// </summary>
+    [Obsolete]
     VoidG114 = 32,
     
     /// <summary>
     /// Loaded whenever the player's <see cref="SLZ.Rig.RigManager"/> is started.
     /// Exposed types: <see cref="SLZ.Rig.RigManager"/>.
     /// </summary>
-    Player = 64
+    Player = 64,
+    
+    /// <summary>
+    /// Loaded in the last main menu, after you finish the game.
+    /// Exposed types: uhhhhhhhh
+    /// </summary>
+    VoidG114Menu = 128
 }
