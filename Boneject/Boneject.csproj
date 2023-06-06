@@ -9,8 +9,8 @@
         <ModId>dev.millzy.Boneject</ModId>
         <ModName>Boneject</ModName>
         <ModAuthor>Millzy</ModAuthor>
-        <ModVersion>1.0.2.0</ModVersion>
-        <ModSemanticVersion>1.0.2</ModSemanticVersion>
+        <ModVersion>1.1.0.0</ModVersion>
+        <ModSemanticVersion>1.1.0</ModSemanticVersion>
         <ModDownloadLink>https://github.com/MillzyDev/Boneject/releases/latest/download/Boneject.zip</ModDownloadLink>
     </PropertyGroup>
     
