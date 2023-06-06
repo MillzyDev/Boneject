@@ -47,14 +47,16 @@ internal class BonejectContextHandler : MonoBehaviour
         var kernel = BonejectManager.Kernel;
         
         // Unregister modules
-        var modules = BonejectManager.SceneModules[sceneName];
-        foreach (var module in modules)
+        if (BonejectManager.SceneModules.TryGetValue(sceneName, out var modules))
         {
-            kernel.Unload(module.Name);
+            foreach (var module in modules)
+            {
+                kernel.Unload(module.Name);
+            }
         }
 
         // Remove bindings
-        var bindings = BonejectManager.SceneBindings[sceneName];
+        if (!BonejectManager.SceneBindings.TryGetValue(sceneName, out var bindings)) return;
         foreach (var binding in bindings)
         {
             kernel.RemoveBinding(binding);
