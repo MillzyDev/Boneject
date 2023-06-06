@@ -61,10 +61,14 @@ public class Bonejector
             moduleTypes.Add(typeof(HubModule));
         if (context.HasFlag(Context.Startup))
             moduleTypes.Add(typeof(StartupModule));
+#pragma warning disable CS0612
         if (context.HasFlag(Context.VoidG114))
+#pragma warning restore CS0612
             moduleTypes.Add(typeof(VoidG114Module));
         if (context.HasFlag(Context.Player))
             moduleTypes.Add(typeof(PlayerModule));
+        if (context.HasFlag(Context.VoidG114Menu))
+            moduleTypes.Add(typeof(VoidG114MenuModule));
 
         return moduleTypes;
     }
