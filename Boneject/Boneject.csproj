@@ -108,6 +108,9 @@
         <Reference Include="UnhollowerRuntimeLib">
           <HintPath>$(BonelabDir)\MelonLoader\Managed\UnhollowerRuntimeLib.dll</HintPath>
         </Reference>
+        <Reference Include="Unity.TextMeshPro">
+          <HintPath>..\..\..\Oculus\Software\Software\stress-level-zero-inc-bonelab\MelonLoader\Managed\Unity.TextMeshPro.dll</HintPath>
+        </Reference>
         <Reference Include="UnityEngine">
           <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.dll</HintPath>
         </Reference>
@@ -130,13 +133,13 @@
         <Compile Include="HarmonyPatches\CampaignPatches\GameControl_KartRacePatch.cs" />
         <Compile Include="HarmonyPatches\CampaignPatches\GameControl_LongRunPatch.cs" />
         <Compile Include="HarmonyPatches\CampaignPatches\GameControl_MagmaGatePatch.cs" />
-        <Compile Include="HarmonyPatches\CampaignPatches\GameControl_MenuVoidG114Patch.cs" />
         <Compile Include="HarmonyPatches\CampaignPatches\GameControl_MoonBasePatch.cs" />
         <Compile Include="HarmonyPatches\CampaignPatches\GameControl_OutroPatch.cs" />
         <Compile Include="HarmonyPatches\CampaignPatches\GameControl_PillarPatch.cs" />
         <Compile Include="HarmonyPatches\CampaignPatches\GameControl_SprintBridge04Patch.cs" />
         <Compile Include="HarmonyPatches\CampaignPatches\GameControl_StreetPuncherPatch.cs" />
         <Compile Include="HarmonyPatches\GameControl_HubPatch.cs" />
+        <Compile Include="HarmonyPatches\GameControl_MenuVoidG114Patch.cs" />
         <Compile Include="HarmonyPatches\GameControl_startupPatch.cs" />
         <Compile Include="HarmonyPatches\GameControl_VoidG114Patch.cs" />
         <Compile Include="HarmonyPatches\LoadingScenePatch.cs" />
@@ -145,6 +148,8 @@
         <Compile Include="MelonLoader\InjectableMelonMod.cs" />
         <Compile Include="MelonLoader\ModInitInjector.cs" />
         <Compile Include="Mod.cs" />
+        <Compile Include="Ninject\Adapters\AdapterBase.cs" />
+        <Compile Include="Ninject\Adapters\MainMenuAdapter.cs" />
         <Compile Include="Ninject\BonejectContextHandler.cs" />
         <Compile Include="Ninject\BonejectKernel.cs" />
         <Compile Include="Ninject\BonejectManager.cs" />
@@ -165,6 +170,7 @@
         <Compile Include="Ninject\Modules\LoadingModule.cs" />
         <Compile Include="Ninject\Modules\PlayerModule.cs" />
         <Compile Include="Ninject\Modules\StartupModule.cs" />
+        <Compile Include="Ninject\Modules\VoidG114MenuModule.cs" />
         <Compile Include="Ninject\Modules\VoidG114Module.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
