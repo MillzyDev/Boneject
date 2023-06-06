@@ -21,8 +21,10 @@ public static class GameControl_startupPatch
         var controlPlayer = __instance.controlPlayer;
         var bodyVitals = __instance.ctrl_bodyVitals;
         var laserCursor = __instance.mainMenuUIController;
+        var fadeVolume = __instance.fadeVolume;
 
-        var baseModule = new StartupModule(bonejectManager, __instance, controlPlayer, bodyVitals, laserCursor);
+        var baseModule = new StartupModule(bonejectManager, __instance, controlPlayer, bodyVitals, laserCursor, 
+            fadeVolume);
         kernel.Load(baseModule);
         
         MelonLogger.Msg("Startup context loaded.");
