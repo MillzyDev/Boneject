@@ -55,7 +55,7 @@ public static class ModInitInjector
                 var member = ctx.Request.Target?.Member;
                 if (member is not MethodInfo method) return null;
                     
-                var previous = _previousValues.ContainsKey(typedInjector) ? _previousValues[typedInjector] : null;
+                var previous = _previousValues.TryGetValue(typedInjector, out var previousValue) ? previousValue : null;
 
                 var serviceType = ctx.Request.Service;
 
@@ -64,7 +64,7 @@ public static class ModInitInjector
                 if (parameter == null) return null;
 
                 var value = typedInjector.Inject(previous, parameter, info!);
-                _previousValues.Add(typedInjector, value);
+                _previousValues.Add(typedInjector, value); // TODO: Fix duplicate key - create struct with MelonInfoAttribute and TypedInjector
                 return value;
             })
             .InTransientScope();
