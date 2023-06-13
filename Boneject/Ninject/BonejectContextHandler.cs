@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System;
-using System.Linq;
+﻿using System;
 using MelonLoader;
-using Ninject.Modules;
 using UnhollowerBaseLib.Attributes;
 using UnhollowerRuntimeLib;
 using UnityEngine;
