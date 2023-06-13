@@ -5,6 +5,7 @@ namespace Boneject;
 
 public static class AccessUtils
 {
+    // haha speedy expression go brrrrrrr
     public static Func<T, R> GetFieldAccessor<T, R>(string fieldName) 
     { 
         var param = Expression.Parameter(typeof(T),"arg");

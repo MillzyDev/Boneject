@@ -23,7 +23,7 @@ internal class BonejectContextHandler : MonoBehaviour
         [HideFromIl2Cpp]
         get => _bonejectManager!;
         [HideFromIl2Cpp]
-        set => _bonejectManager ??= value;
+        set => _bonejectManager ??= value; // only set if not already set
     }
 
     private void Awake()

@@ -16,7 +16,7 @@ public static class UnityBindingExtensions
     {
         var gameObject = new GameObject(typeof(T).FullName);
         var monoBehaviour = gameObject.AddComponent<T>();
-        monoBehaviour.enabled = false;
+        monoBehaviour.enabled = false; // disabled to ensure that Start does not run early
         self.Inject(monoBehaviour);
         var bindingSyntax = self.Bind<T>().ToConstant(monoBehaviour);
         monoBehaviour.enabled = true;

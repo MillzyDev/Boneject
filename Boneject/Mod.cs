@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Boneject;
 
+// not much point in using mod init injection before it even does anything useful
 internal class Mod : MelonMod
 {
     private HarmonyLib.Harmony _harmony = null!;
@@ -14,6 +15,8 @@ internal class Mod : MelonMod
     public Mod() => Instance = this;
 
     private static Mod Instance { get; set; } = null!;
+    
+    // need access to the boneject manager in harmony patches, which need to be static.
     internal static BonejectManager BonejectManager => Instance._bonejectManager;
 
     // ReSharper disable once UnusedMember.Global
@@ -39,7 +42,7 @@ internal class Mod : MelonMod
         contextHandler.BonejectManager = _bonejectManager;
         gameObject.SetActive(true);
 
-        _ = BonejectManager.Kernel; // Force the kernel to init.
+        _ = _bonejectManager.Kernel; // Force the kernel to init.
     }
 
     public override void OnDeinitializeMelon()

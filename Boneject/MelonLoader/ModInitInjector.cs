@@ -23,6 +23,7 @@ public static class ModInitInjector
 #pragma warning disable CS0618
         InjectNonPublic = false,
 #pragma warning restore CS0618
+        // use a custom attribute for readability and control over what members it can be associated with
         InjectAttribute = typeof(OnInitializeAttribute),
         CachePruningInterval = default,
         DefaultScopeCallback = null,
@@ -32,6 +33,7 @@ public static class ModInitInjector
         ActivationCacheDisabled = false
     };
     
+    // here in case mod disabling becomes a thing
     private static readonly Dictionary<ModTypedInjector, object?> PreviousValues = new();
     private static readonly StandardKernel Kernel = new(NinjectSettings);
 
@@ -48,6 +50,7 @@ public static class ModInitInjector
             .ToMethod(ctx =>
             {
                 var infoParam = ctx.Parameters.First(parameter => parameter.Name == "info");
+                // need the melon info of whats getting injected for indexing reasons
                 var info = infoParam.GetValue(ctx, ctx.Request.Target) as MelonInfoAttribute;
                 
                 var member = ctx.Request.Target?.Member;
@@ -58,15 +61,15 @@ public static class ModInitInjector
 
                 var serviceType = ctx.Request.Service;
 
-                var parameter = method.GetParameters()
+                var parameter = method.GetParameters() // based on BSIPA's bit
                     .FirstOrDefault(parameter => parameter.ParameterType == serviceType);
                 if (parameter == null) return null;
 
                 var value = typedInjector.Inject(previous, parameter, info!);
-                PreviousValues.Add(modTypedInjector, value); // TODO: Fix duplicate key - create struct with MelonInfoAttribute and TypedInjector
+                PreviousValues.Add(modTypedInjector, value);
                 return value;
             })
-            .InTransientScope();
+            .InTransientScope(); // ensure code above is run for each injection
     }
 
     internal static void Inject(InjectableMelonMod mod)

@@ -43,7 +43,7 @@ internal class BonejectManager
             if (_kernel is not null) return _kernel;
             
             _kernel = new BonejectKernel(_ninjectSettings);
-            _kernel.Load(new AppModule(this));
+            _kernel.Load(new AppModule(this)); // always ensure that the app module exists
 
             return _kernel;
         }
@@ -85,13 +85,15 @@ internal class BonejectManager
         var sceneName = overrideSceneName ?? SceneManager.GetActiveScene().name;
         
         if (!SceneBindings.Keys.Contains(sceneName))
-            SceneBindings.Add(sceneName, new());
+            SceneBindings.Add(sceneName, new HashSet<IBinding>());
         if (!SceneModules.Keys.Contains(sceneName))
-            SceneModules.Add(sceneName, new());
+            SceneModules.Add(sceneName, new HashSet<INinjectModule>());
         
+        // expression-generated lambda for accessing non-public member; faster than reflection
         var bindingsAccessor =
                     AccessUtils.GetFieldAccessor<KernelBase, Dictionary<Type, ICollection<IBinding>>>("bindings");
         var bindings = bindingsAccessor(Kernel);
+        // ensure all bindings are registered under the scene name after they have all been loaded
         foreach (var binding in bindings.SelectMany(bindingCollection => bindingCollection.Value))
         {
             SceneBindings[sceneName].Add(binding);

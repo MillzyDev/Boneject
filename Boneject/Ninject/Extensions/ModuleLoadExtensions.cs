@@ -23,6 +23,7 @@ public static class ModuleLoadExtensions
             throw new BonejectException("Cannot load type that does not inherit INinjectModule");
 
         INinjectModule module;
+        // TODO: replace with expression
         if (args != null && moduleType.GetConstructors().Any(ctor => ctor.GetParameters().Length > 0))
             module = (INinjectModule)Activator.CreateInstance(moduleType, args);
         else

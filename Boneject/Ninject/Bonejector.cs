@@ -32,6 +32,7 @@ public class Bonejector
     public void Load<T>(Context context, params object[] parameters) where T : INinjectModule
     {
         var moduleTypes = ModuleForContext(context);
+        // only load at the correct modules, correct module types are obtained above
         ILoadFilter filter = new MultiTypedLoadFilter(moduleTypes);
         _loadSets.Add(new LoadSet(typeof(T), filter, parameters.Length != 0 ? parameters : null));
     }
