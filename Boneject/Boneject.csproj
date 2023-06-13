@@ -9,8 +9,8 @@
         <ModId>dev.millzy.Boneject</ModId>
         <ModName>Boneject</ModName>
         <ModAuthor>Millzy</ModAuthor>
-        <ModVersion>1.1.0.0</ModVersion>
-        <ModSemanticVersion>1.1.0</ModSemanticVersion>
+        <ModVersion>1.1.1.0</ModVersion>
+        <ModSemanticVersion>1.1.1</ModSemanticVersion>
         <ModDownloadLink>https://github.com/MillzyDev/Boneject/releases/latest/download/Boneject.zip</ModDownloadLink>
     </PropertyGroup>
     
@@ -146,7 +146,10 @@
         <Compile Include="HarmonyPatches\RigManagerPatch.cs" />
         <Compile Include="MelonLoader\Attributes\OnInitializeAttribute.cs" />
         <Compile Include="MelonLoader\InjectableMelonMod.cs" />
+        <Compile Include="MelonLoader\InjectParameter.cs" />
         <Compile Include="MelonLoader\ModInitInjector.cs" />
+        <Compile Include="MelonLoader\ModTypedInjector.cs" />
+        <Compile Include="MelonLoader\TypedInjector.cs" />
         <Compile Include="Mod.cs" />
         <Compile Include="Ninject\Adapters\AdapterBase.cs" />
         <Compile Include="Ninject\Adapters\MainMenuAdapter.cs" />
