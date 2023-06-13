@@ -14,7 +14,7 @@ namespace Boneject.MelonLoader;
 
 public static class ModInitInjector
 {
-    private static readonly INinjectSettings _ninjectSettings = new NinjectSettings
+    private static readonly INinjectSettings NinjectSettings = new NinjectSettings
     {
         AllowNullInjection = true,
         MethodInjection = true,
@@ -32,8 +32,8 @@ public static class ModInitInjector
         ActivationCacheDisabled = false
     };
     
-    private static readonly Dictionary<TypedInjector, object?> _previousValues = new();
-    private static readonly StandardKernel _kernel = new(_ninjectSettings);
+    private static readonly Dictionary<ModTypedInjector, object?> PreviousValues = new();
+    private static readonly StandardKernel Kernel = new(NinjectSettings);
 
     /// <summary>
     /// Registers a callback that is used to construct a dependency for each mod init.
@@ -44,7 +44,7 @@ public static class ModInitInjector
     {
         var typedInjector = new TypedInjector(type, injector);
         
-        _kernel.Bind(typedInjector.Type)
+        Kernel.Bind(typedInjector.Type)
             .ToMethod(ctx =>
             {
                 var infoParam = ctx.Parameters.First(parameter => parameter.Name == "info");
@@ -52,8 +52,9 @@ public static class ModInitInjector
                 
                 var member = ctx.Request.Target?.Member;
                 if (member is not MethodInfo method) return null;
-                    
-                var previous = _previousValues.TryGetValue(typedInjector, out var previousValue) ? previousValue : null;
+
+                var modTypedInjector = new ModTypedInjector(info!, typedInjector);
+                var previous = PreviousValues.TryGetValue(modTypedInjector, out var previousValue) ? previousValue : null;
 
                 var serviceType = ctx.Request.Service;
 
@@ -62,7 +63,7 @@ public static class ModInitInjector
                 if (parameter == null) return null;
 
                 var value = typedInjector.Inject(previous, parameter, info!);
-                _previousValues.Add(typedInjector, value); // TODO: Fix duplicate key - create struct with MelonInfoAttribute and TypedInjector
+                PreviousValues.Add(modTypedInjector, value); // TODO: Fix duplicate key - create struct with MelonInfoAttribute and TypedInjector
                 return value;
             })
             .InTransientScope();
@@ -70,6 +71,6 @@ public static class ModInitInjector
 
     internal static void Inject(InjectableMelonMod mod)
     {
-        _kernel.Inject(mod, new Parameter("info", mod.Info, true));
+        Kernel.Inject(mod, new Parameter("info", mod.Info, true));
     }
 }
