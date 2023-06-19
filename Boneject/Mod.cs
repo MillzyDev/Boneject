@@ -34,7 +34,7 @@ namespace Boneject
 
         public override void OnInitializeMelon()
         {
-            _harmony = new HarmonyLib.Harmony(BuildInfo.id);
+            _harmony = new HarmonyLib.Harmony("dev.millzy.Boneject");
             _bonejectManager = new BonejectManager();
 
             ModInitInjector.AddInjector(typeof(Bonejector), ConstructBonejector);
