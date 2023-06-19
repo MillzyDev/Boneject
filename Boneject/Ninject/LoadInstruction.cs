@@ -1,15 +1,16 @@
 ﻿using System;
 
-namespace Boneject.Ninject;
-
-internal struct LoadInstruction
+namespace Boneject.Ninject
 {
-    public readonly Type BaseModule;
-    public readonly Action<BonejectKernel> OnLoad;
-
-    public LoadInstruction(Type baseModule, Action<BonejectKernel> onLoad)
+    internal struct LoadInstruction
     {
-        BaseModule = baseModule;
-        OnLoad = onLoad;
+        public readonly Type BaseModule;
+        public readonly Action<BonejectKernel> OnLoad;
+
+        public LoadInstruction(Type baseModule, Action<BonejectKernel> onLoad)
+        {
+            BaseModule = baseModule;
+            OnLoad = onLoad;
+        }
     }
 }

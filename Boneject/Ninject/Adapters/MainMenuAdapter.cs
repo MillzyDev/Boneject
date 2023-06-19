@@ -27,3 +27,5 @@ public partial class MainMenuAdapter : AdapterBase<GameControl_startup, GameCont
     //public GameObject logoSLZ => AIsNotNull ? ObjA!.logoSLZ! : ObjB!.logoSLZ;
 }
 */
+
+

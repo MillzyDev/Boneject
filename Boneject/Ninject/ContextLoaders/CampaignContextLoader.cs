@@ -2,25 +2,29 @@
 using MelonLoader;
 using Ninject;
 using SLZ.Bonelab;
+using SLZ.Rig;
+using SLZ.SaveData;
 
-namespace Boneject.Ninject.ContextLoaders;
-
-// this will be removed once ML 6.1 is used for BONELAB mods, CodeGen will be used to make an adapter.
-internal static class CampaignContextLoader
+namespace Boneject.Ninject.ContextLoaders
 {
-    public static void Load(BonelabInternalGameControl bonelabInternalGameControl)
+    // this will be removed once ML 6.1 is used for BONELAB mods, CodeGen will be used to make an adapter.
+    internal static class CampaignContextLoader
     {
-        var bonejectManager = Mod.BonejectManager;
-        var kernel = bonejectManager.Kernel;
+        public static void Load(BonelabInternalGameControl bonelabInternalGameControl)
+        {
+            BonejectManager? bonejectManager = Mod.BonejectManager;
+            BonejectKernel? kernel = bonejectManager.Kernel;
 
-        var rigManager = bonelabInternalGameControl.PlayerRigManager;
-        var saveFeatures = bonelabInternalGameControl.SaveFeatures;
-        var inventorySaveFilter = bonelabInternalGameControl.InventorySaveFilter;
+            RigManager? rigManager = bonelabInternalGameControl.PlayerRigManager;
+            SaveFeatures saveFeatures = bonelabInternalGameControl.SaveFeatures;
+            InventorySaveFilter? inventorySaveFilter = bonelabInternalGameControl.InventorySaveFilter;
 
-        var baseModule = new CampaignModule(bonejectManager, bonelabInternalGameControl, rigManager, saveFeatures, 
-            inventorySaveFilter);
-        kernel.Load(baseModule);
-        
-        MelonLogger.Msg("Campaign context loaded.");
+            var baseModule = new CampaignModule(bonejectManager, bonelabInternalGameControl, rigManager,
+                saveFeatures,
+                inventorySaveFilter);
+            kernel.Load(baseModule);
+
+            MelonLogger.Msg("Campaign context loaded.");
+        }
     }
 }

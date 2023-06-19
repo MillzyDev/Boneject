@@ -1,20 +1,20 @@
 ﻿using Ninject.Modules;
 
-namespace Boneject.Ninject.Modules;
-
-internal class AppModule : NinjectModule
+namespace Boneject.Ninject.Modules
 {
-    private readonly BonejectManager _bonejectManager;
-    
-    public AppModule(BonejectManager bonejectManager)
+    internal class AppModule : NinjectModule
     {
-        _bonejectManager = bonejectManager;
-    }
-    
-    public override void Load()
-    {
-        // funny "scene name" is used so that it's never unloaded/cleared
-        _bonejectManager.LoadForContext(this, "__APP_CONTEXT_PRESERVE__");
-    }
+        private readonly BonejectManager _bonejectManager;
 
+        public AppModule(BonejectManager bonejectManager)
+        {
+            _bonejectManager = bonejectManager;
+        }
+
+        public override void Load()
+        {
+            // funny "scene name" is used so that it's never unloaded/cleared
+            _bonejectManager.LoadForContext(this, "__APP_CONTEXT_PRESERVE__");
+        }
+    }
 }

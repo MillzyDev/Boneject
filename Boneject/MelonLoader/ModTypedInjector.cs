@@ -1,17 +1,19 @@
 ﻿using MelonLoader;
 
-namespace Boneject.MelonLoader;
-
-internal struct ModTypedInjector
+namespace Boneject.MelonLoader
 {
-    // ReSharper disable once NotAccessedField.Global
-    public readonly MelonInfoAttribute Info;
-    // ReSharper disable once NotAccessedField.Global
-    public readonly TypedInjector TypedInjector;
-
-    public ModTypedInjector(MelonInfoAttribute info, TypedInjector typedInjector)
+    internal struct ModTypedInjector
     {
-        Info = info;
-        TypedInjector = typedInjector;
+        // ReSharper disable once NotAccessedField.Global
+        public readonly MelonInfoAttribute Info;
+
+        // ReSharper disable once NotAccessedField.Global
+        public readonly TypedInjector TypedInjector;
+
+        public ModTypedInjector(MelonInfoAttribute info, TypedInjector typedInjector)
+        {
+            Info = info;
+            TypedInjector = typedInjector;
+        }
     }
 }

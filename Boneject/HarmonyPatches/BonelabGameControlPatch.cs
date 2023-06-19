@@ -1,32 +1,37 @@
-﻿using Boneject.Ninject.Modules;
+﻿using Boneject.Ninject;
+using Boneject.Ninject.Modules;
 using HarmonyLib;
 using MelonLoader;
 using Ninject;
 using SLZ.Bonelab;
+using SLZ.Rig;
+using SLZ.SaveData;
 
-namespace Boneject.HarmonyPatches;
-
-[HarmonyPatch(typeof(BonelabGameControl))]
-[HarmonyPatch(nameof(BonelabGameControl.Start))]
-public static class BonelabGameControlPatch
+namespace Boneject.HarmonyPatches
 {
-    [HarmonyPostfix]
-    // ReSharper disable once InconsistentNaming
-    // ReSharper disable once UnusedMember.Local
-    private static void Postfix(BonelabGameControl __instance)
+    [HarmonyPatch(typeof(BonelabGameControl))]
+    [HarmonyPatch(nameof(BonelabGameControl.Start))]
+    public static class BonelabGameControlPatch
     {
-        if (__instance is not BonelabInternalGameControl bonelabInternalGameControl) return;
+        [HarmonyPostfix]
+        // ReSharper disable once InconsistentNaming
+        // ReSharper disable once UnusedMember.Local
+        private static void Postfix(BonelabGameControl __instance)
+        {
+            if (__instance is not BonelabInternalGameControl bonelabInternalGameControl) return;
 
-        var bonejectManager = Mod.BonejectManager;
-        var kernel = bonejectManager.Kernel;
-        
-        var rigManager = bonelabInternalGameControl.PlayerRigManager;
-        var saveFeatures = bonelabInternalGameControl.SaveFeatures;
-        var inventorySaveFilter = bonelabInternalGameControl.InventorySaveFilter;
+            BonejectManager? bonejectManager = Mod.BonejectManager;
+            BonejectKernel? kernel = bonejectManager.Kernel;
 
-        var campaignModule = new CampaignModule(bonejectManager, bonelabInternalGameControl, rigManager, saveFeatures, inventorySaveFilter);
-        kernel.Load(campaignModule);
-        
-        MelonLogger.Msg("Campaign context loaded.");
+            RigManager? rigManager = bonelabInternalGameControl.PlayerRigManager;
+            SaveFeatures saveFeatures = bonelabInternalGameControl.SaveFeatures;
+            InventorySaveFilter? inventorySaveFilter = bonelabInternalGameControl.InventorySaveFilter;
+
+            var campaignModule = new CampaignModule(bonejectManager, bonelabInternalGameControl, rigManager,
+                saveFeatures, inventorySaveFilter);
+            kernel.Load(campaignModule);
+
+            MelonLogger.Msg("Campaign context loaded.");
+        }
     }
 }

@@ -21,3 +21,5 @@ public class AdapterBase<T1, T2> where T1 : class where T2 : class
     protected bool AIsNotNull => _aIsNotNull ??= ObjA is not null;
 }
 */
+
+
