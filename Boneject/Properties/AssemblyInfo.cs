@@ -3,28 +3,27 @@ using System.Resources;
 using System.Runtime.InteropServices;
 using Boneject;
 using MelonLoader;
-using BuildInfo = Boneject.BuildInfo;
 
-[assembly: AssemblyTitle(BuildInfo.name)]
+[assembly: AssemblyTitle("Boneject")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany(null!)]
-[assembly: AssemblyProduct(BuildInfo.name)]
+[assembly: AssemblyProduct("Boneject")]
 [assembly: AssemblyCopyright("Copyright (c) 2023 Frederick (Millzy) Mills")]
 [assembly: AssemblyTrademark(null)]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
-[assembly: AssemblyVersion(BuildInfo.version)]
-[assembly: AssemblyFileVersion(BuildInfo.semVersion)]
+[assembly: AssemblyVersion("1.2.0.0")]
+[assembly: AssemblyFileVersion("1.2.0")]
 [assembly: NeutralResourcesLanguage("en")]
 
-[assembly: MelonInfo(typeof(Mod), BuildInfo.name, BuildInfo.semVersion, BuildInfo.author, 
-    BuildInfo.downloadLink)]
+[assembly: MelonInfo(typeof(Mod), "Boneject", "1.2.0", "Millzy",
+    "https://github.com/MillzyDev/Boneject/releases/latest/download/Boneject.zip")]
 
 [assembly: MelonPriority(-1000000)]
 [assembly: MelonGame("Stress Level Zero", "BONELAB")]
-[assembly: MelonID("{5}")]
+[assembly: MelonID("dev.millzy.Boneject")]
 
-[assembly: VerifyLoaderVersion(BuildInfo.melonLoaderVersion)]
+[assembly: VerifyLoaderVersion("0.5.7")]
 
 [assembly: HarmonyDontPatchAll]
