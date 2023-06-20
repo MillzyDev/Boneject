@@ -15,7 +15,7 @@ namespace Boneject.Ninject.Extensions
         /// <param name="args">The arguments to construct it with.</param>
         /// <exception cref="BonejectException">Thrown if the module type does not inherit from <see cref="INinjectModule"/></exception>
         // ReSharper disable once InvalidXmlDocComment
-        public static void Load(this IKernel kernel, Type moduleType, params object?[]? args)
+        public static INinjectModule Load(this IKernel kernel, Type moduleType, params object?[]? args)
         {
             Ensure.ArgumentNotNull(kernel, nameof(kernel));
             if (!typeof(INinjectModule).IsAssignableFrom(moduleType))
@@ -27,8 +27,10 @@ namespace Boneject.Ninject.Extensions
                 module = (INinjectModule)Activator.CreateInstance(moduleType, args);
             else
                 module = (INinjectModule)Activator.CreateInstance(moduleType);
-
+            
             kernel.Load(module);
+
+            return module;
         }
     }
 }
