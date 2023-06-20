@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Boneject.Ninject.Extensions;
-using Boneject.Ninject.Modules;
 using MelonLoader;
 using Ninject;
 using Ninject.Infrastructure;
@@ -54,9 +53,9 @@ namespace Boneject.Ninject
             }
         }
 
-        internal Dictionary<int, HashSet<IBinding>> SceneBindings { get; } = new();
+        internal Dictionary<int, HashSet<Type>> SceneBindings { get; } = new();
 
-        internal Dictionary<int, HashSet<INinjectModule>> SceneModules { get; } = new();
+        internal Dictionary<int, HashSet<Type>> SceneModules { get; } = new();
 
         public void Add(Bonejector bonejector)
         {
@@ -71,6 +70,19 @@ namespace Boneject.Ninject
 
         public void LoadForContext(INinjectModule baseModule, int hostId)
         {
+            if (!SceneBindings.Keys.Contains(hostId))
+                SceneBindings.Add(hostId, new HashSet<Type>());
+            if (!SceneModules.Keys.Contains(hostId))
+                SceneModules.Add(hostId, new HashSet<Type>());
+            
+            if (!SceneModules[hostId].Contains(baseModule.GetType()))
+                SceneModules[hostId].Add(baseModule.GetType());
+            
+            // expression-generated lambda for accessing non-public member; faster than reflection
+            Func<KernelBase, Dictionary<Type, ICollection<IBinding>>> bindingsAccessor =
+                AccessUtils.GetFieldAccessor<KernelBase, Dictionary<Type, ICollection<IBinding>>>("bindings");
+            var oldBindings = new Dictionary<Type, ICollection<IBinding>>(bindingsAccessor(Kernel));
+            
             foreach (Bonejector? bonejector in _bonejectors)
             {
                 foreach (LoadSet set in bonejector.LoadSets)
@@ -78,7 +90,8 @@ namespace Boneject.Ninject
                     if (!set.LoadFilter.ShouldLoad(baseModule)) continue;
 
                     MelonLogger.Msg($"Loading {set.ModuleType.FullName} into {baseModule.GetType().FullName}");
-                    Kernel.Load(set.ModuleType, set.InitialParameters);
+                    INinjectModule module = Kernel.Load(set.ModuleType, set.InitialParameters);
+                    SceneModules[hostId].Add(module.GetType());
                 }
 
                 foreach (LoadInstruction instruction in bonejector.LoadInstructions)
@@ -88,37 +101,29 @@ namespace Boneject.Ninject
                 }
             }
 
-            if (!SceneBindings.Keys.Contains(hostId))
-                SceneBindings.Add(hostId, new HashSet<IBinding>());
-            if (!SceneModules.Keys.Contains(hostId))
-                SceneModules.Add(hostId, new HashSet<INinjectModule>());
-
-            // expression-generated lambda for accessing non-public member; faster than reflection
-            Func<KernelBase, Dictionary<Type, ICollection<IBinding>>> bindingsAccessor =
-                AccessUtils.GetFieldAccessor<KernelBase, Dictionary<Type, ICollection<IBinding>>>("bindings");
-            Dictionary<Type, ICollection<IBinding>>? bindings = bindingsAccessor(Kernel);
-            // ensure all bindings are registered under the scene name after they have all been loaded
-            foreach (IBinding? binding in bindings.SelectMany(bindingCollection => bindingCollection.Value))
+            // Only add the new bindings, done by checking what wasn't in the list of bindings cloned at the beginning.
+            var currentBindings = new Dictionary<Type, ICollection<IBinding>>(bindingsAccessor(Kernel));
+            foreach (Type? binding in currentBindings.Keys.Where(type => !oldBindings.ContainsKey(type)))
+            {
                 SceneBindings[hostId].Add(binding);
-
-            IEnumerable<INinjectModule> modules = Kernel.GetModules();
-            foreach (INinjectModule? module in modules)
-                SceneModules[hostId].Add(module);
+            }
         }
 
         public void UnloadForContext(int hostId)
         {
             // Remove modules
-            if (SceneModules.TryGetValue(hostId, out HashSet<INinjectModule>? modules))
+            if (SceneModules.TryGetValue(hostId, out HashSet<Type>? modules))
             {
-                foreach (INinjectModule? module in modules)
-                    Kernel.Unload(module.Name);
+                foreach (Type module in modules)
+                {
+                    Kernel.Unload(module.FullName!);
+                }
             }
 
             // Remove bindings
-            if (!SceneBindings.TryGetValue(hostId, out HashSet<IBinding>? bindings)) return;
-            foreach (IBinding? binding in bindings)
-                Kernel.RemoveBinding(binding);
+            if (!SceneBindings.TryGetValue(hostId, out HashSet<Type>? bindings)) return;
+            foreach (Type? binding in bindings)
+                Kernel.Unbind(binding);
         }
 
         public void Disable()
