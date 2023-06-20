@@ -28,7 +28,7 @@ namespace Boneject.Ninject
             var baseModule = new AppModule(gameObject.GetInstanceID(), bonejectManager);
             _kernel!.Load(baseModule);
 
-            MelonLogger.Msg("VoidG114 context loaded.");
+            MelonLogger.Msg("App context loaded.");
         }
     }
 }
