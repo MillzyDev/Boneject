@@ -2,10 +2,10 @@
 
 ## Fixes
 
+* Context is now dependent on the "host game object" rather than the current scene, modules and bindings will only 
+  unload when they should.
 * Fixed mod init injection breaking when trying to inject into two or more dependents.
-
-## Changes
-
+* Fixed incorrect ID.
 * Removed source generators.
 * Refactored codebase for readability and better practices.
 
