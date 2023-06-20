@@ -18,13 +18,13 @@ namespace Boneject.HarmonyPatches
         // ReSharper disable once InconsistentNaming
         private static void Postfix(GameControl_VoidG114 __instance)
         {
-            BonejectManager? bonejectManager = Mod.BonejectManager;
-            BonejectKernel? kernel = bonejectManager.Kernel;
+            BonejectManager bonejectManager = Mod.BonejectManager;
+            BonejectKernel kernel = bonejectManager.Kernel;
 
             RigManager? rigManager = __instance.rm;
             BodyVitals? bodyVitals = __instance.ctrl_bodyVitals;
 
-            var baseModule = new VoidG114Module(bonejectManager, __instance, rigManager, bodyVitals);
+            var baseModule = new VoidG114Module(__instance.gameObject.GetInstanceID(), bonejectManager, __instance, rigManager, bodyVitals);
             kernel.Load(baseModule);
 
             MelonLogger.Msg("VoidG114 context loaded.");

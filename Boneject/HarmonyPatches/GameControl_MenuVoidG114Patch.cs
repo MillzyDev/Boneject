@@ -18,17 +18,16 @@ namespace Boneject.HarmonyPatches
         // ReSharper disable once UnusedMember.Global
         public static void Postfix(GameControl_MenuVoidG114 __instance)
         {
-            BonejectManager? bonejectManager = Mod.BonejectManager;
-            BonejectKernel? kernel = bonejectManager.Kernel;
+            BonejectManager bonejectManager = Mod.BonejectManager;
+            BonejectKernel kernel = bonejectManager.Kernel;
 
             Control_Player? controlPlayer = __instance.controlPlayer;
             BodyVitals? bodyVitals = __instance.ctrl_bodyVitals;
             LaserCursor? laserCursor = __instance.mainMenuUIController;
             FadeAndDisableVolume? fadeVolume = __instance.fadeVolume;
 
-            var baseModule = new VoidG114MenuModule(bonejectManager, __instance, controlPlayer, bodyVitals,
-                laserCursor,
-                fadeVolume);
+            var baseModule = new VoidG114MenuModule(__instance.gameObject.GetInstanceID(), bonejectManager, 
+                __instance, controlPlayer, bodyVitals, laserCursor, fadeVolume);
             kernel.Load(baseModule);
 
             MelonLogger.Msg("VoidG114Menu context loaded.");

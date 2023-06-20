@@ -7,6 +7,7 @@ namespace Boneject.Ninject.Modules
 {
     internal class VoidG114MenuModule : NinjectModule
     {
+        private readonly int _hostId;
         private readonly BonejectManager _bonejectManager;
         private readonly GameControl_MenuVoidG114 _gameControlMenuVoidG114;
         private readonly Control_Player _controlPlayer;
@@ -14,11 +15,12 @@ namespace Boneject.Ninject.Modules
         private readonly LaserCursor _laserCursor;
         private readonly FadeAndDisableVolume _fadeVolume;
 
-        public VoidG114MenuModule(BonejectManager bonejectManager,
+        public VoidG114MenuModule(int hostId, BonejectManager bonejectManager,
                                   GameControl_MenuVoidG114 gameControlMenuVoidG114,
                                   Control_Player controlPlayer, BodyVitals bodyVitals, LaserCursor laserCursor,
                                   FadeAndDisableVolume fadeVolume)
         {
+            _hostId = hostId;
             _bonejectManager = bonejectManager;
             _gameControlMenuVoidG114 = gameControlMenuVoidG114;
             _controlPlayer = controlPlayer;
@@ -35,7 +37,7 @@ namespace Boneject.Ninject.Modules
             Bind<LaserCursor>().ToConstant(_laserCursor).InSingletonScope();
             Bind<FadeAndDisableVolume>().ToConstant(_fadeVolume).InSingletonScope();
 
-            _bonejectManager.LoadForContext(this);
+            _bonejectManager.LoadForContext(this, _hostId);
         }
     }
 }

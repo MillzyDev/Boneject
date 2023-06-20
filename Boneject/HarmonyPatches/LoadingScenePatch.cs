@@ -16,10 +16,10 @@ namespace Boneject.HarmonyPatches
         // ReSharper disable once InconsistentNaming
         private static void Postfix(LoadingScene __instance)
         {
-            BonejectManager? bonejectManager = Mod.BonejectManager;
-            BonejectKernel? kernel = bonejectManager.Kernel;
+            BonejectManager bonejectManager = Mod.BonejectManager;
+            BonejectKernel kernel = bonejectManager.Kernel;
 
-            var baseModule = new LoadingModule(bonejectManager, __instance);
+            var baseModule = new LoadingModule(__instance.gameObject.GetInstanceID(), bonejectManager, __instance);
             kernel.Load(baseModule);
 
             MelonLogger.Msg("Loading context loaded.");

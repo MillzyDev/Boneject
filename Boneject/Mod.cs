@@ -45,12 +45,6 @@ namespace Boneject
             _harmony.PatchAll();
             _bonejectManager.Enable();
 
-            GameObject gameObject = new("Boneject Context Handler");
-            gameObject.SetActive(false);
-            var contextHandler = gameObject.AddComponent<BonejectContextHandler>();
-            contextHandler.BonejectManager = _bonejectManager;
-            gameObject.SetActive(true);
-
             _ = _bonejectManager.Kernel; // Force the kernel to init.
         }
 

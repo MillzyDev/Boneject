@@ -7,6 +7,7 @@ namespace Boneject.Ninject.Modules
 {
     internal class StartupModule : NinjectModule
     {
+        private readonly int _hostId;
         private readonly BonejectManager _bonejectManager;
         private readonly GameControl_startup _gameControlStartup;
         private readonly Control_Player _controlPlayer;
@@ -14,10 +15,11 @@ namespace Boneject.Ninject.Modules
         private readonly LaserCursor _laserCursor;
         private readonly FadeAndDisableVolume _fadeVolume;
 
-        public StartupModule(BonejectManager bonejectManager, GameControl_startup gameControlStartup,
-                             Control_Player controlPlayer, BodyVitals bodyVitals, LaserCursor laserCursor,
-                             FadeAndDisableVolume fadeVolume)
+        public StartupModule(int hostId, BonejectManager bonejectManager, 
+                             GameControl_startup gameControlStartup, Control_Player controlPlayer, 
+                             BodyVitals bodyVitals, LaserCursor laserCursor, FadeAndDisableVolume fadeVolume)
         {
+            _hostId = hostId;
             _bonejectManager = bonejectManager;
             _gameControlStartup = gameControlStartup;
             _controlPlayer = controlPlayer;
@@ -34,7 +36,7 @@ namespace Boneject.Ninject.Modules
             Bind<LaserCursor>().ToConstant(_laserCursor).InSingletonScope();
             Bind<FadeAndDisableVolume>().ToConstant(_fadeVolume).InSingletonScope();
 
-            _bonejectManager.LoadForContext(this);
+            _bonejectManager.LoadForContext(this, _hostId);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Boneject.HarmonyPatches.CampaignPatches
         // ReSharper disable once UnusedMember.Local
         private static void Postfix(GameControl_LongRun __instance)
         {
-            CampaignContextLoader.Load(__instance);
+            CampaignContextLoader.Load(__instance.gameObject.GetInstanceID(), __instance);
         }
     }
 }

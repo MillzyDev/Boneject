@@ -4,17 +4,18 @@ namespace Boneject.Ninject.Modules
 {
     internal class AppModule : NinjectModule
     {
+        private readonly int _hostId;
         private readonly BonejectManager _bonejectManager;
 
-        public AppModule(BonejectManager bonejectManager)
+        public AppModule(int hostId, BonejectManager bonejectManager)
         {
+            _hostId = hostId;
             _bonejectManager = bonejectManager;
         }
 
         public override void Load()
         {
-            // funny "scene name" is used so that it's never unloaded/cleared
-            _bonejectManager.LoadForContext(this, "__APP_CONTEXT_PRESERVE__");
+            _bonejectManager.LoadForContext(this, _hostId);
         }
     }
 }

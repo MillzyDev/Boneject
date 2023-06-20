@@ -20,15 +20,15 @@ namespace Boneject.HarmonyPatches
         {
             if (__instance is not BonelabInternalGameControl bonelabInternalGameControl) return;
 
-            BonejectManager? bonejectManager = Mod.BonejectManager;
-            BonejectKernel? kernel = bonejectManager.Kernel;
+            BonejectManager bonejectManager = Mod.BonejectManager;
+            BonejectKernel kernel = bonejectManager.Kernel;
 
             RigManager? rigManager = bonelabInternalGameControl.PlayerRigManager;
             SaveFeatures saveFeatures = bonelabInternalGameControl.SaveFeatures;
             InventorySaveFilter? inventorySaveFilter = bonelabInternalGameControl.InventorySaveFilter;
 
-            var campaignModule = new CampaignModule(bonejectManager, bonelabInternalGameControl, rigManager,
-                saveFeatures, inventorySaveFilter);
+            var campaignModule = new CampaignModule(__instance.gameObject.GetInstanceID(), bonejectManager, 
+                bonelabInternalGameControl, rigManager, saveFeatures, inventorySaveFilter);
             kernel.Load(campaignModule);
 
             MelonLogger.Msg("Campaign context loaded.");

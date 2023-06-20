@@ -7,6 +7,7 @@ namespace Boneject.Ninject.Modules
 {
     internal class HubModule : NinjectModule
     {
+        private readonly int _hostId;
         private readonly BonejectManager _bonejectManager;
         private readonly GameControl_Hub _gameControlHub;
         private readonly RigManager _rigManager;
@@ -14,11 +15,12 @@ namespace Boneject.Ninject.Modules
         private readonly GauntletElevator _gauntletElevator;
         private readonly InventorySaveFilter _inventorySaveFilter;
 
-        public HubModule(BonejectManager bonejectManager, GameControl_Hub gameControlHub,
+        public HubModule(int hostId, BonejectManager bonejectManager, GameControl_Hub gameControlHub,
                          RigManager rigManager,
                          Control_Player controlPlayer, GauntletElevator gauntletElevator,
                          InventorySaveFilter inventorySaveFilter)
         {
+            _hostId = hostId;
             _bonejectManager = bonejectManager;
             _gameControlHub = gameControlHub;
             _rigManager = rigManager;
@@ -35,7 +37,7 @@ namespace Boneject.Ninject.Modules
             Bind<GauntletElevator>().ToConstant(_gauntletElevator).InSingletonScope();
             Bind<InventorySaveFilter>().ToConstant(_inventorySaveFilter).InSingletonScope();
 
-            _bonejectManager.LoadForContext(this);
+            _bonejectManager.LoadForContext(this, _hostId);
         }
     }
 }
