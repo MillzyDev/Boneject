@@ -2,6 +2,7 @@
 using Boneject.Ninject.Modules;
 using MelonLoader;
 using Ninject;
+using UnhollowerBaseLib.Attributes;
 using UnityEngine;
 
 namespace Boneject.Ninject
@@ -15,6 +16,7 @@ namespace Boneject.Ninject
         {
         }
 
+        [HideFromIl2Cpp]
         [Inject]
         public void Inject(IKernel kernel)
         {
