@@ -184,6 +184,7 @@
     </Target>
 
     <Target Name="PostBuild Thunderstore" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Release'">
+        
         <Message Text="===== BONEJECT THUNDERSTORE ARCHIVE =====" Importance="high" />
 
         <Message Text="Copying files to StagingArea..." Importance="high" />
