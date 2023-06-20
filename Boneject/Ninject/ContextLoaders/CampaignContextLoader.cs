@@ -23,6 +23,8 @@ namespace Boneject.Ninject.ContextLoaders
                 saveFeatures,
                 inventorySaveFilter);
             kernel.Load(baseModule);
+            
+            ContextUnloader.AddToObject(bonelabInternalGameControl.gameObject);
 
             MelonLogger.Msg("Campaign context loaded.");
         }

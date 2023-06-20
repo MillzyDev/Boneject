@@ -30,6 +30,8 @@ namespace Boneject.HarmonyPatches
                 __instance, controlPlayer, bodyVitals, laserCursor, fadeVolume);
             kernel.Load(baseModule);
 
+            ContextUnloader.AddToObject(__instance.gameObject);
+
             MelonLogger.Msg("VoidG114Menu context loaded.");
         }
     }

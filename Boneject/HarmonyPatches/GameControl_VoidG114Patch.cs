@@ -27,6 +27,8 @@ namespace Boneject.HarmonyPatches
             var baseModule = new VoidG114Module(__instance.gameObject.GetInstanceID(), bonejectManager, __instance, rigManager, bodyVitals);
             kernel.Load(baseModule);
 
+            ContextUnloader.AddToObject(__instance.gameObject);
+
             MelonLogger.Msg("VoidG114 context loaded.");
         }
     }

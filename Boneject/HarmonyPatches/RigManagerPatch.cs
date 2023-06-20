@@ -23,7 +23,6 @@ namespace Boneject.HarmonyPatches
             kernel.Load(baseModule);
 
             ContextUnloader.AddToObject(__instance.gameObject);
-            
 
             MelonLogger.Msg("Player context loaded.");
         }

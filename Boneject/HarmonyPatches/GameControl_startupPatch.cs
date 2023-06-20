@@ -26,10 +26,11 @@ namespace Boneject.HarmonyPatches
             LaserCursor? laserCursor = __instance.mainMenuUIController;
             FadeAndDisableVolume? fadeVolume = __instance.fadeVolume;
 
-            var baseModule = new StartupModule(__instance.gameObject.GetInstanceID(), bonejectManager, __instance, controlPlayer, bodyVitals,
-                laserCursor,
-                fadeVolume);
+            var baseModule = new StartupModule(__instance.gameObject.GetInstanceID(), bonejectManager, 
+                __instance, controlPlayer, bodyVitals, laserCursor, fadeVolume);
             kernel.Load(baseModule);
+
+            ContextUnloader.AddToObject(__instance.gameObject);
 
             MelonLogger.Msg("Startup context loaded.");
         }

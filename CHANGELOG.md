@@ -1,3 +1,14 @@
+# v1.2.0
+
+## Fixes
+
+* Fixed mod init injection breaking when trying to inject into two or more dependents.
+
+## Changes
+
+* Removed source generators.
+* Refactored codebase for readability and better practices.
+
 # v1.1.0
 
 * BuildInfo is now handled via properties in the (Boneject.csproj) project file and source generation.

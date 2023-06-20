@@ -26,10 +26,11 @@ namespace Boneject.HarmonyPatches
             GauntletElevator? gauntletElevator = __instance.gauntletElevator;
             InventorySaveFilter? inventorySaveFilter = __instance.inventorySaveFilter;
 
-            var baseModule = new HubModule(__instance.gameObject.GetInstanceID(), bonejectManager, __instance, rigManager, controlPlayer,
-                gauntletElevator,
-                inventorySaveFilter);
+            var baseModule = new HubModule(__instance.gameObject.GetInstanceID(), bonejectManager, __instance, 
+                rigManager, controlPlayer, gauntletElevator, inventorySaveFilter);
             kernel.Load(baseModule);
+
+            ContextUnloader.AddToObject(__instance.gameObject);
 
             MelonLogger.Msg("Hub context loaded.");
         }

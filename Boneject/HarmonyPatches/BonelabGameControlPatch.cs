@@ -31,6 +31,8 @@ namespace Boneject.HarmonyPatches
                 bonelabInternalGameControl, rigManager, saveFeatures, inventorySaveFilter);
             kernel.Load(campaignModule);
 
+            ContextUnloader.AddToObject(__instance.gameObject);
+
             MelonLogger.Msg("Campaign context loaded.");
         }
     }

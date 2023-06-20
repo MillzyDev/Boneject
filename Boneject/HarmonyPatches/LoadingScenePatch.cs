@@ -22,6 +22,8 @@ namespace Boneject.HarmonyPatches
             var baseModule = new LoadingModule(__instance.gameObject.GetInstanceID(), bonejectManager, __instance);
             kernel.Load(baseModule);
 
+            ContextUnloader.AddToObject(__instance.gameObject);
+
             MelonLogger.Msg("Loading context loaded.");
         }
     }
