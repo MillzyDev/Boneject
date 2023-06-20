@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 using Boneject;
 using MelonLoader;
 
-[assembly: AssemblyTitle("Boneject")]
+[assembly: AssemblyTitle(nameof(Boneject))]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany(null!)]
-[assembly: AssemblyProduct("Boneject")]
+[assembly: AssemblyProduct(nameof(Boneject))]
 [assembly: AssemblyCopyright("Copyright (c) 2023 Frederick (Millzy) Mills")]
 [assembly: AssemblyTrademark(null)]
 [assembly: AssemblyCulture("")]
@@ -17,7 +17,7 @@ using MelonLoader;
 [assembly: AssemblyFileVersion("1.2.0")]
 [assembly: NeutralResourcesLanguage("en")]
 
-[assembly: MelonInfo(typeof(Mod), "Boneject", "1.2.0", "Millzy",
+[assembly: MelonInfo(typeof(Mod), nameof(Boneject), "1.2.0", "Millzy",
     "https://github.com/MillzyDev/Boneject/releases/latest/download/Boneject.zip")]
 
 [assembly: MelonPriority(-1000000)]
