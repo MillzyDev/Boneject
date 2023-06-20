@@ -116,11 +116,12 @@
         <Compile Include="Mod.cs" />
         <Compile Include="Ninject\Adapters\AdapterBase.cs" />
         <Compile Include="Ninject\Adapters\MainMenuAdapter.cs" />
-        <Compile Include="Ninject\BonejectContextHandler.cs" />
+        <Compile Include="Ninject\AppContext.cs" />
         <Compile Include="Ninject\BonejectKernel.cs" />
         <Compile Include="Ninject\BonejectManager.cs" />
         <Compile Include="Ninject\Context.cs" />
         <Compile Include="Ninject\ContextLoaders\CampaignContextLoader.cs" />
+        <Compile Include="Ninject\ContextUnloader.cs" />
         <Compile Include="Ninject\Extensions\BindingExtensions.cs" />
         <Compile Include="Ninject\Extensions\ModuleLoadExtensions.cs" />
         <Compile Include="Ninject\Extensions\UnityBindingExtensions.cs" />
