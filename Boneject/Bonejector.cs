@@ -77,6 +77,8 @@ namespace Boneject.Ninject
                 moduleTypes.Add(typeof(PlayerModule));
             if (context.HasFlag(Context.VoidG114Menu))
                 moduleTypes.Add(typeof(VoidG114MenuModule));
+            if (context.HasFlag(Context.SceneBootstrapper))
+                moduleTypes.Add(typeof(SceneBootstrapperModule));
 
             return moduleTypes;
         }

@@ -135,6 +135,7 @@
         <Compile Include="Modules\HubModule.cs" />
         <Compile Include="Modules\LoadingModule.cs" />
         <Compile Include="Modules\PlayerModule.cs" />
+        <Compile Include="Modules\SceneBootstrapperModule.cs" />
         <Compile Include="Modules\StartupModule.cs" />
         <Compile Include="Modules\VoidG114MenuModule.cs" />
         <Compile Include="Modules\VoidG114Module.cs" />

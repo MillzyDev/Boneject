@@ -60,6 +60,12 @@ namespace Boneject.Ninject
         /// Exposed types: uhhhhhhhh
         /// </summary>
         VoidG114Menu = 128,
+        
+        /// <summary>
+        /// Loaded when the SceneBootstrapper is started.
+        /// Exposed types: <see cref="SLZ.Bonelab.SceneBootstrapper_Bonelab"/>.
+        /// </summary>
+        SceneBootstrapper = 256,
 
         /// <summary>
         /// Loads in both main menu levels.
