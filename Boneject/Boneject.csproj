@@ -177,31 +177,35 @@
 
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 
-    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-        <Message Text="===== BONEJECT POST BUILD =====" Importance="high" />
-
-        <Message Text="Copying files to BONELAB installation..." Importance="high" />
-        <Copy SourceFiles="$(OutputPath)\Boneject.dll;$(OutputPath)\Boneject.pdb" DestinationFolder="$(BonelabDir)\Mods\" />
-        <Copy SourceFiles="$(OutputPath)\Ninject.dll" DestinationFolder="$(BonelabDir)\UserLibs\" />
-        <Message Text="Finished copying files." Importance="high" />
-
-        <Message Text="Done!" Importance="high" />
+    <Target Name="PostBuild Copy" AfterTargets="PostBuildEvent">
+        <Copy SourceFiles="$(OutputPath)\Boneject.dll;$(OutputPath)\Boneject.pdb" 
+              DestinationFolder="$(BonelabDir)\Mods\" />
+        
+        <Copy SourceFiles="$(OutputPath)\Ninject.dll" 
+              DestinationFolder="$(BonelabDir)\UserLibs\" />
+        
+        <Message Text="Finished copying files." 
+                 Importance="high" />
     </Target>
 
     <Target Name="PostBuild Thunderstore" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Release'">
+        <Copy SourceFiles="$(OutputPath)\Boneject.dll;$(OutputPath)\Boneject.pdb" 
+              DestinationFolder="$(OutputPath)\StagingArea\Mods\" />
         
-        <Message Text="===== BONEJECT THUNDERSTORE ARCHIVE =====" Importance="high" />
-
-        <Message Text="Copying files to StagingArea..." Importance="high" />
-        <Copy SourceFiles="$(OutputPath)\Boneject.dll;$(OutputPath)\Boneject.pdb" DestinationFolder="$(OutputPath)\StagingArea\Mods\" />
-        <Copy SourceFiles="$(OutputPath)\Ninject.dll" DestinationFolder="$(OutputPath)\StagingArea\UserLibs\" />
-        <Copy SourceFiles="$(OutputPath)\icon.png;$(OutputPath)\manifest.json;$(OutputPath)\README.md;$(OutputPath)\CHANGELOG.md" DestinationFolder="$(OutputPath)\StagingArea\" />
-        <Message Text="Finished copying files." Importance="high" />
-
-        <Message Text="Creating ZIP Archive..." Importance="high" />
-        <ZipDirectory SourceDirectory="$(OutputPath)\StagingArea\" DestinationFile="$(OutputPath)\$(AssemblyName).zip" Overwrite="true" />
-        <Message Text="Finished creating ZIP Archive." Importance="high" />
-
-        <Message Text="Done!" Importance="high" />
+        <Copy SourceFiles="$(OutputPath)\Ninject.dll" 
+              DestinationFolder="$(OutputPath)\StagingArea\UserLibs\" />
+        
+        <Copy SourceFiles="$(OutputPath)\icon.png;$(OutputPath)\manifest.json;$(OutputPath)\README.md;$(OutputPath)\CHANGELOG.md" 
+              DestinationFolder="$(OutputPath)\StagingArea\" />
+        
+        <Message Text="Finished copying files." 
+                 Importance="high" />
+        
+        <ZipDirectory SourceDirectory="$(OutputPath)\StagingArea\" 
+                      DestinationFile="$(OutputPath)\$(AssemblyName).zip" 
+                      Overwrite="true" />
+        
+        <Message Text="Created Thunderstore Archive." 
+                 Importance="high" />
     </Target>
 </Project>
