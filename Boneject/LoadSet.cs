@@ -1,7 +1,7 @@
 ﻿using System;
-using Boneject.Ninject.Filters;
+using Boneject.Filters;
 
-namespace Boneject.Ninject
+namespace Boneject
 {
     internal struct LoadSet
     {

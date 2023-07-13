@@ -1,7 +1,7 @@
 ﻿using Ninject;
 using Ninject.Modules;
 
-namespace Boneject.Ninject
+namespace Boneject
 {
     public class BonejectKernel : StandardKernel
     {

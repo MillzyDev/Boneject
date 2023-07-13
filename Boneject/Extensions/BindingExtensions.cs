@@ -3,7 +3,7 @@ using System.Linq;
 using Ninject.Activation;
 using Ninject.Syntax;
 
-namespace Boneject.Ninject.Extensions
+namespace Boneject.Extensions
 {
     // ReSharper disable once UnusedType.Global
     public static class BindingExtensions

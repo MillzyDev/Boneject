@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Boneject.MelonLoader.Attributes
+namespace Boneject.Attributes
 {
     /// <summary>
     /// Marks the method to be called and injected to when your mod initialises.

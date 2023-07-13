@@ -3,7 +3,7 @@ using SLZ.Bonelab;
 using SLZ.UI;
 using SLZ.VRMK;
 
-namespace Boneject.Ninject.Modules
+namespace Boneject.Modules
 {
     internal class StartupModule : NinjectModule
     {

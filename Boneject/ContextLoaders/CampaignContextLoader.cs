@@ -1,11 +1,11 @@
-﻿using Boneject.Ninject.Modules;
+﻿using Boneject.Modules;
 using MelonLoader;
 using Ninject;
 using SLZ.Bonelab;
 using SLZ.Rig;
 using SLZ.SaveData;
 
-namespace Boneject.Ninject.ContextLoaders
+namespace Boneject.ContextLoaders
 {
     // this will be removed once ML 6.1 is used for BONELAB mods, CodeGen will be used to make an adapter.
     internal static class CampaignContextLoader

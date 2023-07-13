@@ -1,6 +1,6 @@
 ﻿using MelonLoader;
 
-namespace Boneject.MelonLoader
+namespace Boneject
 {
     /// <summary>
     /// A custom implementation of <see cref="MelonMod"/> where your initialize method is injected into with dependencies

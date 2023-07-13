@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Boneject.Ninject
+namespace Boneject
 {
     internal struct LoadInstruction
     {

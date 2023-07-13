@@ -1,11 +1,11 @@
 ﻿using System;
-using Boneject.Ninject.Modules;
+using Boneject.Modules;
 using MelonLoader;
 using Ninject;
 using UnhollowerBaseLib.Attributes;
 using UnityEngine;
 
-namespace Boneject.Ninject
+namespace Boneject
 {
     [RegisterTypeInIl2Cpp]
     public class AppContext : MonoBehaviour

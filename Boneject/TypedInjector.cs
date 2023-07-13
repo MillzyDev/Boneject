@@ -2,7 +2,7 @@
 using System.Reflection;
 using MelonLoader;
 
-namespace Boneject.MelonLoader
+namespace Boneject
 {
     internal readonly struct TypedInjector : IEquatable<TypedInjector>
     {

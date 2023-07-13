@@ -2,7 +2,7 @@
 using MelonLoader;
 using UnityEngine;
 
-namespace Boneject.Ninject
+namespace Boneject
 {
     [RegisterTypeInIl2Cpp]
     public class ContextUnloader : MonoBehaviour

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using Boneject.Ninject.Infrastructure;
+using Boneject.Infrastructure;
 using Ninject;
 using Ninject.Modules;
 
-namespace Boneject.Ninject.Extensions
+namespace Boneject.Extensions
 {
     public static class ModuleLoadExtensions
     {

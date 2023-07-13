@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Boneject.Ninject
+namespace Boneject
 {
     [Flags]
     public enum Context

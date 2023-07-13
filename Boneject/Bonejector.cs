@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Boneject.Ninject.Filters;
-using Boneject.Ninject.Modules;
+using Boneject.Filters;
+using Boneject.Modules;
 using MelonLoader;
 using Ninject.Modules;
 
-namespace Boneject.Ninject
+namespace Boneject
 {
     public class Bonejector
     {

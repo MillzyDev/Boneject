@@ -5,7 +5,7 @@ using Ninject.Syntax;
 using UnhollowerRuntimeLib;
 using UnityEngine;
 
-namespace Boneject.Ninject.Extensions
+namespace Boneject.Extensions
 {
     // ReSharper disable once UnusedType.Global
     public static class UnityBindingExtensions

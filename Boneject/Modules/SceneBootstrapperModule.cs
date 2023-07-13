@@ -1,7 +1,7 @@
 ﻿using Ninject.Modules;
 using SLZ.Bonelab;
 
-namespace Boneject.Ninject.Modules
+namespace Boneject.Modules
 {
     internal class SceneBootstrapperModule : NinjectModule
     {

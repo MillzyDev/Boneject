@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
-using Boneject.MelonLoader.Attributes;
-using Boneject.Ninject;
+using Boneject.Attributes;
 using MelonLoader;
 using Ninject;
-using Ninject.Activation;
 using Ninject.Parameters;
 
-namespace Boneject.MelonLoader
+namespace Boneject
 {
     public static class ModInitInjector
     {

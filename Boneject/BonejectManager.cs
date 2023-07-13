@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Boneject.Ninject.Extensions;
+using Boneject.Extensions;
 using MelonLoader;
 using Ninject;
 using Ninject.Infrastructure;
@@ -10,7 +10,7 @@ using Ninject.Planning.Bindings;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Boneject.Ninject
+namespace Boneject
 {
     internal class BonejectManager
     {

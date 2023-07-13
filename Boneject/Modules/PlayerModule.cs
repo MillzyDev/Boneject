@@ -1,8 +1,7 @@
-﻿using System.Linq;
-using Ninject.Modules;
+﻿using Ninject.Modules;
 using SLZ.Rig;
 
-namespace Boneject.Ninject.Modules
+namespace Boneject.Modules
 {
     internal class PlayerModule : NinjectModule
     {

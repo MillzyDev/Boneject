@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Boneject.Ninject.Infrastructure
+namespace Boneject.Infrastructure
 {
     internal static class Ensure
     {

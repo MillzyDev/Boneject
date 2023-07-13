@@ -1,4 +1,4 @@
-﻿using Boneject.Ninject.ContextLoaders;
+﻿using Boneject.ContextLoaders;
 using HarmonyLib;
 using SLZ.Bonelab;
 

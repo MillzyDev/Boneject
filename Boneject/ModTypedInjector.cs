@@ -1,6 +1,6 @@
 ﻿using MelonLoader;
 
-namespace Boneject.MelonLoader
+namespace Boneject
 {
     internal struct ModTypedInjector
     {

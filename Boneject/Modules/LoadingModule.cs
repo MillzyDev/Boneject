@@ -1,7 +1,7 @@
 ﻿using Ninject.Modules;
 using SLZ.UI;
 
-namespace Boneject.Ninject.Modules
+namespace Boneject.Modules
 {
     internal class LoadingModule : NinjectModule
     {

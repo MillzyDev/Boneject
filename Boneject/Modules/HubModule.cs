@@ -3,7 +3,7 @@ using SLZ.Bonelab;
 using SLZ.Rig;
 using SLZ.SaveData;
 
-namespace Boneject.Ninject.Modules
+namespace Boneject.Modules
 {
     internal class HubModule : NinjectModule
     {

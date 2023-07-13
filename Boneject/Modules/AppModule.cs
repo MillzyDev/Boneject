@@ -1,6 +1,6 @@
 ﻿using Ninject.Modules;
 
-namespace Boneject.Ninject.Modules
+namespace Boneject.Modules
 {
     internal class AppModule : NinjectModule
     {

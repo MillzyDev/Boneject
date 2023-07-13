@@ -1,5 +1,4 @@
-﻿using Boneject.Ninject;
-using Boneject.Ninject.Modules;
+﻿using Boneject.Modules;
 using HarmonyLib;
 using MelonLoader;
 using Ninject;
