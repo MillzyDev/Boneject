@@ -1,0 +1,17 @@
+﻿<Project>
+    <ItemGroup>
+        <Analyzer Include="$(MSBuildThisFileDirectory)\..\bin\$(Configuration)\netstandard2.0\Boneject.CodeGen.dll"
+                  Condition="Exists('$(MSBuildThisFileDirectory)..\bin')" />
+        <Analyzer Include="$(MSBuildThisFileDirectory)\..\tools\Boneject.CodeGen.dll"
+                  Condition="Exists('$(MSBuildThisFileDirectory)..\tools')"
+                  />
+    </ItemGroup>
+
+    <ItemGroup Condition="Exists('$(MSBuildThisFileDirectory)..\bin')">
+        <UpToDateCheck Include="**\*.cs" Exclude="bin\**\*.cs;obj\**\*.cs" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <CompilerVisibleProperty Include="BonelabDir" />
+    </ItemGroup>
+</Project>
