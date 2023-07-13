@@ -69,6 +69,9 @@
         <Reference Include="UnhollowerRuntimeLib">
             <HintPath>$(BonelabDir)\MelonLoader\Managed\UnhollowerRuntimeLib.dll</HintPath>
         </Reference>
+        <Reference Include="UniTask">
+          <HintPath>$(BonelabDir)\MelonLoader\Managed\UniTask.dll</HintPath>
+        </Reference>
         <Reference Include="Unity.TextMeshPro">
             <HintPath>$(BonelabDir)\MelonLoader\Managed\Unity.TextMeshPro.dll</HintPath>
         </Reference>
@@ -122,6 +125,7 @@
         <Compile Include="HarmonyPatches\GameControl_VoidG114Patch.cs" />
         <Compile Include="HarmonyPatches\LoadingScenePatch.cs" />
         <Compile Include="HarmonyPatches\RigManagerPatch.cs" />
+        <Compile Include="HarmonyPatches\SceneBootstrapper_BonelabPatch.cs" />
         <Compile Include="Infrastructure\Ensure.cs" />
         <Compile Include="InjectableMelonMod.cs" />
         <Compile Include="InjectParameter.cs" />
