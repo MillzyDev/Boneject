@@ -81,7 +81,7 @@
     
     <ItemGroup>
         <Reference Include="Ninject, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-            <HintPath>..\packages\Ninject.4.0.0-beta.1\lib\net46\Ninject.dll</HintPath>
+            <HintPath>$(SolutionDir)\packages\Ninject.4.0.0-beta.1\lib\net46\Ninject.dll</HintPath>
         </Reference>
     </ItemGroup>
     
@@ -155,30 +155,30 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="..\icon.png">
+        <None Include="$(SolutionDir)\icon.png">
             <Link>icon.png</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Include="..\manifest.json">
+        <None Include="$(SolutionDir)\manifest.json">
             <Link>manifest.json</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Include="..\README.md">
+        <None Include="$(SolutionDir)\README.md">
             <Link>README.md</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Include="..\CHANGELOG.md">
+        <None Include="$(SolutionDir)\CHANGELOG.md">
             <Link>CHANGELOG.md</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 
     <ItemGroup>
-        <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.3.3.4\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
-        <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.3.3.4\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+        <Analyzer Include="$(SolutionDir)\packages\Microsoft.CodeAnalysis.Analyzers.3.3.4\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
+        <Analyzer Include="$(SolutionDir)\packages\Microsoft.CodeAnalysis.Analyzers.3.3.4\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
     </ItemGroup>
     
-    <Import Project="..\Boneject.CodeGen\build\Boneject.CodeGen.props" />
+    <Import Project="$(SolutionDir)\Boneject.CodeGen\build\Boneject.CodeGen.props" />
 
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 
