@@ -95,7 +95,6 @@
 
     <ItemGroup>
         <Compile Include="AccessUtils.cs" />
-        <Compile Include="Adapters\MenuAdapter.cs" />
         <Compile Include="AppContext.cs" />
         <Compile Include="Attributes\OnInitializeAttribute.cs" />
         <Compile Include="BonejectException.cs" />
