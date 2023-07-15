@@ -1,5 +1,9 @@
-# v1.2.0
+# v2.0.0
+* Removed MelonLoader and Ninject namespaces.
+* Removed VoidG114 context.
+* Added SceneBootstrapper context.
 
+# v1.2.0
 * Context is now dependent on the "host game object" rather than the current scene, modules and bindings will only 
   unload when they should.
 * Fixed mod init injection breaking when trying to inject into two or more dependents.
