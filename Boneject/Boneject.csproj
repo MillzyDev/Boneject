@@ -177,7 +177,7 @@
         <Analyzer Include="$(SolutionDir)\packages\Microsoft.CodeAnalysis.Analyzers.3.3.4\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
         <Analyzer Include="$(SolutionDir)\packages\Microsoft.CodeAnalysis.Analyzers.3.3.4\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
     </ItemGroup>
-    
+
     <Import Project="$(SolutionDir)\Boneject.CodeGen\build\Boneject.CodeGen.props" />
 
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -196,8 +196,6 @@
         <Copy SourceFiles="$(OutputPath)\Ninject.dll" DestinationFolder="$(OutputPath)\StagingArea\UserLibs\" />
         
         <Copy SourceFiles="$(OutputPath)\icon.png;$(OutputPath)\manifest.json;$(OutputPath)\README.md;$(OutputPath)\CHANGELOG.md" DestinationFolder="$(OutputPath)\StagingArea\" />
-        
-        <Message Text="Finished copying files." Importance="high" />
         
         <ZipDirectory SourceDirectory="$(OutputPath)\StagingArea\" DestinationFile="$(OutputPath)\$(AssemblyName).zip" Overwrite="true" />
         
