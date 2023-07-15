@@ -1,6 +1,4 @@
 ﻿using System.Reflection;
-using Boneject.MelonLoader;
-using Boneject.Ninject;
 using MelonLoader;
 using UnityEngine;
 

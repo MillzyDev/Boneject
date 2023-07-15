@@ -39,7 +39,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="App.config" />
         <None Include="Boneject.csproj.user" />
     </ItemGroup>
 
@@ -59,15 +58,14 @@
         <Reference Include="MelonLoader">
             <HintPath>$(BonelabDir)\MelonLoader\MelonLoader.dll</HintPath>
         </Reference>
-        <Reference Include="Ninject, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-            <HintPath>..\packages\Ninject.4.0.0-beta.1\lib\net46\Ninject.dll</HintPath>
-        </Reference>
-        <Reference Include="System.Numerics" />
         <Reference Include="UnhollowerBaseLib">
             <HintPath>$(BonelabDir)\MelonLoader\Managed\UnhollowerBaseLib.dll</HintPath>
         </Reference>
         <Reference Include="UnhollowerRuntimeLib">
             <HintPath>$(BonelabDir)\MelonLoader\Managed\UnhollowerRuntimeLib.dll</HintPath>
+        </Reference>
+        <Reference Include="UniTask">
+          <HintPath>$(BonelabDir)\MelonLoader\Managed\UniTask.dll</HintPath>
         </Reference>
         <Reference Include="Unity.TextMeshPro">
             <HintPath>$(BonelabDir)\MelonLoader\Managed\Unity.TextMeshPro.dll</HintPath>
@@ -78,9 +76,17 @@
         <Reference Include="UnityEngine.CoreModule">
             <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
-
+    </ItemGroup>
+    
+    <ItemGroup>
+        <Reference Include="Ninject, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+            <HintPath>$(SolutionDir)\packages\Ninject.4.0.0-beta.1\lib\net46\Ninject.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+    
+    <ItemGroup>
         <Reference Include="mscorlib" />
-        
+        <Reference Include="System.Numerics" />
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
@@ -89,7 +95,21 @@
 
     <ItemGroup>
         <Compile Include="AccessUtils.cs" />
+        <Compile Include="Adapters\MenuAdapter.cs" />
+        <Compile Include="AppContext.cs" />
+        <Compile Include="Attributes\OnInitializeAttribute.cs" />
         <Compile Include="BonejectException.cs" />
+        <Compile Include="BonejectKernel.cs" />
+        <Compile Include="BonejectManager.cs" />
+        <Compile Include="Bonejector.cs" />
+        <Compile Include="Context.cs" />
+        <Compile Include="ContextLoaders\CampaignContextLoader.cs" />
+        <Compile Include="ContextUnloader.cs" />
+        <Compile Include="Extensions\BindingExtensions.cs" />
+        <Compile Include="Extensions\ModuleLoadExtensions.cs" />
+        <Compile Include="Extensions\UnityBindingExtensions.cs" />
+        <Compile Include="Filters\ILoadFilter.cs" />
+        <Compile Include="Filters\MultiTypedLoadFilter.cs" />
         <Compile Include="HarmonyPatches\BonelabGameControlPatch.cs" />
         <Compile Include="HarmonyPatches\CampaignPatches\GameControl_AscentPatch.cs" />
         <Compile Include="HarmonyPatches\CampaignPatches\GameControl_DescentPatch.cs" />
@@ -107,39 +127,26 @@
         <Compile Include="HarmonyPatches\GameControl_VoidG114Patch.cs" />
         <Compile Include="HarmonyPatches\LoadingScenePatch.cs" />
         <Compile Include="HarmonyPatches\RigManagerPatch.cs" />
-        <Compile Include="MelonLoader\Attributes\OnInitializeAttribute.cs" />
-        <Compile Include="MelonLoader\InjectableMelonMod.cs" />
-        <Compile Include="MelonLoader\InjectParameter.cs" />
-        <Compile Include="MelonLoader\ModInitInjector.cs" />
-        <Compile Include="MelonLoader\ModTypedInjector.cs" />
-        <Compile Include="MelonLoader\TypedInjector.cs" />
+        <Compile Include="HarmonyPatches\SceneBootstrapper_BonelabPatch.cs" />
+        <Compile Include="Infrastructure\Ensure.cs" />
+        <Compile Include="InjectableMelonMod.cs" />
+        <Compile Include="InjectParameter.cs" />
+        <Compile Include="LoadInstruction.cs" />
+        <Compile Include="LoadSet.cs" />
         <Compile Include="Mod.cs" />
-        <Compile Include="Ninject\Adapters\AdapterBase.cs" />
-        <Compile Include="Ninject\Adapters\MainMenuAdapter.cs" />
-        <Compile Include="Ninject\AppContext.cs" />
-        <Compile Include="Ninject\BonejectKernel.cs" />
-        <Compile Include="Ninject\BonejectManager.cs" />
-        <Compile Include="Ninject\Context.cs" />
-        <Compile Include="Ninject\ContextLoaders\CampaignContextLoader.cs" />
-        <Compile Include="Ninject\ContextUnloader.cs" />
-        <Compile Include="Ninject\Extensions\BindingExtensions.cs" />
-        <Compile Include="Ninject\Extensions\ModuleLoadExtensions.cs" />
-        <Compile Include="Ninject\Extensions\UnityBindingExtensions.cs" />
-        <Compile Include="Ninject\Filters\ILoadFilter.cs" />
-        <Compile Include="Ninject\Filters\MultiTypedLoadFilter.cs" />
-        <Compile Include="Ninject\Infrastructure\Ensure.cs" />
-        <Compile Include="Ninject\LoadInstruction.cs" />
-        <Compile Include="Ninject\LoadSet.cs" />
-        <Compile Include="Ninject\Bonejector.cs" />
-        <Compile Include="Ninject\Modules\AppModule.cs" />
-        <Compile Include="Ninject\Modules\CampaignModule.cs" />
-        <Compile Include="Ninject\Modules\HubModule.cs" />
-        <Compile Include="Ninject\Modules\LoadingModule.cs" />
-        <Compile Include="Ninject\Modules\PlayerModule.cs" />
-        <Compile Include="Ninject\Modules\StartupModule.cs" />
-        <Compile Include="Ninject\Modules\VoidG114MenuModule.cs" />
-        <Compile Include="Ninject\Modules\VoidG114Module.cs" />
+        <Compile Include="ModInitInjector.cs" />
+        <Compile Include="ModTypedInjector.cs" />
+        <Compile Include="Modules\AppModule.cs" />
+        <Compile Include="Modules\CampaignModule.cs" />
+        <Compile Include="Modules\HubModule.cs" />
+        <Compile Include="Modules\LoadingModule.cs" />
+        <Compile Include="Modules\PlayerModule.cs" />
+        <Compile Include="Modules\SceneBootstrapperModule.cs" />
+        <Compile Include="Modules\StartupModule.cs" />
+        <Compile Include="Modules\VoidG114MenuModule.cs" />
+        <Compile Include="Modules\VoidG114Module.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="TypedInjector.cs" />
     </ItemGroup>
 
     <ItemGroup>
@@ -147,56 +154,45 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="..\icon.png">
+        <None Include="$(SolutionDir)\icon.png">
             <Link>icon.png</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Include="..\manifest.json">
+        <None Include="$(SolutionDir)\manifest.json">
             <Link>manifest.json</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Include="..\README.md">
+        <None Include="$(SolutionDir)\README.md">
             <Link>README.md</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Include="..\CHANGELOG.md">
+        <None Include="$(SolutionDir)\CHANGELOG.md">
             <Link>CHANGELOG.md</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 
-    <ItemGroup>
-        <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.3.3.4\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
-        <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.3.3.4\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
-    </ItemGroup>
+    <Import Project="$(SolutionDir)\Boneject.CodeGen\build\Boneject.CodeGen.props" />
 
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 
-    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-        <Message Text="===== BONEJECT POST BUILD =====" Importance="high" />
-
-        <Message Text="Copying files to BONELAB installation..." Importance="high" />
+    <Target Name="PostBuild Copy" AfterTargets="PostBuildEvent">
         <Copy SourceFiles="$(OutputPath)\Boneject.dll;$(OutputPath)\Boneject.pdb" DestinationFolder="$(BonelabDir)\Mods\" />
+        
         <Copy SourceFiles="$(OutputPath)\Ninject.dll" DestinationFolder="$(BonelabDir)\UserLibs\" />
+        
         <Message Text="Finished copying files." Importance="high" />
-
-        <Message Text="Done!" Importance="high" />
     </Target>
 
     <Target Name="PostBuild Thunderstore" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Release'">
-        
-        <Message Text="===== BONEJECT THUNDERSTORE ARCHIVE =====" Importance="high" />
-
-        <Message Text="Copying files to StagingArea..." Importance="high" />
         <Copy SourceFiles="$(OutputPath)\Boneject.dll;$(OutputPath)\Boneject.pdb" DestinationFolder="$(OutputPath)\StagingArea\Mods\" />
+        
         <Copy SourceFiles="$(OutputPath)\Ninject.dll" DestinationFolder="$(OutputPath)\StagingArea\UserLibs\" />
+        
         <Copy SourceFiles="$(OutputPath)\icon.png;$(OutputPath)\manifest.json;$(OutputPath)\README.md;$(OutputPath)\CHANGELOG.md" DestinationFolder="$(OutputPath)\StagingArea\" />
-        <Message Text="Finished copying files." Importance="high" />
-
-        <Message Text="Creating ZIP Archive..." Importance="high" />
+        
         <ZipDirectory SourceDirectory="$(OutputPath)\StagingArea\" DestinationFile="$(OutputPath)\$(AssemblyName).zip" Overwrite="true" />
-        <Message Text="Finished creating ZIP Archive." Importance="high" />
-
-        <Message Text="Done!" Importance="high" />
+        
+        <Message Text="Created Thunderstore Archive." Importance="high" />
     </Target>
 </Project>
