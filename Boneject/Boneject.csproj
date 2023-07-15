@@ -171,8 +171,6 @@
         </None>
     </ItemGroup>
 
-    <Import Project="$(SolutionDir)\Boneject.CodeGen\build\Boneject.CodeGen.props" />
-
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 
     <Target Name="PostBuild Copy" AfterTargets="PostBuildEvent">
