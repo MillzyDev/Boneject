@@ -1,0 +1,81 @@
+<Project>
+    <Target Name="BuildInfo" BeforeTargets="BeforeCompile">
+        <PropertyGroup>
+            <BuildInfo><![CDATA[
+namespace $(RootNamespace) 
+{
+    internal static class BuildInfo
+    {
+        public const string Name = "$(ModName)"%3B
+        public const string Author = "$(ModAuthor)"%3B
+        public const string Version = "$(ModVersion)"%3B
+        public const string Description = "$(ModDescription)"%3B
+        public const string Id = "$(ModId)"%3B
+    }
+}
+            ]]></BuildInfo>
+            
+            <BuildInfoFilePath>$(IntermediateOutputPath)BuildInfo.cs</BuildInfoFilePath>
+        </PropertyGroup>
+        
+        <ItemGroup>
+            <Compile Include="$(BuildInfoFilePath)" />
+            <FileWrites Include="$(BuildInfoFilePath)" />
+        </ItemGroup>
+        
+        <WriteLinesToFile File="$(BuildInfoFilePath)"
+                          Lines="$(BuildInfo)"
+                          WriteOnlyWhenDifferent="true"
+                          Overwrite="true" />
+        
+        <Message Text="Generated BuildInfo.cs."
+                 Importance="high" />
+    </Target>
+    
+    <Target Name="AutoInstall" AfterTargets="PostBuildEvent">
+        <Copy SourceFiles="$(OutputPath)\$(AssemblyName).dll;$(OutputPath)\$(AssemblyName).pdb"
+              DestinationFolder="$(GameDir)\Mods" />
+        
+        <Message Text="Finished copying files to $(GameDir)\Mods\" 
+                 Importance="high" />
+    </Target>
+    
+    <Target Name="ThunderstorePackage" 
+            AfterTargets="PostBuildEvent" 
+            Condition="'$(Configuration)' == 'Release'">
+        
+        <ItemGroup>
+            <ThunderStoreFiles Include="$(SolutionDir)\README.md;$(SolutionDir)\icon.png" />
+            <ThunderStoreFiles Include="$(SolutionDir)\CHANGELOG.md" Condition="Exists('$(SolutionDir)\CHANGELOG.md')" />
+        </ItemGroup>
+        
+        <MakeDir Directories="$(OutputDir)\StagingArea\" />
+        
+        <!-- Generate Manifest -->
+        <Exec Command="powershell $(SolutionDir)\generate-manifest.ps1 -modName '$(ModName)' -modVersion '$(ModVersion)' -modWebsiteUrl '$(ModWebsiteUrl)' -modDescription '$(ModDescription)' -dependencies '@(ModDependencies, '%27,%27')' -outPath '$(OutputPath)\StagingArea'"  />
+        
+        <Message Text="Generated manifest.json" 
+                 Importance="high" />
+        
+        <Copy SourceFiles="@(ThunderStoreFiles)"
+              DestinationFolder="$(OutputPath)\StagingArea\" />
+        
+        <Message Text="Finised copying Thunderstore recognised files."
+                 Importance="high" />
+        
+        <Copy SourceFiles="$(OutputPath)\$(AssemblyName).dll"
+              DestinationFolder="$(OutputPath)\StagingArea\Mods\" />
+        
+        <Message Text="Finished staging mod files."
+                 Importance="high" />
+        
+        <MakeDir Directories="$(OutputPath)\Thunderstore" />
+        
+        <ZipDirectory DestinationFile="$(OutputPath)\Thunderstore\$(AssemblyName).zip"
+                      SourceDirectory="$(OutputPath)\StagingArea\" />
+        
+        <Message Text="Created thunderstore package ($(AssemblyName).zip) at $(OutputPath)\Thunderstore\"
+                 Importance="high" />
+        
+    </Target>
+</Project>
