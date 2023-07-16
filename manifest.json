@@ -1,9 +1,0 @@
-{
-  "name": "Boneject",
-  "version_number": "2.0.0",
-  "website_url": "https://github.com/MillzyDev/Boneject",
-  "description": "A Dependency Injection implementation for BONELAB.",
-  "dependencies": [
-    "LavaGang-MelonLoader-0.5.7"
-  ]
-}
