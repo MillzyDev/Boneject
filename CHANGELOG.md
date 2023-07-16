@@ -1,3 +1,6 @@
+# v3.0.0
+* Ninject.dll is now merged into Boneject.dll by IL Repack. This aims to make manual installation and referencing Ninject in other mods easier.
+
 # v2.0.0
 * Removed MelonLoader and Ninject namespaces.
 * Removed VoidG114 context.
