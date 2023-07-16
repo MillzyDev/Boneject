@@ -88,7 +88,7 @@
     </Target>
     
     <Target Name="ILRepack" AfterTargets="PostBuildEvent">
-        <Exec Command="$(ILRepack) /out:$(OutputPath)\$(AssemblyName).dll $(OutputPath)\$(AssemblyName).dll $(OutputPath)\Ninject.dll " />
+        <Exec Command="$(ILRepack) /out:$(OutputPath)\$(AssemblyName).dll $(OutputPath)\$(AssemblyName).dll $(OutputPath)\Ninject.dll /lib:$(OutputPath)" />
     </Target>
 
     <Import Project=".\Mod.targets" />
