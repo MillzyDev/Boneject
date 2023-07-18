@@ -44,8 +44,26 @@
         <Reference Include="0Harmony">
             <HintPath>$(GameDir)\MelonLoader\0Harmony.dll</HintPath>
         </Reference>
+        <Reference Include="Assembly-CSharp">
+          <HintPath>$(GameDir)\MelonLoader\Managed\Assembly-CSharp.dll</HintPath>
+        </Reference>
+        <Reference Include="Il2Cppmscorlib">
+          <HintPath>$(GameDir)\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
+        </Reference>
         <Reference Include="MelonLoader">
             <HintPath>$(GameDir)\MelonLoader\MelonLoader.dll</HintPath>
+        </Reference>
+        <Reference Include="UnhollowerBaseLib">
+          <HintPath>$(GameDir)\MelonLoader\Managed\UnhollowerBaseLib.dll</HintPath>
+        </Reference>
+        <Reference Include="UnhollowerRuntimeLib">
+          <HintPath>$(GameDir)\MelonLoader\Managed\UnhollowerRuntimeLib.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine">
+          <HintPath>$(GameDir)\MelonLoader\Managed\UnityEngine.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+          <HintPath>$(GameDir)\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
     </ItemGroup>
     
@@ -63,6 +81,14 @@
     </ItemGroup>
     
     <ItemGroup>
+        <Compile Include="Bonejector.cs" />
+        <Compile Include="Context\GameObjectContext.cs" />
+        <Compile Include="Context\SceneContext.cs" />
+        <Compile Include="Filters\ILoadFilter.cs" />
+        <Compile Include="Filters\ISceneLoadFilter.cs" />
+        <Compile Include="Loading\LoadSet.cs" />
+        <Compile Include="Loading\SceneLoadSet.cs" />
+        <Compile Include="Location.cs" />
         <Compile Include="Mod.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
