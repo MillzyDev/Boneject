@@ -15,7 +15,7 @@ namespace $(RootNamespace)
 }
             ]]></BuildInfo>
             
-            <BuildInfoFilePath>$(IntermediateOutputPath)BuildInfo.cs</BuildInfoFilePath>
+            <BuildInfoFilePath>$(IntermediateOutputPath)BuildInfo.g.cs</BuildInfoFilePath>
         </PropertyGroup>
         
         <ItemGroup>
@@ -51,7 +51,6 @@ namespace $(RootNamespace)
         
         <MakeDir Directories="$(OutputDir)\StagingArea\" />
         
-        <!-- Generate Manifest -->
         <Exec Command="powershell $(SolutionDir)\generate-manifest.ps1 -modName '$(ModName)' -modVersion '$(ModVersion)' -modWebsiteUrl '$(ModWebsiteUrl)' -modDescription '$(ModDescription)' -dependencies '@(ModDependencies, '%27,%27')' -outPath '$(OutputPath)\StagingArea'"  />
         
         <Message Text="Generated manifest.json" 
