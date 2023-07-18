@@ -1,5 +1,11 @@
 # v3.0.0
-* Ninject.dll is now merged into Boneject.dll by IL Repack. This aims to make manual installation and referencing Ninject in other mods easier.
+* Rewritten.
+* Ninject is now merged into the same assembly as Boneject.
+* Removed Campaign context.
+* Renamed Context to Location.
+* Bindings are now managed by Context behaviours.
+* Bindings can be managed in either a GameObject context or a SceneContext.
+* [Ninject] Modules can be loaded in either a GameObjectContext or a SceneContext.
 
 # v2.0.0
 * Removed MelonLoader and Ninject namespaces.
