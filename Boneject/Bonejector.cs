@@ -9,29 +9,16 @@ namespace Boneject
 {
     public class Bonejector
     {
-        private readonly HashSet<LoadSet> _loadSets = new();
-        private readonly HashSet<SceneLoadSet> _sceneLoadSets = new();
-        private readonly MelonInfoAttribute _melonInfo;
-        
         private Bonejector(MelonInfoAttribute melonInfo)
         {
-            _melonInfo = melonInfo;
+            MelonInfo = melonInfo;
         }
 
-        public HashSet<LoadSet> LoadSets
-        {
-            get => _loadSets;
-        }
+        public HashSet<LoadSet> LoadSets { get; } = new();
 
-        public HashSet<SceneLoadSet> SceneLoadSets
-        {
-            get => _sceneLoadSets;
-        }
+        public HashSet<SceneLoadSet> SceneLoadSets { get; } = new();
 
-        public MelonInfoAttribute MelonInfo
-        {
-            get => _melonInfo;
-        }
+        public MelonInfoAttribute MelonInfo { get; }
 
         public static Bonejector Get(MelonInfoAttribute info)
         {
