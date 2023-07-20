@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using Boneject.Context;
 using MelonLoader;
 using Ninject;
 using Ninject.Infrastructure;
+using SLZ.Rig;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -10,13 +12,14 @@ namespace Boneject
 {
     public class Mod : MelonMod
     {
-        private KernelConfiguration _kernel = null!;
+        private BonejectManager? _bonejectManager;
+        private KernelConfiguration? _kernel;
         private SceneContext _appContext = null!;
 
-        private INinjectSettings _ninjectSettings = new NinjectSettings
+        private readonly INinjectSettings _ninjectSettings = new NinjectSettings
         {
             InjectAttribute = typeof(InjectAttribute),
-            CachePruningInterval = TimeSpan.FromSeconds(30d),
+            CachePruningInterval = TimeSpan.FromSeconds(30.0),
             DefaultScopeCallback = StandardScopeCallbacks.Transient,
             LoadExtensions = false,
             UseReflectionBasedInjection = false,
@@ -26,9 +29,17 @@ namespace Boneject
             AllowNullInjection = true
         };
 
+        public override void OnEarlyInitializeMelon()
+        {
+            _bonejectManager ??= new BonejectManager();
+            _kernel ??= new KernelConfiguration(_ninjectSettings);
+        }
+
         public override void OnInitializeMelon()
         {
-            _kernel = new KernelConfiguration(_ninjectSettings);
+            OnMelonRegistered.Subscribe(_bonejectManager!.MelonRegistered);
+            OnMelonUnregistered.Subscribe(_bonejectManager.MelonUnregistered);
+            _bonejectManager.Enable();
         }
 
         // Start()
@@ -38,21 +49,32 @@ namespace Boneject
             appContextObject.SetActive(false);
             
             _appContext = appContextObject.AddComponent<SceneContext>();
-            _appContext.Kernel = _kernel;
+            _appContext.Kernel = _kernel!;
+            _appContext.BonejectManager = _bonejectManager!;
             
             Object.DontDestroyOnLoad(appContextObject);
             appContextObject.SetActive(true);
         }
 
-        public override void OnSceneWasInitialized(int buildIndex, string sceneName)
+        public override void OnDeinitializeMelon()
+        {
+            OnMelonRegistered.Unsubscribe(_bonejectManager!.MelonRegistered);
+            OnMelonUnregistered.Unsubscribe(_bonejectManager.MelonUnregistered);
+        }
+
+        public override void OnSceneWasLoaded(int buildIndex, string sceneName)
         {
             var sceneContextObject = new GameObject("BonejectSceneContext");
             sceneContextObject.SetActive(false);
             
             var sceneContext = sceneContextObject.AddComponent<SceneContext>();
-            sceneContext.Kernel = _kernel;
+            sceneContext.Kernel = _kernel!;
+            sceneContext.BonejectManager = _bonejectManager!;
             
             sceneContextObject.SetActive(true);
+            
+            LoggerInstance.Msg($"Loaded into {sceneName}");
+            LoggerInstance.Msg($"RigManager is exists? {Resources.FindObjectsOfTypeAll<RigManager>().Any()}");
         }
 
         public override void OnApplicationQuit()
