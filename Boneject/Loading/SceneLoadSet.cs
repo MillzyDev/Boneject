@@ -1,16 +1,17 @@
-﻿using Boneject.Filters;
+﻿using System;
+using Boneject.Filters;
 
 namespace Boneject.Loading
 {
     public struct SceneLoadSet
     {
-        public readonly string SceneName;
+        public readonly Type ModuleType;
         public readonly ISceneLoadFilter LoadFilter;
         public readonly object[]? InitialArguments;
 
-        public SceneLoadSet(string sceneName, ISceneLoadFilter loadFilter, object[]? initialArguments = null)
+        public SceneLoadSet(Type moduleType, ISceneLoadFilter loadFilter, object[]? initialArguments = null)
         {
-            SceneName = sceneName;
+            ModuleType = moduleType;
             LoadFilter = loadFilter;
             InitialArguments = initialArguments;
         }
