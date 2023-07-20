@@ -1,14 +1,36 @@
-﻿using Boneject.Context;
+﻿using System;
+using Boneject.Context;
 using MelonLoader;
 using Ninject;
+using Ninject.Infrastructure;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Boneject
 {
     public class Mod : MelonMod
     {
+        private KernelConfiguration _kernel = null!;
         private SceneContext _appContext = null!;
-        
+
+        private INinjectSettings _ninjectSettings = new NinjectSettings
+        {
+            InjectAttribute = typeof(InjectAttribute),
+            CachePruningInterval = TimeSpan.FromSeconds(30d),
+            DefaultScopeCallback = StandardScopeCallbacks.Transient,
+            LoadExtensions = false,
+            UseReflectionBasedInjection = false,
+            InjectNonPublic = true,
+            InjectParentPrivateProperties = false,
+            ActivationCacheDisabled = false,
+            AllowNullInjection = true
+        };
+
+        public override void OnInitializeMelon()
+        {
+            _kernel = new KernelConfiguration(_ninjectSettings);
+        }
+
         // Start()
         public override void OnLateInitializeMelon()
         {
@@ -16,6 +38,7 @@ namespace Boneject
             appContextObject.SetActive(false);
             
             _appContext = appContextObject.AddComponent<SceneContext>();
+            _appContext.Kernel = _kernel;
             
             Object.DontDestroyOnLoad(appContextObject);
             appContextObject.SetActive(true);
@@ -27,7 +50,7 @@ namespace Boneject
             sceneContextObject.SetActive(false);
             
             var sceneContext = sceneContextObject.AddComponent<SceneContext>();
-            sceneContext.Kernel = _appContext.Kernel;
+            sceneContext.Kernel = _kernel;
             
             sceneContextObject.SetActive(true);
         }
