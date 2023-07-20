@@ -95,17 +95,23 @@
         <Reference Include="BepInEx.AssemblyPublicizer.MSBuild, Version=0.4.1.0, Culture=neutral, processorArchitecture=MSIL">
             <HintPath>..\packages\BepInEx.AssemblyPublicizer.MSBuild.0.4.1\lib\net472\BepInEx.AssemblyPublicizer.MSBuild.dll</HintPath>
         </Reference>
-        <Reference Include="Ninject, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL"
-                   Publicize="true">
+        <Reference Include="Ninject, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL" Publicize="true">
             <HintPath>..\packages\Ninject.4.0.0-beta-0134\lib\net45\Ninject.dll</HintPath>
         </Reference>
     </ItemGroup>
     
     <ItemGroup>
+        <Compile Include="BonejectManager.cs" />
         <Compile Include="Bonejector.cs" />
+        <Compile Include="BonejectorBuilder.cs" />
+        <Compile Include="BonejectorDatum.cs" />
         <Compile Include="Context\SceneContext.cs" />
         <Compile Include="Filters\ILoadFilter.cs" />
         <Compile Include="Filters\ISceneLoadFilter.cs" />
+        <Compile Include="Filters\MultiSceneLoadFilter.cs" />
+        <Compile Include="Filters\MultiTypedLoadFilter.cs" />
+        <Compile Include="Filters\SceneLoadFilter.cs" />
+        <Compile Include="Filters\TypedLoadFilter.cs" />
         <Compile Include="Loading\LoadSet.cs" />
         <Compile Include="Loading\SceneLoadSet.cs" />
         <Compile Include="Location.cs" />
@@ -117,6 +123,7 @@
         <Compile Include="Modules\StartupModule.cs" />
         <Compile Include="Modules\VoidG114MenuModule.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="Scenes.cs" />
     </ItemGroup>
     
     <ItemGroup>
