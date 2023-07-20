@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Boneject.Filters;
 using Boneject.Loading;
 using Boneject.Modules;
 using MelonLoader;
@@ -9,14 +10,23 @@ namespace Boneject
 {
     public class Bonejector
     {
-        private Bonejector(MelonInfoAttribute melonInfo)
+        private readonly HashSet<LoadSet> _loadSets = new();
+        private readonly HashSet<SceneLoadSet> _sceneLoadSets = new();
+
+        internal protected Bonejector(MelonInfoAttribute melonInfo)
         {
             MelonInfo = melonInfo;
         }
 
-        public HashSet<LoadSet> LoadSets { get; } = new();
+        public IEnumerable<LoadSet> LoadSets
+        {
+            get => _loadSets;
+        }
 
-        public HashSet<SceneLoadSet> SceneLoadSets { get; } = new();
+        public IEnumerable<SceneLoadSet> SceneLoadSets
+        {
+            get => _sceneLoadSets;
+        }
 
         public MelonInfoAttribute MelonInfo { get; }
 
@@ -30,18 +40,52 @@ namespace Boneject
         public void Load<TModule>(Location location, params object[] parameters)
             where TModule : INinjectModule
         {
-            
+            IEnumerable<Type> moduleTypes = ModulesForLocation(location);
+            ILoadFilter filter = new MultiTypedLoadFilter(moduleTypes);
+            _loadSets.Add(
+                new LoadSet(
+                    moduleType: typeof(TModule),
+                    loadFilter: filter,
+                    initialArguments: parameters.Length != 0 ? parameters : null
+                )
+            );
         }
 
         public void Load<TCustomModule, TBaseModule>(params object[] parameters)
             where TCustomModule : INinjectModule where TBaseModule : INinjectModule
         {
-            
+            ILoadFilter filter = new TypedLoadFilter(typeof(TBaseModule));
+            _loadSets.Add(
+                new LoadSet(
+                    moduleType: typeof(TCustomModule),
+                    loadFilter: filter,
+                    initialArguments: parameters.Length != 0 ? parameters : null
+                )
+            );
         }
 
         public void Load<TModule>(string sceneName, params object[] parameters)
         {
-            
+            ISceneLoadFilter filter = new SceneLoadFilter(sceneName);
+            _sceneLoadSets.Add(
+                new SceneLoadSet(
+                    moduleType: typeof(TModule),
+                    loadFilter: filter,
+                    initialArguments: parameters
+                )
+            );
+        }
+
+        public void Load<TModule>(string[] sceneNames, params object[] parameters)
+        {
+            ISceneLoadFilter filter = new MultiSceneLoadFilter(sceneNames);
+            _sceneLoadSets.Add(
+                new SceneLoadSet(
+                    moduleType: typeof(TModule),
+                    loadFilter: filter,
+                    initialArguments: parameters
+                )
+            );
         }
 
         private IEnumerable<Type> ModulesForLocation(Location location)
