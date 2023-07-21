@@ -1,6 +1,7 @@
 ﻿using System;
 using MelonLoader;
 using Ninject;
+using Ninject.Modules;
 using UnityEngine;
 
 namespace Boneject.Context
@@ -12,6 +13,7 @@ namespace Boneject.Context
         public string ContractName = null!;
         public KernelConfiguration Kernel = null!;
         public BonejectManager BonejectManager = null!;
+        public INinjectModule BaseModule = null!;
         
         public SceneContext(IntPtr ptr) : base(ptr)
         {
