@@ -40,6 +40,9 @@ namespace Boneject
             OnMelonRegistered.Subscribe(_bonejectManager!.MelonRegistered);
             OnMelonUnregistered.Subscribe(_bonejectManager.MelonUnregistered);
             _bonejectManager.Enable();
+
+            Bonejector bonejector = new BonejectorBuilder(Info).Build();
+            _bonejectManager.Add(bonejector);
         }
 
         // Start()
@@ -51,7 +54,8 @@ namespace Boneject
             _appContext = appContextObject.AddComponent<SceneContext>();
             _appContext.Kernel = _kernel!;
             _appContext.BonejectManager = _bonejectManager!;
-            
+            _bonejectManager!.LoadAppModule(ref _appContext);
+
             Object.DontDestroyOnLoad(appContextObject);
             appContextObject.SetActive(true);
         }
@@ -70,6 +74,7 @@ namespace Boneject
             var sceneContext = sceneContextObject.AddComponent<SceneContext>();
             sceneContext.Kernel = _kernel!;
             sceneContext.BonejectManager = _bonejectManager!;
+            _bonejectManager!.LoadBaseModule(ref sceneContext);
             
             sceneContextObject.SetActive(true);
             
