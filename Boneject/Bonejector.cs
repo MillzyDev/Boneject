@@ -64,7 +64,7 @@ namespace Boneject
             );
         }
 
-        public void Load<TModule>(string sceneName, params object[] parameters)
+        public void Load<TModule>(string sceneName, params object[] parameters) where TModule : INinjectModule
         {
             ISceneLoadFilter filter = new SceneLoadFilter(sceneName);
             _sceneLoadSets.Add(
@@ -76,7 +76,7 @@ namespace Boneject
             );
         }
 
-        public void Load<TModule>(string[] sceneNames, params object[] parameters)
+        public void Load<TModule>(string[] sceneNames, params object[] parameters) where TModule : INinjectModule
         {
             ISceneLoadFilter filter = new MultiSceneLoadFilter(sceneNames);
             _sceneLoadSets.Add(
