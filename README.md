@@ -1,3 +1,6 @@
+## This project is now archived
+Due to performance issues and my desire to actually work on projects instead of fixing/rewriting this, I am archiving Boneject until further notice.
+
 # Boneject
 
 [![](https://img.shields.io/badge/Source-Boneject-informational?style=for-the-badge&logo=GitHub)](https://github.com/MillzyDev/Boneject)
